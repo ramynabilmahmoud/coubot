@@ -41,5 +41,20 @@
   "enterTheEmailCode": "Enter the Email Code",
   "justWaitASecond": "Just Wait a Second",
   "weveSendACodeToYourEmailnPleaseEnterCode": " We’ve send a code to your email\\n please enter code to reset your password",
-  "sendAgain": "Send Again"
+  "sendAgain": "Send Again",
+  "continueWithEmail": "Continue with E-mail",
+  "connectWithFacebook": "Connect with Facebook",
+  "yourFavoriteFoodndeliveredToYou": "Your favorite food\\nDelivered to you",
+  "email": "Email",
+  "forgotPassword": "Forgot password?",
+  "password": "Password",
+  "login": "Login",
+  "or": "OR",
+  "signUpIfYoureNew": "Sign up if you’re new",
+  "username": "User-name",
+  "signUp": "Sign Up",
+  "loginInIfYouHaveAnAccount": "Login in if you have an account",
+  "resendCode": "Resend Code",
+  "confirm": "Confirm",
+  "codeSent": "Code Sent"
 }

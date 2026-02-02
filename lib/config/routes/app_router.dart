@@ -21,6 +21,8 @@ class AppRouter extends RootStackRouter {
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
         AutoRoute(initial: true, page: SignInRoute.page, path: AppPaths.signIn),
+        AutoRoute(page: SignUpRoute.page, path: AppPaths.signUp),
+        AutoRoute(page: OTPRoute.page, path: AppPaths.otp),
       ],
     ),
     CustomRoute<void>(

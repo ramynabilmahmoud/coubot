@@ -17,9 +17,8 @@ class AuthActionsState {
   /// AuthState constructor
   const AuthActionsState({
     this.authResponse,
-    this.isRecognizedFilled = false,
-    this.isFirstNameFilled = false,
-    this.isSecondNameFilled = false,
+    this.isUserNameFilled = false,
+    this.isEmailFilled = false,
     this.isSetPasswordFilled = false,
     this.isOtpFilled = false,
     this.isNewPasswordFilled = false,
@@ -30,19 +29,20 @@ class AuthActionsState {
     this.isSecondAdditionalNameFilled = false,
 
     /// example of user
-    this.user = const UserEntity(
-      name: 'John Doe',
-    ),
+    this.user = const UserEntity(name: 'John Doe'),
   });
 
-  /// isRecognizedFilled
-  final bool isRecognizedFilled;
+  /// isUserNameFilled
+  final bool isUserNameFilled;
 
-  /// isFirstNameFilled
-  final bool isFirstNameFilled;
+  /// isEmailFilled
+  final bool isEmailFilled;
 
-  /// isSecondNameFilled
-  final bool isSecondNameFilled;
+  // /// isFirstNameFilled
+  // final bool isFirstNameFilled;
+
+  // /// isSecondNameFilled
+  // final bool isSecondNameFilled;
 
   /// final User user
   final UserEntity user;
@@ -76,9 +76,8 @@ class AuthActionsState {
 
   /// copyWith
   AuthActionsState copyWith({
-    bool? isRecognizedFilled,
-    bool? isFirstNameFilled,
-    bool? isSecondNameFilled,
+    bool? isUserNameFilled,
+    bool? isEmailFilled,
     bool? showSetPassword,
     bool? isSetPasswordFilled,
     bool? isNewPasswordFilled,
@@ -92,9 +91,8 @@ class AuthActionsState {
     bool? isSecondAdditionalNameFilled,
   }) {
     return AuthActionsState(
-      isRecognizedFilled: isRecognizedFilled ?? this.isRecognizedFilled,
-      isFirstNameFilled: isFirstNameFilled ?? this.isFirstNameFilled,
-      isSecondNameFilled: isSecondNameFilled ?? this.isSecondNameFilled,
+      isUserNameFilled: isUserNameFilled ?? this.isUserNameFilled,
+      isEmailFilled: isEmailFilled ?? this.isEmailFilled,
       showSetPassword: showSetPassword ?? this.showSetPassword,
       isSetPasswordFilled: isSetPasswordFilled ?? this.isSetPasswordFilled,
       authResponse: authResponse ?? this.authResponse,

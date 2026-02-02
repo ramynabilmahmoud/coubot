@@ -25,128 +25,114 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "addAdditionalDetails": MessageLookupByLibrary.simpleMessage(
-      "Add Additional Details",
-    ),
-    "anErrorOccurred": MessageLookupByLibrary.simpleMessage(
-      "An error occurred",
-    ),
-    "authenticationError": MessageLookupByLibrary.simpleMessage(
-      "Authentication Error",
-    ),
-    "badCertificateWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Bad certificate with ApiServer",
-    ),
-    "badResponseFromApiserver": MessageLookupByLibrary.simpleMessage(
-      "Bad response from ApiServer",
-    ),
-    "checkYourEmailForTheConfirmationLink":
-        MessageLookupByLibrary.simpleMessage(
-          "Check your email for the Confirmation link",
-        ),
-    "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Confirm password is required",
-    ),
-    "connectionErrorWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Connection error with ApiServer",
-    ),
-    "connectionTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Connection timeout with ApiServer",
-    ),
-    "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Email Has Been Updated Successfully",
-    ),
-    "emailIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Email is required.",
-    ),
-    "endThisProcess": MessageLookupByLibrary.simpleMessage("End This Process"),
-    "enterTheEmailCode": MessageLookupByLibrary.simpleMessage(
-      "Enter the Email Code",
-    ),
-    "error": MessageLookupByLibrary.simpleMessage("Error"),
-    "errorCreatingChat": MessageLookupByLibrary.simpleMessage(
-      "Error creating chat",
-    ),
-    "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
-      "Failed to load notifications:",
-    ),
-    "firstNameIsRequired": MessageLookupByLibrary.simpleMessage(
-      "First name is required.",
-    ),
-    "internalServerError": MessageLookupByLibrary.simpleMessage(
-      "Internal server error",
-    ),
-    "invalidCurrentPassword": MessageLookupByLibrary.simpleMessage(
-      "Invalid current password.",
-    ),
-    "justWaitASecond": MessageLookupByLibrary.simpleMessage(
-      "Just Wait a Second",
-    ),
-    "no": MessageLookupByLibrary.simpleMessage("No"),
-    "noCurrentUserFoundOrCurrentUsersEmailIsNull":
-        MessageLookupByLibrary.simpleMessage(
-          "No current user found or current user\'s email is null.",
-        ),
-    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "No internet connection",
-    ),
-    "noNotificationsAvailable": MessageLookupByLibrary.simpleMessage(
-      "No notifications available.",
-    ),
-    "oppsThereWasAnErrorPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
-      "opps there was an error, please try again",
-    ),
-    "passwordIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Password is required.",
-    ),
-    "passwordMustBeAtLeastNumberCharacters": m0,
-    "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Password updated successfully",
-    ),
-    "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
-      "Passwords do not match",
-    ),
-    "phoneNumberIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Phone number is required",
-    ),
-    "pleaseEnterAValidEmailAddress": MessageLookupByLibrary.simpleMessage(
-      "Please enter a valid email address.",
-    ),
-    "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
-      "Please enter a valid phone number",
-    ),
-    "receiveTimeoutInConnectionWithApiserver":
-        MessageLookupByLibrary.simpleMessage(
-          "Receive timeout in connection with ApiServer",
-        ),
-    "requestToApiserverWasCancelled": MessageLookupByLibrary.simpleMessage(
-      "Request to ApiServer was cancelled",
-    ),
-    "secondNameIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Second name is required.",
-    ),
-    "sendAgain": MessageLookupByLibrary.simpleMessage("Send Again"),
-    "sendTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Send timeout with ApiServer",
-    ),
-    "signInFailedPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Sign in failed, please try again",
-    ),
-    "signinWithAppleIdWasCanceledOrFailed":
-        MessageLookupByLibrary.simpleMessage(
-          "Sign-in with Apple ID was canceled or failed.",
-        ),
-    "somethingWentWrongPleaseTryAgainLater":
-        MessageLookupByLibrary.simpleMessage(
-          "Something went wrong, please try again later",
-        ),
-    "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
-      "Unknown error occurred",
-    ),
-    "wait": MessageLookupByLibrary.simpleMessage("Wait ..."),
-    "weveSendACodeToYourEmailnPleaseEnterCode":
-        MessageLookupByLibrary.simpleMessage(
-          " We’ve send a code to your email\\n please enter code to reset your password",
-        ),
-  };
+        "addAdditionalDetails":
+            MessageLookupByLibrary.simpleMessage("Add Additional Details"),
+        "anErrorOccurred":
+            MessageLookupByLibrary.simpleMessage("An error occurred"),
+        "authenticationError":
+            MessageLookupByLibrary.simpleMessage("Authentication Error"),
+        "badCertificateWithApiserver": MessageLookupByLibrary.simpleMessage(
+            "Bad certificate with ApiServer"),
+        "badResponseFromApiserver":
+            MessageLookupByLibrary.simpleMessage("Bad response from ApiServer"),
+        "checkYourEmailForTheConfirmationLink":
+            MessageLookupByLibrary.simpleMessage(
+                "Check your email for the Confirmation link"),
+        "codeSent": MessageLookupByLibrary.simpleMessage("Code Sent"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(
+            "Confirm password is required"),
+        "connectWithFacebook":
+            MessageLookupByLibrary.simpleMessage("Connect with Facebook"),
+        "connectionErrorWithApiserver": MessageLookupByLibrary.simpleMessage(
+            "Connection error with ApiServer"),
+        "connectionTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
+            "Connection timeout with ApiServer"),
+        "continueWithEmail":
+            MessageLookupByLibrary.simpleMessage("Continue with E-mail"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Email Has Been Updated Successfully"),
+        "emailIsRequired":
+            MessageLookupByLibrary.simpleMessage("Email is required."),
+        "endThisProcess":
+            MessageLookupByLibrary.simpleMessage("End This Process"),
+        "enterTheEmailCode":
+            MessageLookupByLibrary.simpleMessage("Enter the Email Code"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorCreatingChat":
+            MessageLookupByLibrary.simpleMessage("Error creating chat"),
+        "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
+            "Failed to load notifications:"),
+        "firstNameIsRequired":
+            MessageLookupByLibrary.simpleMessage("First name is required."),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "internalServerError":
+            MessageLookupByLibrary.simpleMessage("Internal server error"),
+        "invalidCurrentPassword":
+            MessageLookupByLibrary.simpleMessage("Invalid current password."),
+        "justWaitASecond":
+            MessageLookupByLibrary.simpleMessage("Just Wait a Second"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
+            "Login in if you have an account"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noCurrentUserFoundOrCurrentUsersEmailIsNull":
+            MessageLookupByLibrary.simpleMessage(
+                "No current user found or current user\'s email is null."),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "noNotificationsAvailable":
+            MessageLookupByLibrary.simpleMessage("No notifications available."),
+        "oppsThereWasAnErrorPleaseTryAgain":
+            MessageLookupByLibrary.simpleMessage(
+                "opps there was an error, please try again"),
+        "or": MessageLookupByLibrary.simpleMessage("OR"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordIsRequired":
+            MessageLookupByLibrary.simpleMessage("Password is required."),
+        "passwordMustBeAtLeastNumberCharacters": m0,
+        "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Password updated successfully"),
+        "passwordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "phoneNumberIsRequired":
+            MessageLookupByLibrary.simpleMessage("Phone number is required"),
+        "pleaseEnterAValidEmailAddress": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid email address."),
+        "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid phone number"),
+        "receiveTimeoutInConnectionWithApiserver":
+            MessageLookupByLibrary.simpleMessage(
+                "Receive timeout in connection with ApiServer"),
+        "requestToApiserverWasCancelled": MessageLookupByLibrary.simpleMessage(
+            "Request to ApiServer was cancelled"),
+        "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+        "secondNameIsRequired":
+            MessageLookupByLibrary.simpleMessage("Second name is required."),
+        "sendAgain": MessageLookupByLibrary.simpleMessage("Send Again"),
+        "sendTimeoutWithApiserver":
+            MessageLookupByLibrary.simpleMessage("Send timeout with ApiServer"),
+        "signInFailedPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
+            "Sign in failed, please try again"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "signUpIfYoureNew":
+            MessageLookupByLibrary.simpleMessage("Sign up if you’re new"),
+        "signinWithAppleIdWasCanceledOrFailed":
+            MessageLookupByLibrary.simpleMessage(
+                "Sign-in with Apple ID was canceled or failed."),
+        "somethingWentWrongPleaseTryAgainLater":
+            MessageLookupByLibrary.simpleMessage(
+                "Something went wrong, please try again later"),
+        "unknownErrorOccurred":
+            MessageLookupByLibrary.simpleMessage("Unknown error occurred"),
+        "username": MessageLookupByLibrary.simpleMessage("User-name"),
+        "wait": MessageLookupByLibrary.simpleMessage("Wait ..."),
+        "weveSendACodeToYourEmailnPleaseEnterCode":
+            MessageLookupByLibrary.simpleMessage(
+                " We’ve send a code to your email\\n please enter code to reset your password"),
+        "yourFavoriteFoodndeliveredToYou": MessageLookupByLibrary.simpleMessage(
+            "Your favorite food\\nDelivered to you")
+      };
 }

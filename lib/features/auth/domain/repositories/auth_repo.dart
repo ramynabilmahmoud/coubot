@@ -18,9 +18,6 @@ abstract class AuthRepo {
     required String password,
   });
 
-  /// Recognize
-  Future<Either<Failure, bool>> recognize({required String email});
-
   /// send otp
   Future<Either<Failure, bool>> resendOTP({
     required String email,
@@ -34,9 +31,6 @@ abstract class AuthRepo {
     required OtpType otpType,
   });
 
-  /// get first name of existing user
-  Future<Either<Failure, String>> getFirstName({required String email});
-
   /// forget password
   Future<Either<Failure, void>> forgetPassword({required String email});
 
@@ -47,7 +41,4 @@ abstract class AuthRepo {
   /// change email
   /// required fields: email
   Future<Either<Failure, void>> changeEmail({required String email});
-
-  /// sign in with google
-  Future<Either<Failure, AuthResponse>> signInWithGoogle();
 }

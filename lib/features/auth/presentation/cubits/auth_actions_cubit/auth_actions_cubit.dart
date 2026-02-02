@@ -9,35 +9,26 @@ class AuthActionsCubit extends Cubit<AuthActionsState> {
   /// AuthActionsCubit constructor
   AuthActionsCubit() : super(const AuthActionsState());
 
-  /// checkRecognizedFilled
-  void checkRecognizedFilled(String email) {
+  /// checkEmailFilled
+  void checkEmailFilled(String email) {
     emit(
       state.copyWith(
-        isRecognizedFilled:
+        isEmailFilled:
             RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email) &&
             email.isNotEmpty,
       ),
     );
   }
 
-  ///check first and second name with regex
-  void checkFirstNameFilled(String name) {
-    emit(
-      state.copyWith(
-        isFirstNameFilled:
-            RegExp(r'^[a-zA-Z]{2,}$').hasMatch(name) && name.isNotEmpty,
-      ),
-    );
-  }
+  /// check user name (letters + spaces)
+  void checkNameFilled(String name) {
+    final trimmed = name.trim();
 
-  /// checkSecondNameFilled
-  void checkSecondNameFilled(String name) {
-    emit(
-      state.copyWith(
-        isSecondNameFilled:
-            RegExp(r'^[a-zA-Z]{2,}$').hasMatch(name) && name.isNotEmpty,
-      ),
-    );
+    final isValid =
+        RegExp(r'^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$').hasMatch(trimmed) &&
+        trimmed.replaceAll(' ', '').length >= 2;
+
+    emit(state.copyWith(isUserNameFilled: isValid));
   }
 
   /// checkSetPasswordFilled
@@ -56,7 +47,7 @@ class AuthActionsCubit extends Cubit<AuthActionsState> {
 
   /// checkOtpFilled
   void checkOtpFilled(String otp) {
-    emit(state.copyWith(isOtpFilled: otp.isNotEmpty && otp.length == 6));
+    emit(state.copyWith(isOtpFilled: otp.isNotEmpty && otp.length == 8));
   }
 
   /// checkNewPasswordFilled
@@ -83,33 +74,13 @@ class AuthActionsCubit extends Cubit<AuthActionsState> {
   }
 
   /// checkChangeEmailFilled
-  void checkChangeEmailFilled(String email) {
-    emit(
-      state.copyWith(
-        isChangeEmailFilled:
-            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email) &&
-            email.isNotEmpty,
-      ),
-    );
-  }
-
-  /// checkFirstAdditionalNameFilled
-  void checkFirstAdditionalNameFilled(String name) {
-    emit(
-      state.copyWith(
-        isFirstAdditionalNameFilled:
-            RegExp(r'^[a-zA-Z]{2,}$').hasMatch(name.trim()) && name.isNotEmpty,
-      ),
-    );
-  }
-
-  /// checkSecondAdditionalNameFilled
-  void checkSecondAdditionalNameFilled(String name) {
-    emit(
-      state.copyWith(
-        isSecondAdditionalNameFilled:
-            RegExp(r'^[a-zA-Z]{2,}$').hasMatch(name.trim()) && name.isNotEmpty,
-      ),
-    );
-  }
+  // void checkChangeEmailFilled(String email) {
+  //   emit(
+  //     state.copyWith(
+  //       isChangeEmailFilled:
+  //           RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email) &&
+  //           email.isNotEmpty,
+  //     ),
+  //   );
+  // }
 }

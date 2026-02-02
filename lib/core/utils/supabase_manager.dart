@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -15,11 +16,17 @@ class SupabaseManager {
   /// Throws an [Exception] if the initialization fails.
   Future<void> initializeSupaBase() async {
     try {
+      final supabaseUrl = dotenv.env['SUPABASE_URL'];
+      final anonKey = dotenv.env['SUPABASE_ANON_KEY'];
+
+      if (supabaseUrl == null || anonKey == null) {
+        throw Exception('Supabase env variables are missing');
+      }
       await Supabase.initialize(
-        url: 'https://iztqkmsirnqiomplkpva.supabase.co',
+        url: supabaseUrl,
         anonKey:
             // ignore: lines_longer_than_80_chars
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6dHFrbXNpcm5xaW9tcGxrcHZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc1OTMyNzIsImV4cCI6MjAzMzE2OTI3Mn0.iivyZkhj4W4zzcrnRiRg5HvDBslbXN-9QHpKdmMXJxg',
+            anonKey,
         debug: true,
       );
     } catch (e) {
@@ -30,45 +37,26 @@ class SupabaseManager {
 
 /// An enumeration of the Supabase tables used in the application.
 enum SupabaseTables {
-  /// Represents the 'packages' table in Supabase.
-  packages('packages'),
+  /// Represents the 'categories' table in Supabase.
+  categories('categories'),
 
-  /// Represents the 'airports' table in Supabase.
-  airports('airports'),
+  /// Represents the 'category_media' table in Supabase.
+  categoryMedia('category_media'),
 
-  /// Represents the 'faqs' table in Supabase.
-  faqs('faqs'),
+  /// Represents the 'orders' table in Supabase.
+  orders('orders'),
 
-  /// Represents the 'user_notifications' table in Supabase.
-  userNotifications('user_notifications'),
+  /// Represents the 'order_products' table in Supabase.
+  orderProducts('order_products'),
 
-  /// Represents the 'requests' table in Supabase.
-  requests('requests'),
+  /// Represents the 'products' table in Supabase.
+  products('products'),
 
-  /// Represents the 'package_items' table in Supabase.
-  packageItems('package_items'),
+  /// Represents the 'product_media' table in Supabase.
+  productMedia('product_media'),
 
-  /// Represents the 'cancel_package_reason' table in Supabase.
-  cancelPackageReason('cancel_package_reason'),
-
-  /// Represents the 'destinations' table in Supabase.
-  destinations('destinations'),
-
-  /// Represents the 'app_constants' table in Supabase.
-  appConstants('app_constants'),
-
-  /// Represents the 'messages' table in Supabase.
-  messages('messages'),
-
-  /// Represents the 'chats' table in Supabase.
-  chats('chats'),
-
-  /// Represents the 'profiles' table in Supabase.
-  profiles('profiles'),
-
-  /// Represents the 'notifications' table in Supabase.
-  notifications('notifications'),
-  ;
+  /// Represents the 'users' table in Supabase.
+  users('users');
 
   /// The name of the table.
   const SupabaseTables(this.tableName);

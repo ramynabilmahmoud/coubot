@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coubot/core/injection_container.dart';
+import 'package:coubot/features/auth/domain/usecases/resend_otp_usecase.dart';
 import 'package:coubot/features/auth/domain/usecases/sign_in_with_email_password_usecase.dart';
 import 'package:coubot/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:coubot/features/auth/domain/usecases/verify_otp_usecase.dart';
 import 'package:coubot/features/auth/presentation/cubits/auth_actions_cubit/auth_actions_cubit.dart';
 import 'package:coubot/features/auth/presentation/cubits/login_register_cubit/login_register_cubit.dart';
+import 'package:coubot/features/auth/presentation/cubits/otp_cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +25,12 @@ class AuthWrapper extends StatelessWidget {
           create: (context) => LoginAndRegisterCubit(
             signInWithEndPUseCase: getIt<SignInWithEmailPasswordUsecase>(),
             signUpUsecase: getIt<SignUpUsecase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => OtpCubit(
+            resendOTPUsecase: getIt<ResendOTPUsecase>(),
+            verifyOtpUsecase: getIt<VerifyOTPUsecase>(),
           ),
         ),
       ],

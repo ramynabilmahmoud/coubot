@@ -26,7 +26,7 @@ class PinCodeCustomWidget extends StatelessWidget {
     );
     return Pinput(
       controller: context.read<OtpCubit>().otpController,
-      length: 6,
+      length: 8,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       onChanged: (value) {
         context.read<AuthActionsCubit>().checkOtpFilled(value);

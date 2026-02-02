@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:auto_route/auto_route.dart';
 import 'package:coubot/config/routes/app_router.gr.dart';
 import 'package:coubot/features/auth/presentation/cubits/auth_actions_cubit/auth_actions_cubit.dart';
@@ -9,9 +7,10 @@ import 'package:coubot/features/auth/presentation/widgets/auth_main_button.dart'
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SignInMobileScreen extends StatelessWidget {
-  const SignInMobileScreen({super.key});
+class SignUpMobileScreen extends StatelessWidget {
+  const SignUpMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +19,20 @@ class SignInMobileScreen extends StatelessWidget {
 
     return BlocListener<LoginAndRegisterCubit, LoginAndRegisterState>(
       listener: (context, state) {
-        if (state is LoginError) {
+        if (state is RegisterError) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
 
-        if (state is LoginSuccess) {
-          // ✅ choose your target route
-          context.router.replace(const AppLayoutRoute());
-          // context.router.maybePop(); // simple default
+        if (state is RegisterSuccess) {
+          // ✅ change this to OTPRoute if you want
+          context.router.replace(
+            OTPRoute(
+              otpType: OtpType.signup,
+              emailToVerify: loginCubit.emailController.text.trim(),
+            ),
+          );
         }
       },
       child: Scaffold(
@@ -37,6 +40,7 @@ class SignInMobileScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFFFF1F1),
         body: Stack(
           children: [
+            /// RED TOP SECTION
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(24, 60, 24, 24),
@@ -62,6 +66,15 @@ class SignInMobileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
 
+                  /// USERNAME (mapped to firstNameController in your cubit)
+                  AuthInputField(
+                    hint: S.of(context).username,
+                    controller: loginCubit.firstNameController,
+                    onChanged: actionsCubit.checkNameFilled,
+                  ),
+                  const SizedBox(height: 16),
+
+                  /// EMAIL
                   AuthInputField(
                     hint: S.of(context).email,
                     controller: loginCubit.emailController,
@@ -69,29 +82,29 @@ class SignInMobileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
+                  /// PASSWORD
                   AuthInputField(
                     hint: S.of(context).password,
                     obscure: true,
                     controller: loginCubit.setPasswordController,
                     onChanged: actionsCubit.checkSetPasswordFilled,
                   ),
-
-                  const SizedBox(height: 6),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      S.of(context).forgotPassword,
-                      style: TextStyle(
-                        fontFamily: 'MadeEvolveSans',
-                        fontSize: 12,
-                        color: Colors.white.withOpacity(0.85),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
 
+            /// BACK ARROW
+            SafeArea(
+              child: IconButton(
+                icon: Image.asset(
+                  'assets/gen/images/chevron_backward.png',
+                  height: 22,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+
+            /// BOTTOM SECTION
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -99,6 +112,7 @@ class SignInMobileScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    /// SIGN UP BUTTON (enabled + loading)
                     BlocBuilder<AuthActionsCubit, AuthActionsState>(
                       builder: (context, aState) {
                         return BlocBuilder<
@@ -106,31 +120,33 @@ class SignInMobileScreen extends StatelessWidget {
                           LoginAndRegisterState
                         >(
                           builder: (context, lState) {
-                            final isLoading = lState is LoginLoading;
+                            final isLoading = lState is RegisterLoading;
+
                             final canSubmit =
                                 aState.isEmailFilled &&
+                                aState.isUserNameFilled &&
                                 aState.isSetPasswordFilled &&
                                 !isLoading;
 
                             return AuthMainButton(
                               text: isLoading
                                   ? S.of(context).justWaitASecond
-                                  : S.of(context).login,
-                              onPressed: canSubmit
-                                  ? loginCubit.signInWithEmailAndPassword
-                                  : null,
+                                  : S.of(context).signUp,
+                              onPressed: canSubmit ? loginCubit.signUp : null,
                             );
                           },
                         );
                       },
                     ),
+
                     const SizedBox(height: 16),
                     Text(S.of(context).or),
                     const SizedBox(height: 10),
+
                     GestureDetector(
-                      onTap: () => context.router.push(const SignUpRoute()),
+                      onTap: () => Navigator.pop(context),
                       child: Text(
-                        S.of(context).signUpIfYoureNew,
+                        S.of(context).loginInIfYouHaveAnAccount,
                         style: const TextStyle(
                           fontFamily: 'MadeEvolveSans',
                           fontWeight: FontWeight.w600,

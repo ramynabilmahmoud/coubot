@@ -25,11 +25,9 @@ class OTPMobileScreen extends StatelessWidget {
       create: (context) => TimerCubit()..startTimer(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Expanded(
-          child: OTPMobileScreenBody(
-            otpType: otpType,
-            emailToVerify: emailToVerify,
-          ),
+        body: OTPMobileScreenBody(
+          otpType: otpType,
+          emailToVerify: emailToVerify,
         ),
       ),
     );

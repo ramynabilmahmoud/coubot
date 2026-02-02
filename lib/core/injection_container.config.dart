@@ -21,17 +21,14 @@ import '../features/app_splash/domain/usecases/change_theme_mode.dart' as _i505;
 import '../features/app_splash/domain/usecases/get_saved_lang.dart' as _i837;
 import '../features/app_splash/domain/usecases/get_saved_theme_mode.dart'
     as _i436;
+import '../features/auth/data/datasources/auth_remote_datasource.dart' as _i130;
 import '../features/auth/data/repositories/auth_repo_impl.dart' as _i990;
 import '../features/auth/domain/repositories/auth_repo.dart' as _i82;
 import '../features/auth/domain/usecases/change_email_usecase.dart' as _i971;
 import '../features/auth/domain/usecases/forget_password_usecase.dart' as _i479;
-import '../features/auth/domain/usecases/get_first_name_usecase.dart' as _i307;
-import '../features/auth/domain/usecases/recognize_user_usecase.dart' as _i944;
 import '../features/auth/domain/usecases/resend_otp_usecase.dart' as _i942;
 import '../features/auth/domain/usecases/sign_in_with_email_password_usecase.dart'
     as _i262;
-import '../features/auth/domain/usecases/sign_in_with_google_usecase.dart'
-    as _i635;
 import '../features/auth/domain/usecases/sign_up_usecase.dart' as _i797;
 import '../features/auth/domain/usecases/update_user_password_usecase.dart'
     as _i285;
@@ -54,7 +51,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i273.DatabaseManager>(() => _i273.DatabaseManager());
     gh.lazySingleton<_i604.SplashLocalDataSource>(
         () => _i604.SplashLocalDataSourceImpl());
-    gh.lazySingleton<_i82.AuthRepo>(() => _i990.AuthRepoImpl());
+    gh.lazySingleton<_i130.AuthRemoteDatasource>(
+        () => _i130.AuthRemoteDatasourceImpl());
+    gh.lazySingleton<_i82.AuthRepo>(
+        () => _i990.AuthRepoImpl(gh<_i130.AuthRemoteDatasource>()));
     gh.lazySingleton<_i144.SplashRepo>(() => _i276.SplashRepoImpl(
         splashLocalDataSource: gh<_i604.SplashLocalDataSource>()));
     gh.lazySingleton<_i942.ResendOTPUsecase>(
@@ -63,12 +63,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i479.ForgetPasswordUsecase(gh<_i82.AuthRepo>()));
     gh.lazySingleton<_i971.ChangeEmailUsecase>(
         () => _i971.ChangeEmailUsecase(gh<_i82.AuthRepo>()));
-    gh.lazySingleton<_i944.RecognizeUseCase>(
-        () => _i944.RecognizeUseCase(gh<_i82.AuthRepo>()));
-    gh.lazySingleton<_i307.GetFirstNameUseCase>(
-        () => _i307.GetFirstNameUseCase(gh<_i82.AuthRepo>()));
-    gh.lazySingleton<_i635.SignInWithGoogleUsecase>(
-        () => _i635.SignInWithGoogleUsecase(gh<_i82.AuthRepo>()));
     gh.lazySingleton<_i262.SignInWithEmailPasswordUsecase>(
         () => _i262.SignInWithEmailPasswordUsecase(gh<_i82.AuthRepo>()));
     gh.lazySingleton<_i797.SignUpUsecase>(
