@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:coubot/config/routes/app_router.gr.dart';
 import 'package:coubot/features/auth/presentation/cubits/auth_actions_cubit/auth_actions_cubit.dart';
 import 'package:coubot/features/auth/presentation/cubits/login_register_cubit/login_register_cubit.dart';
 import 'package:coubot/features/auth/presentation/widgets/auth_input_field.dart';
@@ -7,7 +6,6 @@ import 'package:coubot/features/auth/presentation/widgets/auth_main_button.dart'
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpMobileScreen extends StatelessWidget {
   const SignUpMobileScreen({super.key});
@@ -26,13 +24,8 @@ class SignUpMobileScreen extends StatelessWidget {
         }
 
         if (state is RegisterSuccess) {
-          // ✅ change this to OTPRoute if you want
-          context.router.replace(
-            OTPRoute(
-              otpType: OtpType.signup,
-              emailToVerify: loginCubit.emailController.text.trim(),
-            ),
-          );
+          // ✅ Remove OTP - user is registered directly to the users table
+          context.router.replaceNamed('/app-layout-wrapper');
         }
       },
       child: Scaffold(
@@ -66,11 +59,27 @@ class SignUpMobileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
 
-                  /// USERNAME (mapped to firstNameController in your cubit)
-                  AuthInputField(
-                    hint: S.of(context).username,
-                    controller: loginCubit.firstNameController,
-                    onChanged: actionsCubit.checkNameFilled,
+                  /// FIRST NAME AND LAST NAME IN ROW
+                  Row(
+                    children: [
+                      /// FIRST NAME
+                      Expanded(
+                        child: AuthInputField(
+                          hint: S.of(context).firstName,
+                          controller: loginCubit.firstNameController,
+                          onChanged: actionsCubit.checkNameFilled,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      /// LAST NAME
+                      Expanded(
+                        child: AuthInputField(
+                          hint: S.of(context).lastName,
+                          controller: loginCubit.secondNameController,
+                          onChanged: actionsCubit.checkNameFilled,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
 

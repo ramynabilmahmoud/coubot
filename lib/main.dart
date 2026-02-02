@@ -32,10 +32,6 @@ void main() async {
   ]);
   await getIt.get<SupabaseManager>().initializeSupaBase();
 
-  // Only call clearSavedSettings() during testing to reset internal values.
-  // await Upgrader.clearSavedSettings(); // REMOVE this for release builds
-  // test();
-
   Bloc.observer = AppBlocObserver();
   runApp(const CoubotApp());
 }

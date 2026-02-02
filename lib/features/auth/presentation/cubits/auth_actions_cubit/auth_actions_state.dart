@@ -20,7 +20,6 @@ class AuthActionsState {
     this.isUserNameFilled = false,
     this.isEmailFilled = false,
     this.isSetPasswordFilled = false,
-    this.isOtpFilled = false,
     this.isNewPasswordFilled = false,
     this.isConfirmPasswordFilled = false,
     this.showSetPassword = false,
@@ -53,9 +52,6 @@ class AuthActionsState {
   /// bool showSetPassword
   final bool showSetPassword;
 
-  /// is otp filled
-  final bool isOtpFilled;
-
   /// checkNewPasswordFilled
   final bool isNewPasswordFilled;
 
@@ -85,7 +81,6 @@ class AuthActionsState {
     AuthResponse? authResponse,
     UserEntity? user,
     String? errMessage,
-    bool? isOtpFilled,
     bool? isChangeEmailFilled,
     bool? isFirstAdditionalNameFilled,
     bool? isSecondAdditionalNameFilled,
@@ -97,7 +92,6 @@ class AuthActionsState {
       isSetPasswordFilled: isSetPasswordFilled ?? this.isSetPasswordFilled,
       authResponse: authResponse ?? this.authResponse,
       user: user ?? this.user,
-      isOtpFilled: isOtpFilled ?? this.isOtpFilled,
       isNewPasswordFilled: isNewPasswordFilled ?? this.isNewPasswordFilled,
       isConfirmPasswordFilled:
           isConfirmPasswordFilled ?? this.isConfirmPasswordFilled,

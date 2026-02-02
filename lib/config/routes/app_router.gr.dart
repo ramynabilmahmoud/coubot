@@ -11,22 +11,22 @@
 import 'package:auto_route/auto_route.dart' as _i9;
 import 'package:coubot/features/app_layout/presentation/screens/app_layout_screen.dart'
     as _i1;
-import 'package:coubot/features/app_layout/presentation/wrappers/app_layout_wrapper.dart'
-    as _i2;
 import 'package:coubot/features/app_splash/presentation/screens/splash_screen.dart'
     as _i8;
 import 'package:coubot/features/auth/presentation/screens/change_password_screen/change_password_screen.dart'
-    as _i4;
-import 'package:coubot/features/auth/presentation/screens/otp_screen/otp_screen.dart'
-    as _i5;
+    as _i3;
 import 'package:coubot/features/auth/presentation/screens/sign_in/sign_in_screen.dart'
     as _i6;
 import 'package:coubot/features/auth/presentation/screens/sign_up/sign_up_screen.dart'
     as _i7;
 import 'package:coubot/features/auth/presentation/wrappers/auth_wrapper.dart'
-    as _i3;
-import 'package:flutter/material.dart' as _i11;
-import 'package:supabase_flutter/supabase_flutter.dart' as _i10;
+    as _i2;
+import 'package:coubot/features/home/domain/entities/product.dart' as _i11;
+import 'package:coubot/features/home/presentation/pages/product_details_screen.dart'
+    as _i5;
+import 'package:coubot/features/home/presentation/screens/home_screen.dart'
+    as _i4;
+import 'package:flutter/material.dart' as _i10;
 
 /// generated route for
 /// [_i1.AppLayoutScreen]
@@ -48,26 +48,7 @@ class AppLayoutRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.AppLayoutWrapper]
-class AppLayoutWrapper extends _i9.PageRouteInfo<void> {
-  const AppLayoutWrapper({List<_i9.PageRouteInfo>? children})
-      : super(
-          AppLayoutWrapper.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AppLayoutWrapper';
-
-  static _i9.PageInfo page = _i9.PageInfo(
-    name,
-    builder: (data) {
-      return const _i2.AppLayoutWrapper();
-    },
-  );
-}
-
-/// generated route for
-/// [_i3.AuthWrapper]
+/// [_i2.AuthWrapper]
 class AuthWrapper extends _i9.PageRouteInfo<void> {
   const AuthWrapper({List<_i9.PageRouteInfo>? children})
       : super(
@@ -80,13 +61,13 @@ class AuthWrapper extends _i9.PageRouteInfo<void> {
   static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i3.AuthWrapper();
+      return const _i2.AuthWrapper();
     },
   );
 }
 
 /// generated route for
-/// [_i4.ChangePasswordScreen]
+/// [_i3.ChangePasswordScreen]
 class ChangePasswordRoute extends _i9.PageRouteInfo<void> {
   const ChangePasswordRoute({List<_i9.PageRouteInfo>? children})
       : super(
@@ -99,60 +80,97 @@ class ChangePasswordRoute extends _i9.PageRouteInfo<void> {
   static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i4.ChangePasswordScreen();
+      return const _i3.ChangePasswordScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i5.OTPScreen]
-class OTPRoute extends _i9.PageRouteInfo<OTPRouteArgs> {
-  OTPRoute({
-    required _i10.OtpType otpType,
-    required String emailToVerify,
-    _i11.Key? key,
-    List<_i9.PageRouteInfo>? children,
-  }) : super(
-          OTPRoute.name,
-          args: OTPRouteArgs(
-            otpType: otpType,
-            emailToVerify: emailToVerify,
-            key: key,
-          ),
+/// [_i4.HomeScreen]
+class HomeRoute extends _i9.PageRouteInfo<void> {
+  const HomeRoute({List<_i9.PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'OTPRoute';
+  static const String name = 'HomeRoute';
 
   static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<OTPRouteArgs>();
-      return _i5.OTPScreen(
-        otpType: args.otpType,
-        emailToVerify: args.emailToVerify,
+      return const _i4.HomeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i5.ProductsDetailsScreen]
+class ProductsDetailsRoute extends _i9.PageRouteInfo<ProductsDetailsRouteArgs> {
+  ProductsDetailsRoute({
+    _i10.Key? key,
+    required _i11.Product product,
+    required bool isFavorite,
+    required bool isInCart,
+    required _i10.VoidCallback onAddToCart,
+    required _i10.VoidCallback onToggleFavorite,
+    List<_i9.PageRouteInfo>? children,
+  }) : super(
+          ProductsDetailsRoute.name,
+          args: ProductsDetailsRouteArgs(
+            key: key,
+            product: product,
+            isFavorite: isFavorite,
+            isInCart: isInCart,
+            onAddToCart: onAddToCart,
+            onToggleFavorite: onToggleFavorite,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductsDetailsRoute';
+
+  static _i9.PageInfo page = _i9.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ProductsDetailsRouteArgs>();
+      return _i5.ProductsDetailsScreen(
         key: args.key,
+        product: args.product,
+        isFavorite: args.isFavorite,
+        isInCart: args.isInCart,
+        onAddToCart: args.onAddToCart,
+        onToggleFavorite: args.onToggleFavorite,
       );
     },
   );
 }
 
-class OTPRouteArgs {
-  const OTPRouteArgs({
-    required this.otpType,
-    required this.emailToVerify,
+class ProductsDetailsRouteArgs {
+  const ProductsDetailsRouteArgs({
     this.key,
+    required this.product,
+    required this.isFavorite,
+    required this.isInCart,
+    required this.onAddToCart,
+    required this.onToggleFavorite,
   });
 
-  final _i10.OtpType otpType;
+  final _i10.Key? key;
 
-  final String emailToVerify;
+  final _i11.Product product;
 
-  final _i11.Key? key;
+  final bool isFavorite;
+
+  final bool isInCart;
+
+  final _i10.VoidCallback onAddToCart;
+
+  final _i10.VoidCallback onToggleFavorite;
 
   @override
   String toString() {
-    return 'OTPRouteArgs{otpType: $otpType, emailToVerify: $emailToVerify, key: $key}';
+    return 'ProductsDetailsRouteArgs{key: $key, product: $product, isFavorite: $isFavorite, isInCart: $isInCart, onAddToCart: $onAddToCart, onToggleFavorite: $onToggleFavorite}';
   }
 }
 

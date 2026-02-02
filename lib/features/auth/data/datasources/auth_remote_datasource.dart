@@ -17,19 +17,6 @@ abstract class AuthRemoteDatasource {
   /// required fields: email, password
   Future<AuthResponse> signIn(String email, String password);
 
-  /// send otp to the user
-  Future<bool> resendOTP(String email, OtpType otpType);
-
-  /// verify otp
-  Future<AuthResponse> verifyOTP(String email, String otp, OtpType otpType);
-
-  /// ✅ verify otp + ensure user exists in public.users
-  Future<AuthResponse> verifyOTPAndUpsertUser(
-    String email,
-    String otp,
-    OtpType otpType,
-  );
-
   /// forget password
   Future<void> forgetPassword(String email);
 
@@ -61,7 +48,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
     String? firstName,
     String? lastName,
   ) async {
-    return _client.auth.signUp(
+    final res = await _client.auth.signUp(
       email: email,
       password: password,
       data: {
@@ -69,60 +56,24 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         if (lastName != null) 'last_name': lastName,
       },
     );
+
+    if (res.user != null) {
+      await upsertUserRow(
+        id: res.user!.id,
+        email: res.user!.email ?? email,
+        firstName: firstName ?? '',
+        lastName: lastName ?? '',
+      );
+    } else {
+      throw AuthException('Sign up requires email confirmation. Please verify your email to complete registration.');
+    }
+
+    return res;
   }
 
   @override
   Future<AuthResponse> signIn(String email, String password) async {
     return _client.auth.signInWithPassword(email: email, password: password);
-  }
-
-  @override
-  Future<bool> resendOTP(String email, OtpType otpType) async {
-    await _client.auth.resend(email: email, type: otpType);
-    return true;
-  }
-
-  @override
-  Future<AuthResponse> verifyOTP(
-    String email,
-    String otp,
-    OtpType otpType,
-  ) async {
-    return _client.auth.verifyOTP(email: email, type: otpType, token: otp);
-  }
-
-  /// ✅ verify OTP then upsert into public.users
-  ///
-  /// This solves: "after signup + verify otp, user row not added to users table"
-  @override
-  Future<AuthResponse> verifyOTPAndUpsertUser(
-    String email,
-    String otp,
-    OtpType otpType,
-  ) async {
-    final res = await verifyOTP(email, otp, otpType);
-
-    final user = res.user;
-    if (user == null) {
-      // If this happens, OTP verification didn't yield a user session.
-      // Usually means wrong otpType/token/email combo.
-      throw AuthException('OTP verified but no user returned.');
-    }
-
-    final meta = user.userMetadata ?? const <String, dynamic>{};
-
-    // Use metadata if available; otherwise fallback to empty strings
-    final firstName = (meta['first_name'] ?? '').toString();
-    final lastName = (meta['last_name'] ?? '').toString();
-
-    await upsertUserRow(
-      id: user.id,
-      email: user.email ?? email,
-      firstName: firstName,
-      lastName: lastName,
-    );
-
-    return res;
   }
 
   @override
@@ -153,6 +104,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       'email': email,
       'first_name': firstName,
       'last_name': lastName,
+      'role':'customer',
     });
 
     // Optional: uncomment if you want to inspect insert response during debugging.

@@ -4,43 +4,54 @@ import 'package:coubot/config/routes/app_router.gr.dart';
 import 'package:flutter/widgets.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
-/// to print all routes in in stack
-// print('routes: ${context.router.stack.map((e) => e.name).toList()}');
-/// AppRouter
 class AppRouter extends RootStackRouter {
+  AppRouter({GlobalKey<NavigatorState>? navigatorKey})
+      : _navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
+
+  final GlobalKey<NavigatorState> _navigatorKey;
+
+  @override
+  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+
   @override
   final List<AutoRoute> routes = [
+    /// Splash
     CustomRoute<void>(
       page: SplashRoute.page,
       path: AppPaths.splash,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
+
+    /// Auth Wrapper
     CustomRoute<void>(
       page: AuthWrapper.page,
       path: AppPaths.authWrapper,
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
-        AutoRoute(initial: true, page: SignInRoute.page, path: AppPaths.signIn),
-        AutoRoute(page: SignUpRoute.page, path: AppPaths.signUp),
-        AutoRoute(page: OTPRoute.page, path: AppPaths.otp),
-      ],
-    ),
-    CustomRoute<void>(
-      page: AppLayoutWrapper.page,
-      path: AppPaths.appLayoutWrapper,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-      children: [
         AutoRoute(
           initial: true,
-          page: AppLayoutRoute.page,
-          path: AppPaths.appLayout,
+          page: SignInRoute.page,
+          path: AppPaths.signIn,
+        ),
+        AutoRoute(
+          page: SignUpRoute.page,
+          path: AppPaths.signUp,
         ),
       ],
     ),
-  ];
 
-  /// i need to assign navigator key to this router
-  /// so i can use it in main.dart
-  @override
-  GlobalKey<NavigatorState> get navigatorKey => super.navigatorKey;
+    /// Main App Layout
+    CustomRoute<void>(
+      page: AppLayoutRoute.page,
+      path: AppPaths.appLayoutWrapper,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
+
+    /// ✅ Product Details Page
+    CustomRoute<void>(
+      page: ProductsDetailsRoute.page,
+      path: AppPaths.productDetails,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
+  ];
 }

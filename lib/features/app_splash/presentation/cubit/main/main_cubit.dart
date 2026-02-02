@@ -130,18 +130,19 @@ class MainCubit extends Cubit<MainState> {
   /// a function to handle the authentication functionality of the app
   Future<void> authChangeTracker() async {
     var isSplashRouteComplete = false;
-    await appRouter.pushAndPopUntil(
-      const AuthWrapper(),
-      predicate: (_) => false,
-    );
-    // Check for initial login state
+    
+    // ✅ Check for existing session on app startup
     final session = supabaseClient.auth.currentSession;
-    if (session == null) {
-      // await appRouter.pushAndPopUntil(
-      //   const AppLayoutWrapper(),
-      //   predicate: (_) => false,
-      // );
-      return;
+    if (session != null) {
+      log('Existing session found, routing to AppLayout');
+      await appRouter.replaceAll([const AppLayoutRoute()]);
+      isSplashRouteComplete = true;
+    } else {
+      log('No session found, routing to Auth');
+      await appRouter.pushAndPopUntil(
+        const AuthWrapper(),
+        predicate: (_) => false,
+      );
     }
 
     supabaseClient.auth.onAuthStateChange.listen((event) async {
@@ -149,11 +150,6 @@ class MainCubit extends Cubit<MainState> {
         case AuthChangeEvent.initialSession:
           log('Initial session');
           Future.delayed(const Duration(seconds: 3), () async {
-            // await appRouter.pushAndPopUntil(
-            //   const HomeRoute(),
-            //   predicate: (_) => false,
-            // );
-
             isSplashRouteComplete = true;
           });
 
@@ -162,13 +158,13 @@ class MainCubit extends Cubit<MainState> {
 
         case AuthChangeEvent.signedIn:
           log('Signed in');
+          // Navigate to app layout when user signs in
+          await appRouter.replaceAll([const AppLayoutRoute()]);
 
         case AuthChangeEvent.signedOut:
           log('Signed out');
-        // await appRouter.pushAndPopUntil(
-        //   const AppLayoutWrapper(),
-        //   predicate: (_) => false,
-        // );
+          // Navigate back to auth when user signs out
+          await appRouter.replaceAll([const AuthWrapper()]);
 
         case AuthChangeEvent.tokenRefreshed:
           log('Token refreshed');

@@ -18,19 +18,6 @@ abstract class AuthRepo {
     required String password,
   });
 
-  /// send otp
-  Future<Either<Failure, bool>> resendOTP({
-    required String email,
-    required OtpType otpType,
-  });
-
-  /// verify otp
-  Future<Either<Failure, AuthResponse>> verifyOTP({
-    required String email,
-    required String otp,
-    required OtpType otpType,
-  });
-
   /// forget password
   Future<Either<Failure, void>> forgetPassword({required String email});
 

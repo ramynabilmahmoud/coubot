@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+import 'package:coubot/config/routes/app_router.gr.dart';
 import 'package:coubot/features/auth/domain/usecases/sign_in_with_email_password_usecase.dart';
 import 'package:coubot/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:coubot/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -32,7 +36,12 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
 
     result.fold(
       (failure) => emit(LoginError(errorMessage: failure.errMessage)),
-      (user) => emit(LoginSuccess(authResponse: user)),
+      (user) {
+        log('Login success: ${user.user?.email}');
+        emit(LoginSuccess(authResponse: user));
+        // Navigate to app layout
+        appRouter.replaceAll([const AppLayoutRoute()]);
+      }
     );
   }
 
@@ -49,7 +58,12 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
 
     result.fold(
       (failure) => emit(RegisterError(errorMessage: failure.errMessage)),
-      (user) => emit(RegisterSuccess(authResponse: user)),
+      (user) {
+        log('Register success: ${user.user?.email}');
+        emit(RegisterSuccess(authResponse: user));
+        // Navigate to app layout
+        appRouter.replaceAll([const AppLayoutRoute()]);
+      },
     );
   }
 

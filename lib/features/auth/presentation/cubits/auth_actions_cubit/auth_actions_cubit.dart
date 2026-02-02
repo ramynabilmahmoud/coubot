@@ -45,11 +45,6 @@ class AuthActionsCubit extends Cubit<AuthActionsState> {
     emit(state.copyWith(isSetPasswordFilled: false));
   }
 
-  /// checkOtpFilled
-  void checkOtpFilled(String otp) {
-    emit(state.copyWith(isOtpFilled: otp.isNotEmpty && otp.length == 8));
-  }
-
   /// checkNewPasswordFilled
   void checkNewPasswordFilled(String password) {
     emit(

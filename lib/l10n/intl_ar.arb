@@ -50,6 +50,8 @@
   "forgotPassword": "Forgot password?",
   "password": "Password",
   "login": "Login",
+  "firstName": "First Name",
+  "lastName": "Last Name",
   "or": "OR",
   "signUpIfYoureNew": "Sign up if you’re new",
   "username": "User-name",
@@ -57,5 +59,9 @@
   "loginInIfYouHaveAnAccount": "Login in if you have an account",
   "resendCode": "Resend Code",
   "confirm": "Confirm",
-  "codeSent": "Code Sent"
+  "codeSent": "Code Sent",
+  "home": "Home",
+  "profile": "Profile",
+  "orders": "Orders",
+  "coubot": "COUBOT"
 }

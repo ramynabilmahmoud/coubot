@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 /// A class that provides a light theme configuration for the application.
 class AppTheme {
@@ -134,4 +135,28 @@ class AppTheme {
       // ),
     );
   }
+}
+
+/// Build home feed theme with Material 3
+ThemeData buildAppTheme() {
+  final base = ThemeData(useMaterial3: true, colorSchemeSeed: AppColors.primary);
+
+  return base.copyWith(
+    scaffoldBackgroundColor: AppColors.background,
+    colorScheme: base.colorScheme.copyWith(
+      primary: AppColors.primary,
+      surface: AppColors.surface,
+    ),
+    textTheme: base.textTheme.apply(
+      bodyColor: AppColors.text,
+      displayColor: AppColors.text,
+    ),
+    cardTheme: const CardThemeData(
+      elevation: 0,
+      color: AppColors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+    ),
+  );
 }

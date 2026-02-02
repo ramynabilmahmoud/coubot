@@ -45,33 +45,6 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> resendOTP({
-    required String email,
-    required OtpType otpType,
-  }) async {
-    try {
-      final result = await remoteDatasource.resendOTP(email, otpType);
-      return Right(result);
-    } catch (e) {
-      return Left(Failure.fromObject(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, AuthResponse>> verifyOTP({
-    required String email,
-    required String otp,
-    required OtpType otpType,
-  }) async {
-    try {
-      final result = await remoteDatasource.verifyOTP(email, otp, otpType);
-      return Right(result);
-    } catch (e) {
-      return Left(Failure.fromObject(e));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> forgetPassword({required String email}) async {
     try {
       await remoteDatasource.forgetPassword(email);
