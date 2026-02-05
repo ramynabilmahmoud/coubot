@@ -64,6 +64,15 @@
           fonts:
               - asset: assets/gen/fonts/MadeEvolveSansEvo-Regular.otf
 
+        - family: LeagueSpartan
+          fonts:
+              - asset: assets/gen/fonts/LeagueSpartan-Light.ttf
+                weight: 300
+              - asset: assets/gen/fonts/LeagueSpartan-Regular.ttf
+                weight: 400
+              - asset: assets/gen/fonts/LeagueSpartan-Bold.ttf
+                weight: 700
+
   flutter_intl:
     enabled: true
 
