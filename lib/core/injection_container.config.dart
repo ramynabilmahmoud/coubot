@@ -31,6 +31,9 @@ import '../features/auth/domain/usecases/sign_in_with_email_password_usecase.dar
 import '../features/auth/domain/usecases/sign_up_usecase.dart' as _i797;
 import '../features/auth/domain/usecases/update_user_password_usecase.dart'
     as _i285;
+import '../features/cart/data/datasrouce/local/cart_local_data_source.dart'
+    as _i187;
+import '../features/cart/presentation/cubit/cart_cubit.dart' as _i678;
 import '../features/home/data/datasources/home_remote_datasource.dart' as _i75;
 import '../features/home/data/repositories/home_repository_impl.dart' as _i6;
 import '../features/home/domain/repositories/home_repository.dart' as _i66;
@@ -52,12 +55,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i635.SupabaseManager>(() => _i635.SupabaseManager());
     gh.lazySingleton<_i273.DatabaseManager>(() => _i273.DatabaseManager());
+    gh.lazySingleton<_i187.CartLocalDataSource>(
+        () => _i187.CartLocalDataSource());
     gh.lazySingleton<_i75.HomeRemoteDataSource>(
         () => _i75.HomeRemoteDataSourceImpl());
     gh.lazySingleton<_i604.SplashLocalDataSource>(
         () => _i604.SplashLocalDataSourceImpl());
     gh.lazySingleton<_i130.AuthRemoteDatasource>(
         () => _i130.AuthRemoteDatasourceImpl());
+    gh.factory<_i678.CartCubit>(
+        () => _i678.CartCubit(gh<_i187.CartLocalDataSource>()));
     gh.lazySingleton<_i82.AuthRepo>(
         () => _i990.AuthRepoImpl(gh<_i130.AuthRemoteDatasource>()));
     gh.lazySingleton<_i144.SplashRepo>(() => _i276.SplashRepoImpl(

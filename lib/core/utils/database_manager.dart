@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:coubot/core/utils/app_strings.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
+import 'package:coubot/features/cart/data/models/cart_item_model.dart';
 
 enum DataBoxes {
   auth,
   settings,
   lastAnnouncementID,
   screenshots,
+  cart,
 }
 
 /// this class is used to manage the local database
@@ -23,9 +25,13 @@ class DatabaseManager {
   /// Initialize [Hive]
   static Future<dynamic> initHive() async {
     await Hive.initFlutter();
+    if (!Hive.isAdapterRegistered(10)) {
+      Hive.registerAdapter(CartItemModelAdapter());
+    }
     await Future.wait([
       Hive.openBox<dynamic>(DataBoxes.settings.name),
       Hive.openBox<dynamic>(DataBoxes.lastAnnouncementID.name),
+      Hive.openBox<CartItemModel>(DataBoxes.cart.name),
       initScreenShotsEntityAdapter(),
       initAuthEntityAdapter(),
     ]);
@@ -78,8 +84,6 @@ class DatabaseManager {
     await Hive.box<dynamic>(DataBoxes.settings.name)
         .put('onboardingShowed', true);
     await Hive.box<dynamic>(DataBoxes.lastAnnouncementID.name).clear();
-    // await Hive.box<ScreenShotsEntity>(DataBoxes.screenshots.name).clear();
-    // await Hive.box<LoginEntity>(DataBoxes.auth.name).clear();
   }
 
   /// register ScreenShotsEntityAdapter and open the box

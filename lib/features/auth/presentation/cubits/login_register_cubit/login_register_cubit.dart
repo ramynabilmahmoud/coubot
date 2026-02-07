@@ -40,7 +40,7 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
         log('Login success: ${user.user?.email}');
         emit(LoginSuccess(authResponse: user));
         // Navigate to app layout
-        appRouter.replaceAll([const AppLayoutRoute()]);
+        appRouter.replaceAll([const AppLayoutWrapper()]);
       }
     );
   }
@@ -62,7 +62,7 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
         log('Register success: ${user.user?.email}');
         emit(RegisterSuccess(authResponse: user));
         // Navigate to app layout
-        appRouter.replaceAll([const AppLayoutRoute()]);
+        appRouter.replaceAll([const AppLayoutWrapper()]);
       },
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/product.dart';
+import '../../domain/entities/product_entity.dart';
 import 'product_card_small.dart';
 
 class ProductHorizontalList extends StatelessWidget {
-  final List<Product> products;
-  final ValueChanged<Product>? onTap;
+  final List<ProductEntity> products;
+  final ValueChanged<ProductEntity>? onTap;
   final bool Function(String)? isFavoriteChecker;
-  final ValueChanged<Product>? onFavoriteTap;
+  final ValueChanged<ProductEntity>? onFavoriteTap;
 
   const ProductHorizontalList({
     super.key,

@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/entities/category.dart';
-import '../../domain/entities/product.dart';
+import '../../domain/entities/category_entity.dart';
+import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../../domain/usecases/get_home_feed.dart';
 import 'home_state.dart';
@@ -10,10 +10,10 @@ import 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final GetHomeFeed getHomeFeed;
-  HomeCubit(this.getHomeFeed) : super(const HomeInitial());
+  HomeCubit(this.getHomeFeed) : super( HomeInitial());
 
   Future<void> load() async {
-    emit(const HomeLoading());
+    emit( HomeLoading());
     try {
       final feed = await getHomeFeed();
       emit(HomeLoaded(feed: feed));
@@ -31,7 +31,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Filter by category
-  void filterByCategory(Category? category) {
+  void filterByCategory(CategoryEntity? category) {
     final state = this.state;
     if (state is! HomeLoaded) return;
 
@@ -39,7 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Add product to cart
-  void addToCart(Product product) {
+  void addToCart(ProductEntity product) {
     final state = this.state;
     if (state is! HomeLoaded) return;
 
@@ -60,7 +60,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Toggle favorite
-  void toggleFavorite(Product product) {
+  void toggleFavorite(ProductEntity product) {
     final state = this.state;
     if (state is! HomeLoaded) return;
 
@@ -74,7 +74,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// Get filtered products based on search and category
-  List<Product> getFilteredProducts(HomeFeed feed) {
+  List<ProductEntity> getFilteredProducts(HomeFeed feed) {
     var products = [...feed.topItems, ...feed.buyAgain];
 
     // Filter by category (using category title matching for demo)

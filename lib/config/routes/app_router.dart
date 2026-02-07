@@ -42,7 +42,7 @@ class AppRouter extends RootStackRouter {
 
     /// Main App Layout
     CustomRoute<void>(
-      page: AppLayoutRoute.page,
+      page: AppLayoutWrapper.page,
       path: AppPaths.appLayoutWrapper,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
@@ -53,5 +53,11 @@ class AppRouter extends RootStackRouter {
       path: AppPaths.productDetails,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
+
+      CustomRoute<void>(
+        page: CartRoute.page,
+        path: AppPaths.cart,
+        transitionsBuilder: TransitionsBuilders.fadeIn,),
+
   ];
 }

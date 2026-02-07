@@ -40,10 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "badResponseFromApiserver": MessageLookupByLibrary.simpleMessage(
       "Bad response from ApiServer",
     ),
+    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "checkYourEmailForTheConfirmationLink":
         MessageLookupByLibrary.simpleMessage(
           "Check your email for the Confirmation link",
         ),
+    "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "codeSent": MessageLookupByLibrary.simpleMessage("Code Sent"),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(
@@ -62,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with E-mail",
     ),
     "coubot": MessageLookupByLibrary.simpleMessage("COUBOT"),
+    "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Email Has Been Updated Successfully",
@@ -100,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Login in if you have an account",
     ),
+    "myCart": MessageLookupByLibrary.simpleMessage("My Cart"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
     "noCurrentUserFoundOrCurrentUsersEmailIsNull":
         MessageLookupByLibrary.simpleMessage(
@@ -167,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Something went wrong, please try again later",
         ),
+    "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
+    "total": MessageLookupByLibrary.simpleMessage("Total"),
     "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
       "Unknown error occurred",
     ),

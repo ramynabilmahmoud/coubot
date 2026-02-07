@@ -1,4 +1,4 @@
-import '../../domain/entities/product.dart';
+import '../../domain/entities/product_entity.dart';
 
 class ProductModel {
   final String id;
@@ -19,7 +19,7 @@ class ProductModel {
     required this.onSale,
   });
 
-  Product toEntity() => Product(
+  ProductEntity toEntity() => ProductEntity(
         id: id,
         name: name,
         description: description,

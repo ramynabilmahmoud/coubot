@@ -1,15 +1,12 @@
 import '../../../home/domain/repositories/home_repository.dart';
 
-sealed class HomeState {
-  const HomeState();
+ class HomeState {
 }
 
 class HomeInitial extends HomeState {
-  const HomeInitial();
 }
 
 class HomeLoading extends HomeState {
-  const HomeLoading();
 }
 
 class HomeLoaded extends HomeState {
@@ -19,7 +16,7 @@ class HomeLoaded extends HomeState {
   final String searchQuery;
   final String? selectedCategoryId;
 
-  const HomeLoaded({
+   HomeLoaded({
     required this.feed,
     this.cartItems = const [],
     this.favorites = const [],
@@ -46,5 +43,5 @@ class HomeLoaded extends HomeState {
 
 class HomeError extends HomeState {
   final String message;
-  const HomeError(this.message);
+   HomeError(this.message);
 }

@@ -135,7 +135,7 @@ class MainCubit extends Cubit<MainState> {
     final session = supabaseClient.auth.currentSession;
     if (session != null) {
       log('Existing session found, routing to AppLayout');
-      await appRouter.replaceAll([const AppLayoutRoute()]);
+      await appRouter.replaceAll([const AppLayoutWrapper()]);
       isSplashRouteComplete = true;
     } else {
       log('No session found, routing to Auth');
@@ -159,7 +159,7 @@ class MainCubit extends Cubit<MainState> {
         case AuthChangeEvent.signedIn:
           log('Signed in');
           // Navigate to app layout when user signs in
-          await appRouter.replaceAll([const AppLayoutRoute()]);
+          await appRouter.replaceAll([const AppLayoutWrapper()]);
 
         case AuthChangeEvent.signedOut:
           log('Signed out');

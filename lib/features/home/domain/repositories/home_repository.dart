@@ -1,10 +1,10 @@
-import '../entities/category.dart';
-import '../entities/product.dart';
+import '../entities/category_entity.dart';
+import '../entities/product_entity.dart';
 
 class HomeFeed {
-  final List<Product> topItems;
-  final List<Category> categories;
-  final List<Product> buyAgain;
+  final List<ProductEntity> topItems;
+  final List<CategoryEntity> categories;
+  final List<ProductEntity> buyAgain;
 
   const HomeFeed({
     required this.topItems,

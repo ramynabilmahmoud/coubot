@@ -598,6 +598,41 @@ class S {
   String get coubot {
     return Intl.message('COUBOT', name: 'coubot', desc: '', args: []);
   }
+
+  /// `My Cart`
+  String get myCart {
+    return Intl.message('My Cart', name: 'myCart', desc: '', args: []);
+  }
+
+  /// `Checkout`
+  String get checkout {
+    return Intl.message('Checkout', name: 'checkout', desc: '', args: []);
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message('Total', name: 'total', desc: '', args: []);
+  }
+
+  /// `Delivery`
+  String get delivery {
+    return Intl.message('Delivery', name: 'delivery', desc: '', args: []);
+  }
+
+  /// `Subtotal`
+  String get subtotal {
+    return Intl.message('Subtotal', name: 'subtotal', desc: '', args: []);
+  }
+
+  /// `Cart is empty`
+  String get cartIsEmpty {
+    return Intl.message(
+      'Cart is empty',
+      name: 'cartIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

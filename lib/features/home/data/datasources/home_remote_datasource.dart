@@ -3,7 +3,7 @@ import 'dart:developer' as developer;
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../domain/entities/category.dart';
+import '../../domain/entities/category_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../models/product_model.dart';
 
@@ -34,7 +34,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
         _getTopItems(),
       ]);
 
-      final categories = results[0] as List<Category>;
+      final categories = results[0] as List<CategoryEntity>;
       final topItemsModels = results[1] as List<ProductModel>;
 
       // Load buy again only if logged in
@@ -64,7 +64,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   /// categories table:
   /// id, name, media_source, icon_key
-  Future<List<Category>> _getCategories() async {
+  Future<List<CategoryEntity>> _getCategories() async {
     final res = await _client
         .from('categories')
         .select('id, name, icon_key, media_source')
@@ -73,7 +73,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     final list = (res as List).cast<Map<String, dynamic>>();
 
     return list.map((json) {
-      return Category(
+      return CategoryEntity(
         id: json['id'].toString(),
         title: (json['name'] as String?)?.trim() ?? 'Category',
         iconKey: (json['icon_key'] as String?)?.trim() ?? 'grid',

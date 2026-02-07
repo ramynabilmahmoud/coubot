@@ -28,7 +28,7 @@ class SignInMobileScreen extends StatelessWidget {
 
         if (state is LoginSuccess) {
           // ✅ choose your target route
-          context.router.replace(const AppLayoutRoute());
+          context.router.replace(const AppLayoutWrapper());
           // context.router.maybePop(); // simple default
         }
       },

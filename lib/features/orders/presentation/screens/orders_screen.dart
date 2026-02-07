@@ -1,3 +1,4 @@
+import 'package:coubot/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -31,7 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     super.initState();
-    fetchOrders();           // Initial data load
+    fetchOrders(); // Initial data load
     _listenToOrderChanges(); // Start realtime listener
   }
 
@@ -138,8 +139,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               title: const Text('Leave a Review'),
               content: TextField(
                 controller: controller,
@@ -154,35 +154,35 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   ),
                 ),
               ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: _dialogActionButton(
-                            'Cancel',
-                            onTap: isSubmitting ? null : () => Navigator.pop(context),
-                          ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _dialogActionButton(
+                          'Cancel',
+                          onTap: isSubmitting ? null : () => Navigator.pop(context),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _dialogActionButton(
-                            'Submit',
-                            filled: true,
-                            onTap: isSubmitting
-                                ? null
-                                : () async {
-                              setStateDialog(() => isSubmitting = true);
-                              await _submitReview(orderId, controller.text);
-                              Navigator.pop(context);
-                            },
-                          ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _dialogActionButton(
+                          'Submit',
+                          filled: true,
+                          onTap: isSubmitting
+                              ? null
+                              : () async {
+                                  setStateDialog(() => isSubmitting = true);
+                                  await _submitReview(orderId, controller.text);
+                                  Navigator.pop(context);
+                                },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ],
             );
           },
         );
@@ -205,11 +205,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 
   /// Pill style button used inside dialogs (auto width, no text cut)
-  Widget _dialogActionButton(
-      String text, {
-        bool filled = false,
-        VoidCallback? onTap,
-      }) {
+  Widget _dialogActionButton(String text, {bool filled = false, VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -221,7 +217,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: const Color(0xFFC72C41)),
         ),
-        child: FittedBox( // 👈 prevents text overflow
+        child: FittedBox(
+          // 👈 prevents text overflow
           child: Text(
             text,
             maxLines: 1,
@@ -235,7 +232,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -317,25 +313,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/gen/images/orders_empty.png',
-              height: 120,
-              color: const Color(0xFFC72C41),
-            ),
+            Image.asset(Assets.genOrdersEmpty, height: 120, color: const Color(0xFFC72C41)),
             const SizedBox(height: 24),
             const Text(
               "You don't have any\nactive orders at this time",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'MadeEvolveSans',
-                fontSize: 18,
-              ),
+              style: TextStyle(fontFamily: 'MadeEvolveSans', fontSize: 18),
             ),
           ],
         ),
       ),
     );
   }
+
   /// 🔹 Orders list UI
   Widget _buildOrdersList() {
     return ListView.separated(
@@ -351,10 +341,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
         return Container(
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
               Row(
@@ -367,22 +354,34 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       color: const Color(0xFFFFE5E5),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(Icons.fastfood,
-                        color: Color(0xFFC72C41)),
+                    child: const Icon(Icons.fastfood, color: Color(0xFFC72C41)),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(firstProduct['name'],
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontFamily: 'MadeEvolveSans',
-                                fontWeight: FontWeight.w500,color: Color(0xFFC80335), fontSize: 20)),
+                        Text(
+                          firstProduct['name'],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontFamily: 'MadeEvolveSans',
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFFC80335),
+                            fontSize: 20,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text(DateFormat('dd MMM, hh:mm a').format(date),
-                            style: const TextStyle(fontFamily: 'LeagueSpartan',color:Color(0xFFC80335) ,fontWeight: FontWeight.w300 ,fontSize: 14)),
+                        Text(
+                          DateFormat('dd MMM, hh:mm a').format(date),
+                          style: const TextStyle(
+                            fontFamily: 'LeagueSpartan',
+                            color: Color(0xFFC80335),
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14,
+                          ),
+                        ),
                         const SizedBox(height: 6),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -417,15 +416,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
                   const SizedBox(width: 6),
-                  Text('\$${order['total_price']}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFC72C41))),
+                  Text(
+                    '\$${order['total_price']}',
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC72C41)),
+                  ),
                 ],
               ),
 
@@ -436,13 +434,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   Expanded(child: _bigButton('Reorder')),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: _bigButton('Review',
-                        filled: true,
-                        onTap: () =>
-                            _showReviewDialog(order['id'])),
+                    child: _bigButton(
+                      'Review',
+                      filled: true,
+                      onTap: () => _showReviewDialog(order['id']),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         );
@@ -450,10 +449,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 
-
   /// Large action button
-  Widget _bigButton(String text,
-      {bool filled = false, VoidCallback? onTap}) {
+  Widget _bigButton(String text, {bool filled = false, VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -464,10 +461,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: const Color(0xFFC72C41)),
         ),
-        child: Text(text,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: filled ? Colors.white : const Color(0xFFC72C41))),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: filled ? Colors.white : const Color(0xFFC72C41),
+          ),
+        ),
       ),
     );
   }

@@ -21,4 +21,7 @@ class AppPaths {
 
   /// ✅ Product Details Page
   static const String productDetails = '/product_details';
+
+  static const cart = '/cart';
+
 }

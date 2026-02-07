@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/themes/app_colors.dart';
 import '../../../../core/widgets/section_header.dart';
-import '../../domain/entities/product.dart';
+import '../../domain/entities/product_entity.dart';
 import '../cubits/home_cubit.dart';
 import '../cubits/home_state.dart';
 import '../widgets/category_shortcuts.dart';
@@ -29,15 +29,11 @@ class HomeScreenBody extends StatelessWidget {
               builder: (context, state) {
                 if (state is HomeInitial) {
                   context.read<HomeCubit>().load();
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
+                  return const Center(child: CircularProgressIndicator.adaptive());
                 }
 
                 if (state is HomeLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
+                  return const Center(child: CircularProgressIndicator.adaptive());
                 }
 
                 if (state is HomeError) {
@@ -63,25 +59,15 @@ class HomeScreenBody extends StatelessWidget {
                       // Top items section
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SectionHeader(
-                          title: "Top items",
-                          onSeeAll: () {},
-                        ),
+                        child: SectionHeader(title: "Top items", onSeeAll: () {}),
                       ),
                       const SizedBox(height: 10),
 
                       ProductHorizontalList(
                         products: feed.topItems,
-                        onTap: (product) => _openProductDetails(
-                          context,
-                          product,
-                          loaded,
-                          cubit,
-                        ),
-                        isFavoriteChecker: (productId) =>
-                            loaded.favorites.contains(productId),
-                        onFavoriteTap: (product) =>
-                            cubit.toggleFavorite(product),
+                        onTap: (product) => _openProductDetails(context, product, loaded, cubit),
+                        isFavoriteChecker: (productId) => loaded.favorites.contains(productId),
+                        onFavoriteTap: (product) => cubit.toggleFavorite(product),
                       ),
 
                       const SizedBox(height: 14),
@@ -93,9 +79,7 @@ class HomeScreenBody extends StatelessWidget {
                           categories: feed.categories,
                           onTap: (category) {
                             cubit.filterByCategory(
-                              loaded.selectedCategoryId == category.id
-                                  ? null
-                                  : category,
+                              loaded.selectedCategoryId == category.id ? null : category,
                             );
                           },
                           selectedCategoryId: loaded.selectedCategoryId,
@@ -108,9 +92,7 @@ class HomeScreenBody extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: SectionHeader(
-                          title: loaded.searchQuery.isNotEmpty
-                              ? "Search Results"
-                              : "Buy again",
+                          title: loaded.searchQuery.isNotEmpty ? "Search Results" : "Buy again",
                           onSeeAll: () {},
                         ),
                       ),
@@ -125,21 +107,17 @@ class HomeScreenBody extends StatelessWidget {
                             final itemWidth = (width - 12) / 2;
 
                             if (displayProducts.isEmpty) {
-                              final isSearching =
-                                  loaded.searchQuery.isNotEmpty;
+                              final isSearching = loaded.searchQuery.isNotEmpty;
 
                               if (isSearching) {
                                 return const Padding(
                                   padding: EdgeInsets.symmetric(vertical: 24),
-                                  child: Center(
-                                    child: Text("No products found"),
-                                  ),
+                                  child: Center(child: Text("No products found")),
                                 );
                               }
 
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 28),
+                                padding: const EdgeInsets.symmetric(vertical: 28),
                                 child: Center(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -160,12 +138,8 @@ class HomeScreenBody extends StatelessWidget {
                                           icon: Icons.shopping_bag_outlined,
                                           height: 52,
                                           onPressed: () {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                    "Start a new order"),
-                                              ),
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              const SnackBar(content: Text("Start a new order")),
                                             );
                                             // context.router.push(const CreateOrderRoute());
                                           },
@@ -185,16 +159,9 @@ class HomeScreenBody extends StatelessWidget {
                                   width: itemWidth,
                                   child: ProductCardLarge(
                                     product: p,
-                                    isFavorite:
-                                        loaded.favorites.contains(p.id),
-                                    onFavoriteTap: () =>
-                                        cubit.toggleFavorite(p),
-                                    onTap: () => _openProductDetails(
-                                      context,
-                                      p,
-                                      loaded,
-                                      cubit,
-                                    ),
+                                    isFavorite: loaded.favorites.contains(p.id),
+                                    onFavoriteTap: () => cubit.toggleFavorite(p),
+                                    onTap: () => _openProductDetails(context, p, loaded, cubit),
                                   ),
                                 );
                               }).toList(),
@@ -215,7 +182,7 @@ class HomeScreenBody extends StatelessWidget {
 
   void _openProductDetails(
     BuildContext context,
-    Product product,
+    ProductEntity product,
     HomeLoaded state,
     HomeCubit cubit,
   ) {
@@ -223,9 +190,7 @@ class HomeScreenBody extends StatelessWidget {
       ProductsDetailsRoute(
         product: product,
         isFavorite: state.favorites.contains(product.id),
-        isInCart: state.cartItems.contains(product.id),
         onToggleFavorite: () => cubit.toggleFavorite(product),
-        onAddToCart: () => cubit.addToCart(product),
       ),
     );
   }

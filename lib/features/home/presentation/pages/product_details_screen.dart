@@ -1,27 +1,24 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../config/themes/app_colors.dart';
 import '../../../../core/widgets/price_rating_row.dart';
-import '../../domain/entities/product.dart';
+import '../../domain/entities/product_entity.dart';
 
 @RoutePage()
 class ProductsDetailsScreen extends StatelessWidget {
-  final Product product;
+  final ProductEntity product;
   final bool isFavorite;
-  final bool isInCart;
-  final VoidCallback onAddToCart;
   final VoidCallback onToggleFavorite;
 
   const ProductsDetailsScreen({
     super.key,
     required this.product,
     required this.isFavorite,
-    required this.isInCart,
-    required this.onAddToCart,
     required this.onToggleFavorite,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,6 @@ class ProductsDetailsScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: [
-                  // ✅ صورة مع fallback + errorBuilder
                   Positioned.fill(
                     child: Image.network(
                       product.safeImageUrl,
@@ -44,32 +40,23 @@ class ProductsDetailsScreen extends StatelessWidget {
                       width: double.infinity,
                       loadingBuilder: (context, child, progress) {
                         if (progress == null) return child;
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
+                        return const Center(child: CircularProgressIndicator.adaptive());
                       },
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           color: Colors.black12,
                           alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 40,
-                          ),
+                          child: const Icon(Icons.image_not_supported_outlined, size: 40),
                         );
                       },
                     ),
                   ),
-
                   if (product.onSale)
                     Positioned(
                       top: 50,
                       right: 16,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(8),
@@ -105,18 +92,12 @@ class ProductsDetailsScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   product.name,
-                                  style: const TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w900,
-                                  ),
+                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   product.description,
-                                  style: const TextStyle(
-                                    color: AppColors.mutedText,
-                                    fontSize: 14,
-                                  ),
+                                  style: const TextStyle(color: AppColors.mutedText, fontSize: 14),
                                 ),
                               ],
                             ),
@@ -124,9 +105,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                           IconButton(
                             onPressed: onToggleFavorite,
                             icon: Icon(
-                              isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
                               color: AppColors.primary,
                               size: 28,
                             ),
@@ -134,11 +113,12 @@ class ProductsDetailsScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      PriceRatingRow(
-                        price: product.price,
-                        rating: product.rating,
-                      ),
+
+                      PriceRatingRow(price: product.price, rating: product.rating),
+
                       const SizedBox(height: 24),
+
+                      /// Quantity selector (plus/minus works)
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -150,28 +130,18 @@ class ProductsDetailsScreen extends StatelessWidget {
                           children: [
                             const Text(
                               'Quantity',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(height: 12),
                             Row(
                               children: [
                                 IconButton(
-                                  onPressed: q > 1
-                                      ? () => quantity.value = q - 1
-                                      : null,
-                                  icon: const Icon(
-                                    Icons.remove_circle_outline,
-                                  ),
+                                  onPressed: q > 1 ? () => quantity.value = q - 1 : null,
+                                  icon: const Icon(Icons.remove_circle_outline),
                                   color: AppColors.primary,
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 8,
-                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(8),
@@ -186,9 +156,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () => quantity.value = q + 1,
-                                  icon: const Icon(
-                                    Icons.add_circle_outline,
-                                  ),
+                                  icon: const Icon(Icons.add_circle_outline),
                                   color: AppColors.primary,
                                 ),
                               ],
@@ -196,33 +164,39 @@ class ProductsDetailsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 24),
+
+                      /// Add to cart (never disables, clicking again increases quantity in Hive)
                       SizedBox(
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: isInCart
-                              ? null
-                              : () {
-                                  onAddToCart();
+                          onPressed: () async {
+                            final qty = quantity.value;
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        '${product.name} added to cart (x$q)',
-                                      ),
-                                      duration: const Duration(seconds: 2),
-                                    ),
-                                  );
-                                },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            disabledBackgroundColor:
-                                AppColors.mutedText.withValues(alpha: 0.5),
-                          ),
-                          child: Text(
-                            isInCart ? 'ALREADY IN CART' : 'ADD TO CART',
-                            style: const TextStyle(
+                            await context.read<CartCubit>().add(
+                              productId: product.id,
+                              title: product.name,
+                              subtitle: product.description,
+                              price: product.price,
+                              imageUrl: product.safeImageUrl,
+                              qty: qty,
+                            );
+
+                            if (!context.mounted) return;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('${product.name} added to cart (x$qty)'),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+                          child: const Text(
+                            'ADD TO CART',
+                            style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
                               fontSize: 16,
@@ -230,6 +204,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       const SizedBox(height: 16),
                     ],
                   );

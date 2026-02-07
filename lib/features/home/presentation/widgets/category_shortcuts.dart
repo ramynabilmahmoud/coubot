@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../config/themes/app_colors.dart';
-import '../../domain/entities/category.dart';
+import '../../domain/entities/category_entity.dart';
 
 class CategoryShortcuts extends StatelessWidget {
-  final List<Category> categories;
-  final ValueChanged<Category>? onTap;
+  final List<CategoryEntity> categories;
+  final ValueChanged<CategoryEntity>? onTap;
   final String? selectedCategoryId;
 
   const CategoryShortcuts({

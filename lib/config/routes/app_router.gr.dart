@@ -8,49 +8,52 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i9;
-import 'package:coubot/features/app_layout/presentation/screens/app_layout_screen.dart'
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:coubot/features/app_layout/presentation/wrappers/app_layout_wrapper.dart'
     as _i1;
 import 'package:coubot/features/app_splash/presentation/screens/splash_screen.dart'
-    as _i8;
+    as _i9;
 import 'package:coubot/features/auth/presentation/screens/change_password_screen/change_password_screen.dart'
-    as _i3;
+    as _i4;
 import 'package:coubot/features/auth/presentation/screens/sign_in/sign_in_screen.dart'
-    as _i6;
-import 'package:coubot/features/auth/presentation/screens/sign_up/sign_up_screen.dart'
     as _i7;
+import 'package:coubot/features/auth/presentation/screens/sign_up/sign_up_screen.dart'
+    as _i8;
 import 'package:coubot/features/auth/presentation/wrappers/auth_wrapper.dart'
     as _i2;
-import 'package:coubot/features/home/domain/entities/product.dart' as _i11;
+import 'package:coubot/features/cart/presentation/screens/cart_screen.dart'
+    as _i3;
+import 'package:coubot/features/home/domain/entities/product_entity.dart'
+    as _i12;
 import 'package:coubot/features/home/presentation/pages/product_details_screen.dart'
-    as _i5;
+    as _i6;
 import 'package:coubot/features/home/presentation/screens/home_screen.dart'
-    as _i4;
-import 'package:flutter/material.dart' as _i10;
+    as _i5;
+import 'package:flutter/material.dart' as _i11;
 
 /// generated route for
-/// [_i1.AppLayoutScreen]
-class AppLayoutRoute extends _i9.PageRouteInfo<void> {
-  const AppLayoutRoute({List<_i9.PageRouteInfo>? children})
+/// [_i1.AppLayoutWrapper]
+class AppLayoutWrapper extends _i10.PageRouteInfo<void> {
+  const AppLayoutWrapper({List<_i10.PageRouteInfo>? children})
       : super(
-          AppLayoutRoute.name,
+          AppLayoutWrapper.name,
           initialChildren: children,
         );
 
-  static const String name = 'AppLayoutRoute';
+  static const String name = 'AppLayoutWrapper';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i1.AppLayoutScreen();
+      return const _i1.AppLayoutWrapper();
     },
   );
 }
 
 /// generated route for
 /// [_i2.AuthWrapper]
-class AuthWrapper extends _i9.PageRouteInfo<void> {
-  const AuthWrapper({List<_i9.PageRouteInfo>? children})
+class AuthWrapper extends _i10.PageRouteInfo<void> {
+  const AuthWrapper({List<_i10.PageRouteInfo>? children})
       : super(
           AuthWrapper.name,
           initialChildren: children,
@@ -58,7 +61,7 @@ class AuthWrapper extends _i9.PageRouteInfo<void> {
 
   static const String name = 'AuthWrapper';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
       return const _i2.AuthWrapper();
@@ -67,9 +70,28 @@ class AuthWrapper extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.ChangePasswordScreen]
-class ChangePasswordRoute extends _i9.PageRouteInfo<void> {
-  const ChangePasswordRoute({List<_i9.PageRouteInfo>? children})
+/// [_i3.CartScreen]
+class CartRoute extends _i10.PageRouteInfo<void> {
+  const CartRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          CartRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CartRoute';
+
+  static _i10.PageInfo page = _i10.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.CartScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.ChangePasswordScreen]
+class ChangePasswordRoute extends _i10.PageRouteInfo<void> {
+  const ChangePasswordRoute({List<_i10.PageRouteInfo>? children})
       : super(
           ChangePasswordRoute.name,
           initialChildren: children,
@@ -77,18 +99,18 @@ class ChangePasswordRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'ChangePasswordRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i3.ChangePasswordScreen();
+      return const _i4.ChangePasswordScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i4.HomeScreen]
-class HomeRoute extends _i9.PageRouteInfo<void> {
-  const HomeRoute({List<_i9.PageRouteInfo>? children})
+/// [_i5.HomeScreen]
+class HomeRoute extends _i10.PageRouteInfo<void> {
+  const HomeRoute({List<_i10.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -96,33 +118,30 @@ class HomeRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i4.HomeScreen();
+      return const _i5.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i5.ProductsDetailsScreen]
-class ProductsDetailsRoute extends _i9.PageRouteInfo<ProductsDetailsRouteArgs> {
+/// [_i6.ProductsDetailsScreen]
+class ProductsDetailsRoute
+    extends _i10.PageRouteInfo<ProductsDetailsRouteArgs> {
   ProductsDetailsRoute({
-    _i10.Key? key,
-    required _i11.Product product,
+    _i11.Key? key,
+    required _i12.ProductEntity product,
     required bool isFavorite,
-    required bool isInCart,
-    required _i10.VoidCallback onAddToCart,
-    required _i10.VoidCallback onToggleFavorite,
-    List<_i9.PageRouteInfo>? children,
+    required _i11.VoidCallback onToggleFavorite,
+    List<_i10.PageRouteInfo>? children,
   }) : super(
           ProductsDetailsRoute.name,
           args: ProductsDetailsRouteArgs(
             key: key,
             product: product,
             isFavorite: isFavorite,
-            isInCart: isInCart,
-            onAddToCart: onAddToCart,
             onToggleFavorite: onToggleFavorite,
           ),
           initialChildren: children,
@@ -130,16 +149,14 @@ class ProductsDetailsRoute extends _i9.PageRouteInfo<ProductsDetailsRouteArgs> {
 
   static const String name = 'ProductsDetailsRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProductsDetailsRouteArgs>();
-      return _i5.ProductsDetailsScreen(
+      return _i6.ProductsDetailsScreen(
         key: args.key,
         product: args.product,
         isFavorite: args.isFavorite,
-        isInCart: args.isInCart,
-        onAddToCart: args.onAddToCart,
         onToggleFavorite: args.onToggleFavorite,
       );
     },
@@ -151,33 +168,27 @@ class ProductsDetailsRouteArgs {
     this.key,
     required this.product,
     required this.isFavorite,
-    required this.isInCart,
-    required this.onAddToCart,
     required this.onToggleFavorite,
   });
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
-  final _i11.Product product;
+  final _i12.ProductEntity product;
 
   final bool isFavorite;
 
-  final bool isInCart;
-
-  final _i10.VoidCallback onAddToCart;
-
-  final _i10.VoidCallback onToggleFavorite;
+  final _i11.VoidCallback onToggleFavorite;
 
   @override
   String toString() {
-    return 'ProductsDetailsRouteArgs{key: $key, product: $product, isFavorite: $isFavorite, isInCart: $isInCart, onAddToCart: $onAddToCart, onToggleFavorite: $onToggleFavorite}';
+    return 'ProductsDetailsRouteArgs{key: $key, product: $product, isFavorite: $isFavorite, onToggleFavorite: $onToggleFavorite}';
   }
 }
 
 /// generated route for
-/// [_i6.SignInScreen]
-class SignInRoute extends _i9.PageRouteInfo<void> {
-  const SignInRoute({List<_i9.PageRouteInfo>? children})
+/// [_i7.SignInScreen]
+class SignInRoute extends _i10.PageRouteInfo<void> {
+  const SignInRoute({List<_i10.PageRouteInfo>? children})
       : super(
           SignInRoute.name,
           initialChildren: children,
@@ -185,18 +196,18 @@ class SignInRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'SignInRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i6.SignInScreen();
+      return const _i7.SignInScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.SignUpScreen]
-class SignUpRoute extends _i9.PageRouteInfo<void> {
-  const SignUpRoute({List<_i9.PageRouteInfo>? children})
+/// [_i8.SignUpScreen]
+class SignUpRoute extends _i10.PageRouteInfo<void> {
+  const SignUpRoute({List<_i10.PageRouteInfo>? children})
       : super(
           SignUpRoute.name,
           initialChildren: children,
@@ -204,18 +215,18 @@ class SignUpRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'SignUpRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i7.SignUpScreen();
+      return const _i8.SignUpScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.SplashScreen]
-class SplashRoute extends _i9.PageRouteInfo<void> {
-  const SplashRoute({List<_i9.PageRouteInfo>? children})
+/// [_i9.SplashScreen]
+class SplashRoute extends _i10.PageRouteInfo<void> {
+  const SplashRoute({List<_i10.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -223,10 +234,10 @@ class SplashRoute extends _i9.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static _i9.PageInfo page = _i9.PageInfo(
+  static _i10.PageInfo page = _i10.PageInfo(
     name,
     builder: (data) {
-      return const _i8.SplashScreen();
+      return const _i9.SplashScreen();
     },
   );
 }

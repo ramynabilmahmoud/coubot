@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:coubot/config/themes/app_colors.dart';
 import 'package:coubot/features/app_layout/presentation/cubits/app_layout_cubit.dart';
 import 'package:coubot/features/home/presentation/screens/home_screen.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// AppLayoutScreen is used to manage the app layout
-@RoutePage()
 class AppLayoutScreen extends StatelessWidget {
   /// AppLayoutScreen constructor
   const AppLayoutScreen({super.key});
@@ -32,18 +30,18 @@ class AppLayoutScreen extends StatelessWidget {
               selectedItemColor: AppColors.primary,
               unselectedItemColor: AppColors.mutedText,
               elevation: 8,
-              items:  [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home_rounded),
+                  icon: const Icon(Icons.home_rounded),
                   label: S.of(context).home,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag_rounded),
+                  icon: const Icon(Icons.shopping_bag_rounded),
                   label: S.of(context).orders,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person_rounded),
-                  label: S.of(context).profile  ,
+                  icon: const Icon(Icons.person_rounded),
+                  label: S.of(context).profile,
                 ),
               ],
             ),

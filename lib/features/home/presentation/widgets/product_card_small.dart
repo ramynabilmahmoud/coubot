@@ -2,10 +2,10 @@ import 'package:coubot/features/home/presentation/widgets/product_image_widget.d
 import 'package:flutter/material.dart';
 import '../../../../config/themes/app_colors.dart';
 import '../../../../core/widgets/price_rating_row.dart';
-import '../../domain/entities/product.dart';
+import '../../domain/entities/product_entity.dart';
 
 class ProductCardSmall extends StatelessWidget {
-  final Product product;
+  final ProductEntity product;
   final VoidCallback? onTap;
   final bool isFavorite;
   final VoidCallback? onFavoriteTap;

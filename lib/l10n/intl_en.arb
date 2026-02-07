@@ -62,5 +62,11 @@
   "home": "Home",
   "profile": "Profile",
   "orders": "Orders",
-  "coubot": "COUBOT"
+  "coubot": "COUBOT",
+  "myCart": "My Cart",
+  "checkout": "Checkout",
+  "total": "Total",
+  "delivery": "Delivery",
+  "subtotal": "Subtotal",
+  "cartIsEmpty": "Cart is empty"
 }
