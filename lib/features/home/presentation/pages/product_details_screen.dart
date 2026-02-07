@@ -23,7 +23,7 @@ class ProductsDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quantity = ValueNotifier<int>(1);
-
+    print(product.imageUrl);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -35,7 +35,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                 children: [
                   Positioned.fill(
                     child: Image.network(
-                      product.safeImageUrl,
+                      product.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       loadingBuilder: (context, child, progress) {
@@ -180,7 +180,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                               title: product.name,
                               subtitle: product.description,
                               price: product.price,
-                              imageUrl: product.safeImageUrl,
+                              imageUrl: product.imageUrl,
                               qty: qty,
                             );
 
