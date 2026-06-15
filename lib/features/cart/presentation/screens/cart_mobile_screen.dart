@@ -14,21 +14,15 @@ class CartMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        elevation: 0,
-        centerTitle: true,
         title: Text(
           S.of(context).myCart,
           style: const TextStyle(
             fontWeight: FontWeight.w900,
             letterSpacing: 0.8,
             fontSize: 16,
-            color: Colors.white,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             onPressed: () => context.read<CartCubit>().clearCart(),
@@ -96,10 +90,10 @@ class CartMobileScreen extends StatelessWidget {
               /// Bottom Summary
               Container(
                 padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  boxShadow: [
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 8,
@@ -138,8 +132,19 @@ class CartMobileScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        onPressed: () {
-                          // later: checkout
+                        onPressed: () async {
+                          final success =
+                              await context.read<CartCubit>().checkout();
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                success
+                                    ? S.of(context).orderPlacedSuccessfully
+                                    : S.of(context).failedToPlaceOrder,
+                              ),
+                            ),
+                          );
                         },
                         child: Text(
                         S.of(context).checkout,

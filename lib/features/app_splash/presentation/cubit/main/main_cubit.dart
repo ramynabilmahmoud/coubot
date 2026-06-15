@@ -8,8 +8,10 @@ import 'package:coubot/core/base_usecase.dart';
 import 'package:coubot/core/utils/app_strings.dart';
 import 'package:coubot/core/utils/theme_helper.dart';
 import 'package:coubot/features/app_splash/domain/usecases/change_lang.dart';
+import 'package:coubot/features/app_splash/domain/usecases/change_notifications.dart';
 import 'package:coubot/features/app_splash/domain/usecases/change_theme_mode.dart';
 import 'package:coubot/features/app_splash/domain/usecases/get_saved_lang.dart';
+import 'package:coubot/features/app_splash/domain/usecases/get_saved_notifications.dart';
 import 'package:coubot/features/app_splash/domain/usecases/get_saved_theme_mode.dart';
 import 'package:coubot/generated/l10n.dart';
 import 'package:coubot/main.dart';
@@ -36,6 +38,8 @@ class MainCubit extends Cubit<MainState> {
     this._changeLangUseCase,
     this._getSavedThemeModeUseCase,
     this._changeThemeModeUseCase,
+    this._getSavedNotificationsUseCase,
+    this._changeNotificationsUseCase,
   ) : super(MainInitialState());
 
   /// a static method to get the cubit instance
@@ -52,6 +56,12 @@ class MainCubit extends Cubit<MainState> {
 
   /// the current theme mode
   ThemeMode currentThemeMode = ThemeMode.system;
+
+  final GetSavedNotificationsUseCase _getSavedNotificationsUseCase;
+  final ChangeNotificationsUseCase _changeNotificationsUseCase;
+
+  /// whether push notifications are enabled
+  bool currentNotificationsEnabled = true;
 
   /// changes the theme mode
   Future<void> changeTheme({
@@ -93,6 +103,30 @@ class MainCubit extends Cubit<MainState> {
       currentLangCode = value;
       emit(MainGetLocaleState());
     });
+  }
+
+  /// gets the saved notifications preference
+  Future<void> getSavedNotifications() async {
+    final response = await _getSavedNotificationsUseCase.call(NoParameters());
+    response.fold(
+      (failure) => currentNotificationsEnabled = true,
+      (value) {
+        currentNotificationsEnabled = value;
+        emit(MainGetNotificationsState());
+      },
+    );
+  }
+
+  /// changes the notifications enabled preference
+  Future<void> changeNotifications({required bool enabled}) async {
+    final response = await _changeNotificationsUseCase.call(enabled);
+    response.fold(
+      (failure) {},
+      (value) {
+        currentNotificationsEnabled = enabled;
+        emit(MainChangeNotificationsState());
+      },
+    );
   }
 
   /// changes the language

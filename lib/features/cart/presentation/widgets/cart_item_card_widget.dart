@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coubot/config/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -26,126 +27,169 @@ class CartItemCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Image / Placeholder
+          // Image
           Container(
-            width: 60,
-            height: 60,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
-              color: AppColors.chipBg,
-              borderRadius: BorderRadius.circular(14),
+              color: cs.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
             ),
             clipBehavior: Clip.antiAlias,
             child: (imageUrl != null && imageUrl!.trim().isNotEmpty)
-                ? Image.network(
-                    imageUrl!,
-                    fit: BoxFit.cover,
-                  )
-                : const Icon(
-                    Icons.fastfood,
-                    color: AppColors.primary,
-                    size: 28,
-                  ),
+                ? CachedNetworkImage(imageUrl: imageUrl!, fit: BoxFit.cover)
+                : const Icon(Icons.fastfood, color: AppColors.primary, size: 32),
           ),
 
-          const SizedBox(width: 12),
+          const SizedBox(width: 14),
 
-          /// Info
+          // Content
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Title row + remove button
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Text(
                         title,
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 14,
-                          color: AppColors.text,
+                          color: cs.onSurface,
                         ),
                       ),
                     ),
-
-                    /// Remove Button
-                    IconButton(
-                      onPressed: onRemove,
-                      icon: const Icon(Icons.close),
-                      iconSize: 18,
-                      color: AppColors.mutedText,
-                      splashRadius: 18,
+                    GestureDetector(
+                      onTap: onRemove,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: cs.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          size: 16,
+                          color: cs.onSurface.withValues(alpha: 0.5),
+                        ),
+                      ),
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 4),
+
                 Text(
                   subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.mutedText,
+                    color: cs.onSurface.withValues(alpha: 0.55),
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  "${price.toStringAsFixed(0)} EGP",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: AppColors.primary,
-                  ),
+
+                const SizedBox(height: 10),
+
+                // Price + qty pill row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "${price.toStringAsFixed(0)} EGP",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14,
+                        color: AppColors.primary,
+                      ),
+                    ),
+
+                    // Pill stepper
+                    Container(
+                      decoration: BoxDecoration(
+                        color: cs.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: cs.outline.withValues(alpha: 0.2)),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _StepperButton(icon: Icons.remove, onTap: onMinus),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              '$quantity',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 14,
+                                color: cs.onSurface,
+                              ),
+                            ),
+                          ),
+                          _StepperButton(
+                            icon: Icons.add,
+                            onTap: onPlus,
+                            filled: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-
-          /// Quantity Buttons
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.add, color: Colors.white, size: 18),
-                  onPressed: onPlus,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                "$quantity",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: AppColors.text,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.chipBg,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.remove, color: AppColors.primary, size: 18),
-                  onPressed: onMinus,
-                ),
-              ),
-            ],
-          )
         ],
+      ),
+    );
+  }
+}
+
+class _StepperButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool filled;
+
+  const _StepperButton({required this.icon, required this.onTap, this.filled = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(
+          color: filled ? AppColors.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Icon(
+          icon,
+          size: 16,
+          color: filled ? Colors.white : AppColors.primary,
+        ),
       ),
     );
   }

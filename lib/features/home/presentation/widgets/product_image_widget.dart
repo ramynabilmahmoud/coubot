@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductImageWidget extends StatelessWidget {
@@ -14,30 +15,23 @@ class ProductImageWidget extends StatelessWidget {
 
   String get _resolved {
     final u = (url ?? '').trim();
-
-    // منع via.placeholder.com نهائيًا + fallback ثابت
     if (u.isEmpty || u.contains('via.placeholder.com')) {
-      return "https://picsum.photos/seed/$seed/900/600";
+      return 'https://picsum.photos/seed/$seed/900/600';
     }
     return u;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      _resolved,
+    return CachedNetworkImage(
+      imageUrl: _resolved,
       fit: fit,
-      loadingBuilder: (context, child, progress) {
-        if (progress == null) return child;
-        return const Center(child: CircularProgressIndicator.adaptive());
-      },
-      errorBuilder: (context, error, stackTrace) {
-        return Container(
-          color: Colors.black12,
-          alignment: Alignment.center,
-          child: const Icon(Icons.image_not_supported_outlined, size: 28),
-        );
-      },
+      placeholder: (_, __) => const Center(child: CircularProgressIndicator.adaptive()),
+      errorWidget: (_, __, ___) => Container(
+        color: Colors.black12,
+        alignment: Alignment.center,
+        child: const Icon(Icons.image_not_supported_outlined, size: 28),
+      ),
     );
   }
 }

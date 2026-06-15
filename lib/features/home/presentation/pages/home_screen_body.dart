@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:coubot/config/routes/app_router.gr.dart';
-import 'package:coubot/core/presentation/widgets/custom_button.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,10 +7,10 @@ import '../../../../core/widgets/section_header.dart';
 import '../../domain/entities/product_entity.dart';
 import '../cubits/home_cubit.dart';
 import '../cubits/home_state.dart';
-import '../widgets/category_shortcuts.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/product_card_large.dart';
 import '../widgets/product_horizontal_list.dart';
+import 'product_details_screen.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -23,16 +21,10 @@ class HomeScreenBody extends StatelessWidget {
       body: Column(
         children: [
           const HomeAppBar(),
-
           Expanded(
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                if (state is HomeInitial) {
-                  context.read<HomeCubit>().load();
-                  return const Center(child: CircularProgressIndicator.adaptive());
-                }
-
-                if (state is HomeLoading) {
+                if (state is HomeInitial || state is HomeLoading) {
                   return const Center(child: CircularProgressIndicator.adaptive());
                 }
 
@@ -43,134 +35,23 @@ class HomeScreenBody extends StatelessWidget {
                 final loaded = state as HomeLoaded;
                 final feed = loaded.feed;
                 final cubit = context.read<HomeCubit>();
-
-                // 👇 المنتجات اللي هتتعرض
-                final displayProducts = loaded.searchQuery.isNotEmpty
-                    ? cubit.getFilteredProducts(feed)
-                    : feed.buyAgain;
+                final isSearching = loaded.searchQuery.isNotEmpty;
 
                 return RefreshIndicator(
                   onRefresh: () => context.read<HomeCubit>().load(),
-                  child: ListView(
-                    padding: const EdgeInsets.only(top: 8, bottom: 24),
-                    children: [
-                      // ✅ SearchBarWidget اتشالت
-
-                      // Top items section
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SectionHeader(title: "Top items", onSeeAll: () {}),
-                      ),
-                      const SizedBox(height: 10),
-
-                      ProductHorizontalList(
-                        products: feed.topItems,
-                        onTap: (product) => _openProductDetails(context, product, loaded, cubit),
-                        isFavoriteChecker: (productId) => loaded.favorites.contains(productId),
-                        onFavoriteTap: (product) => cubit.toggleFavorite(product),
-                      ),
-
-                      const SizedBox(height: 14),
-
-                      // Category shortcuts
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: CategoryShortcuts(
-                          categories: feed.categories,
-                          onTap: (category) {
-                            cubit.filterByCategory(
-                              loaded.selectedCategoryId == category.id ? null : category,
-                            );
-                          },
-                          selectedCategoryId: loaded.selectedCategoryId,
+                  child: isSearching
+                      ? _SearchResultsBody(
+                          products: cubit.getFilteredProducts(feed),
+                          loaded: loaded,
+                          cubit: cubit,
+                          context: context,
+                        )
+                      : _CategoryFeedBody(
+                          grouped: cubit.getProductsGroupedByCategory(feed),
+                          loaded: loaded,
+                          cubit: cubit,
+                          context: context,
                         ),
-                      ),
-
-                      const SizedBox(height: 18),
-
-                      // Buy again section (or search results)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SectionHeader(
-                          title: loaded.searchQuery.isNotEmpty ? "Search Results" : "Buy again",
-                          onSeeAll: () {},
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Grid OR Empty State
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final width = constraints.maxWidth;
-                            final itemWidth = (width - 12) / 2;
-
-                            if (displayProducts.isEmpty) {
-                              final isSearching = loaded.searchQuery.isNotEmpty;
-
-                              if (isSearching) {
-                                return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 24),
-                                  child: Center(child: Text("No products found")),
-                                );
-                              }
-
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 28),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Text(
-                                        "No items to buy again",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.mutedText,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 14),
-                                      SizedBox(
-                                        width: 220,
-                                        child: CustomButton(
-                                          title: "Make an order",
-                                          icon: Icons.shopping_bag_outlined,
-                                          height: 52,
-                                          onPressed: () {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              const SnackBar(content: Text("Start a new order")),
-                                            );
-                                            // context.router.push(const CreateOrderRoute());
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-
-                            return Wrap(
-                              spacing: 12,
-                              runSpacing: 12,
-                              children: displayProducts.map((p) {
-                                return SizedBox(
-                                  width: itemWidth,
-                                  child: ProductCardLarge(
-                                    product: p,
-                                    isFavorite: loaded.favorites.contains(p.id),
-                                    onFavoriteTap: () => cubit.toggleFavorite(p),
-                                    onTap: () => _openProductDetails(context, p, loaded, cubit),
-                                  ),
-                                );
-                              }).toList(),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
                 );
               },
             ),
@@ -180,17 +61,138 @@ class HomeScreenBody extends StatelessWidget {
     );
   }
 
-  void _openProductDetails(
-    BuildContext context,
-    ProductEntity product,
-    HomeLoaded state,
-    HomeCubit cubit,
-  ) {
-    context.router.push(
-      ProductsDetailsRoute(
-        product: product,
-        isFavorite: state.favorites.contains(product.id),
-        onToggleFavorite: () => cubit.toggleFavorite(product),
+}
+
+// ── Category feed: one horizontal row per category ──────────────────────────
+
+class _CategoryFeedBody extends StatelessWidget {
+  final Map grouped;
+  final HomeLoaded loaded;
+  final HomeCubit cubit;
+  final BuildContext context;
+
+  const _CategoryFeedBody({
+    required this.grouped,
+    required this.loaded,
+    required this.cubit,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext ctx) {
+    if (grouped.isEmpty) {
+      return Center(
+        child: Text(
+          S.of(ctx).noItemsAvailable,
+          style: const TextStyle(color: AppColors.mutedText, fontWeight: FontWeight.w600),
+        ),
+      );
+    }
+
+    final entries = grouped.entries.toList();
+
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 12, bottom: 32),
+      itemCount: entries.length,
+      itemBuilder: (_, i) {
+        final category = entries[i].key;
+        final products = entries[i].value as List<ProductEntity>;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              child: SectionHeader(title: category.title),
+            ),
+            const SizedBox(height: 8),
+            ProductHorizontalList(
+              products: products,
+              onTap: (p) => _open(ctx, p),
+              isFavoriteChecker: (id) => loaded.favorites.contains(id),
+              onFavoriteTap: (p) => cubit.toggleFavorite(p),
+            ),
+            const SizedBox(height: 4),
+          ],
+        );
+      },
+    );
+  }
+
+  void _open(BuildContext ctx, ProductEntity product) {
+    Navigator.of(ctx).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: cubit,
+          child: ProductsDetailsScreen(
+            product: product,
+            isFavorite: loaded.favorites.contains(product.id),
+            onToggleFavorite: () => cubit.toggleFavorite(product),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Search results: 2-column grid ───────────────────────────────────────────
+
+class _SearchResultsBody extends StatelessWidget {
+  final List<ProductEntity> products;
+  final HomeLoaded loaded;
+  final HomeCubit cubit;
+  final BuildContext context;
+
+  const _SearchResultsBody({
+    required this.products,
+    required this.loaded,
+    required this.cubit,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext ctx) {
+    if (products.isEmpty) {
+      return Center(
+        child: Text(
+          S.of(ctx).noProductsFound,
+          style: const TextStyle(color: AppColors.mutedText, fontWeight: FontWeight.w600),
+        ),
+      );
+    }
+
+    return GridView.builder(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 0.72,
+      ),
+      itemCount: products.length,
+      itemBuilder: (_, i) {
+        final p = products[i];
+        return ProductCardLarge(
+          product: p,
+          isFavorite: loaded.favorites.contains(p.id),
+          onFavoriteTap: () => cubit.toggleFavorite(p),
+          onTap: () => _open(ctx, p),
+        );
+      },
+    );
+  }
+
+  void _open(BuildContext ctx, ProductEntity product) {
+    Navigator.of(ctx).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: cubit,
+          child: ProductsDetailsScreen(
+            product: product,
+            isFavorite: loaded.favorites.contains(product.id),
+            onToggleFavorite: () => cubit.toggleFavorite(product),
+          ),
+        ),
       ),
     );
   }

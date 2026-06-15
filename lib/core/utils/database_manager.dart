@@ -65,6 +65,17 @@ class DatabaseManager {
     );
   }
 
+  /// set push notifications enabled preference
+  void setNotificationsEnabled(bool enabled) {
+    Hive.box<dynamic>(DataBoxes.settings.name).put('notificationsEnabled', enabled);
+  }
+
+  /// get push notifications enabled preference
+  Future<bool> getNotificationsEnabled() async {
+    final box = Hive.box<dynamic>(DataBoxes.settings.name);
+    return Future.value((box.get('notificationsEnabled') as bool?) ?? true);
+  }
+
   /// set that the user has seen the onboarding screen
   void get setOnBoarding {
     Hive.box<dynamic>(DataBoxes.settings.name).put('onboardingShowed', true);

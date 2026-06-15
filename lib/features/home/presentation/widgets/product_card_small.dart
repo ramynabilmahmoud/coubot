@@ -1,4 +1,5 @@
 import 'package:coubot/features/home/presentation/widgets/product_image_widget.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/app_colors.dart';
@@ -21,7 +22,6 @@ class ProductCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(product.imageUrl);
     return SizedBox(
       width: 170,
       child: InkWell(
@@ -54,9 +54,9 @@ class ProductCardSmall extends StatelessWidget {
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(999),
                         ),
-                        child: const Text(
-                          "On sale",
-                          style: TextStyle(
+                        child: Text(
+                          S.of(context).onSale,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                             fontSize: 12,
@@ -102,7 +102,9 @@ class ProductCardSmall extends StatelessWidget {
                       product.description,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.mutedText),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.55),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     PriceRatingRow(price: product.price, rating: product.rating),

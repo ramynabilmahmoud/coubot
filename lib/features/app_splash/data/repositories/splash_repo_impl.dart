@@ -58,4 +58,24 @@ class SplashRepoImpl implements SplashRepo {
       return Left(Failure.fromObject(e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> changeNotifications({required bool enabled}) async {
+    try {
+      final result = await splashLocalDataSource.changeNotifications(enabled: enabled);
+      return Right(result);
+    } catch (e) {
+      return Left(Failure.fromObject(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> getSavedNotifications() async {
+    try {
+      final enabled = await splashLocalDataSource.getSavedNotifications();
+      return Right(enabled);
+    } catch (e) {
+      return Left(RegularFailure('Error getting saved notifications'));
+    }
+  }
 }

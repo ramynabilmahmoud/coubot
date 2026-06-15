@@ -2,8 +2,10 @@
 
 import 'package:coubot/core/injection_container.dart';
 import 'package:coubot/features/app_splash/domain/usecases/change_lang.dart';
+import 'package:coubot/features/app_splash/domain/usecases/change_notifications.dart';
 import 'package:coubot/features/app_splash/domain/usecases/change_theme_mode.dart';
 import 'package:coubot/features/app_splash/domain/usecases/get_saved_lang.dart';
+import 'package:coubot/features/app_splash/domain/usecases/get_saved_notifications.dart';
 import 'package:coubot/features/app_splash/domain/usecases/get_saved_theme_mode.dart';
 import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
@@ -21,9 +23,12 @@ class MultiBlocManager {
               getIt<ChangeLangUseCase>(),
               getIt<GetSavedThemeModeUseCase>(),
               getIt<ChangeThemeModeUseCase>(),
+              getIt<GetSavedNotificationsUseCase>(),
+              getIt<ChangeNotificationsUseCase>(),
             )
             ..getSavedLang()
             ..getSavedThemeMode()
+            ..getSavedNotifications()
             ..deepLinkHandler(context: context)
             ..authChangeTracker(),
     ),

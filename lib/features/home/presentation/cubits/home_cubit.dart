@@ -10,13 +10,21 @@ import 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final GetHomeFeed getHomeFeed;
-  HomeCubit(this.getHomeFeed) : super( HomeInitial());
+  final HomeRepository _repo;
+
+  HomeCubit(this.getHomeFeed, this._repo) : super(HomeInitial());
 
   Future<void> load() async {
-    emit( HomeLoading());
+    emit(HomeLoading());
     try {
-      final feed = await getHomeFeed();
-      emit(HomeLoaded(feed: feed));
+      final results = await Future.wait([
+        getHomeFeed(),
+        _repo.getFavourites(),
+      ]);
+      emit(HomeLoaded(
+        feed: results[0] as HomeFeed,
+        favorites: results[1] as List<String>,
+      ));
     } catch (e) {
       emit(HomeError(e.toString()));
     }
@@ -59,7 +67,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(cartItems: updatedCart));
   }
 
-  /// Toggle favorite
+  /// Toggle favorite — optimistic UI then persist to Supabase
   void toggleFavorite(ProductEntity product) {
     final state = this.state;
     if (state is! HomeLoaded) return;
@@ -70,37 +78,42 @@ class HomeCubit extends Cubit<HomeState> {
     } else {
       updatedFavorites.add(product.id);
     }
+
+    // Optimistic update
     emit(state.copyWith(favorites: updatedFavorites));
+
+    // Persist asynchronously — revert on failure
+    _repo.updateFavourites(updatedFavorites).catchError((_) {
+      if (this.state is HomeLoaded) {
+        emit((this.state as HomeLoaded).copyWith(favorites: state.favorites));
+      }
+    });
   }
 
-  /// Get filtered products based on search and category
+  /// Products grouped by category — used for home feed sections
+  Map<CategoryEntity, List<ProductEntity>> getProductsGroupedByCategory(HomeFeed feed) {
+    final result = <CategoryEntity, List<ProductEntity>>{};
+    for (final category in feed.categories) {
+      final products = feed.topItems.where((p) => p.categoryId == category.id).toList();
+      if (products.isNotEmpty) result[category] = products;
+    }
+    return result;
+  }
+
+  /// Flat filtered list used for search results
   List<ProductEntity> getFilteredProducts(HomeFeed feed) {
-    var products = [...feed.topItems, ...feed.buyAgain];
+    if (state is! HomeLoaded) return feed.topItems;
+    final loaded = state as HomeLoaded;
 
-    // Filter by category (using category title matching for demo)
-    if (state is HomeLoaded) {
-      final selectedCategoryId = (state as HomeLoaded).selectedCategoryId;
-      if (selectedCategoryId != null) {
-        // Filter logic - you can enhance this based on your data model
-        products = products.where((p) => p.id.isNotEmpty).toList();
-      }
-    }
+    if (loaded.searchQuery.isEmpty) return feed.topItems;
 
-    // Filter by search query
-    if (state is HomeLoaded) {
-      final query = (state as HomeLoaded).searchQuery.toLowerCase();
-      if (query.isNotEmpty) {
-        products = products
-            .where((p) {
-              final name = p.name;
-              final description = p.description;
-              return name.toLowerCase().contains(query) ||
-                  description.toLowerCase().contains(query);
-            })
-            .toList();
-      }
-    }
-
-    return products;
+    final query = loaded.searchQuery.toLowerCase();
+    return feed.topItems
+        .where(
+          (p) =>
+              p.name.toLowerCase().contains(query) ||
+              p.description.toLowerCase().contains(query),
+        )
+        .toList();
   }
 }

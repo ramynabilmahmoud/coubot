@@ -14,4 +14,10 @@ abstract interface class SplashRepo {
 
   /// gets the saved theme mode
   Future<Either<Failure, String>> getSavedThemeMode();
+
+  /// saves the notifications enabled preference
+  Future<Either<Failure, bool>> changeNotifications({required bool enabled});
+
+  /// gets the saved notifications enabled preference
+  Future<Either<Failure, bool>> getSavedNotifications();
 }

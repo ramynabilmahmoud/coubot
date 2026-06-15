@@ -17,8 +17,12 @@ import '../features/app_splash/data/repositories/splash_repo_impl.dart'
     as _i276;
 import '../features/app_splash/domain/repositories/splash_repo.dart' as _i144;
 import '../features/app_splash/domain/usecases/change_lang.dart' as _i344;
+import '../features/app_splash/domain/usecases/change_notifications.dart'
+    as _i166;
 import '../features/app_splash/domain/usecases/change_theme_mode.dart' as _i505;
 import '../features/app_splash/domain/usecases/get_saved_lang.dart' as _i837;
+import '../features/app_splash/domain/usecases/get_saved_notifications.dart'
+    as _i368;
 import '../features/app_splash/domain/usecases/get_saved_theme_mode.dart'
     as _i436;
 import '../features/auth/data/datasources/auth_remote_datasource.dart' as _i130;
@@ -85,13 +89,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i837.GetSavedLangUseCase(splashRepo: gh<_i144.SplashRepo>()));
     gh.lazySingleton<_i436.GetSavedThemeModeUseCase>(() =>
         _i436.GetSavedThemeModeUseCase(splashRepo: gh<_i144.SplashRepo>()));
+    gh.lazySingleton<_i368.GetSavedNotificationsUseCase>(() =>
+        _i368.GetSavedNotificationsUseCase(splashRepo: gh<_i144.SplashRepo>()));
     gh.lazySingleton<_i344.ChangeLangUseCase>(
         () => _i344.ChangeLangUseCase(splashRepo: gh<_i144.SplashRepo>()));
+    gh.lazySingleton<_i166.ChangeNotificationsUseCase>(() =>
+        _i166.ChangeNotificationsUseCase(splashRepo: gh<_i144.SplashRepo>()));
     gh.lazySingleton<_i505.ChangeThemeModeUseCase>(
         () => _i505.ChangeThemeModeUseCase(splashRepo: gh<_i144.SplashRepo>()));
     gh.lazySingleton<_i926.GetHomeFeed>(
         () => _i926.GetHomeFeed(gh<_i66.HomeRepository>()));
-    gh.factory<_i527.HomeCubit>(() => _i527.HomeCubit(gh<_i926.GetHomeFeed>()));
+    gh.factory<_i527.HomeCubit>(() => _i527.HomeCubit(
+          gh<_i926.GetHomeFeed>(),
+          gh<_i66.HomeRepository>(),
+        ));
     return this;
   }
 }

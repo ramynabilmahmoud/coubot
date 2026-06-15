@@ -1,4 +1,6 @@
+import 'package:coubot/config/themes/app_colors.dart';
 import 'package:coubot/core/utils/assets.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -118,10 +120,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Future<void> _submitReview(int orderId, String review) async {
     await supabase.from('orders').update({'notes': review}).eq('id', orderId);
 
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Review added successfully ✅'),
-        backgroundColor: Color(0xFFC72C41),
+      SnackBar(
+        content: Text(S.of(context).reviewAddedSuccessfully),
+        backgroundColor: const Color(0xFFC72C41),
       ),
     );
 
@@ -140,12 +143,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
           builder: (context, setStateDialog) {
             return AlertDialog(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              title: const Text('Leave a Review'),
+              title: Text(S.of(context).leaveAReview),
               content: TextField(
                 controller: controller,
                 maxLines: 4,
                 decoration: InputDecoration(
-                  hintText: 'How was your order?',
+                  hintText: S.of(context).howWasYourOrder,
                   filled: true,
                   fillColor: const Color(0xFFFFF1F1),
                   border: OutlineInputBorder(
@@ -161,21 +164,21 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     children: [
                       Expanded(
                         child: _dialogActionButton(
-                          'Cancel',
+                          S.of(context).cancel,
                           onTap: isSubmitting ? null : () => Navigator.pop(context),
                         ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: _dialogActionButton(
-                          'Submit',
+                          S.of(context).submit,
                           filled: true,
                           onTap: isSubmitting
                               ? null
                               : () async {
                                   setStateDialog(() => isSubmitting = true);
                                   await _submitReview(orderId, controller.text);
-                                  Navigator.pop(context);
+                                  if (context.mounted) Navigator.pop(context);
                                 },
                         ),
                       ),
@@ -206,6 +209,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   /// Pill style button used inside dialogs (auto width, no text cut)
   Widget _dialogActionButton(String text, {bool filled = false, VoidCallback? onTap}) {
+    final surface = Theme.of(context).colorScheme.surface;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -213,9 +217,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: filled ? const Color(0xFFC72C41) : Colors.white,
+          color: filled ? AppColors.primary : surface,
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: const Color(0xFFC72C41)),
+          border: Border.all(color: AppColors.primary),
         ),
         child: FittedBox(
           // 👈 prevents text overflow
@@ -236,11 +240,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF1F1),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFC72C41),
         centerTitle: true,
-        title: const Text('My Orders'),
+        title: Text(S.of(context).myOrders),
       ),
       body: Column(
         children: [
@@ -263,11 +265,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
       child: Row(
         children: [
-          Expanded(child: _tabButton('Active', 'active')),
+          Expanded(child: _tabButton(S.of(context).active, 'active')),
           const SizedBox(width: 8),
-          Expanded(child: _tabButton('Completed', 'completed')),
+          Expanded(child: _tabButton(S.of(context).completed, 'completed')),
           const SizedBox(width: 8),
-          Expanded(child: _tabButton('Cancelled', 'cancelled')),
+          Expanded(child: _tabButton(S.of(context).cancelled, 'cancelled')),
         ],
       ),
     );
@@ -286,9 +288,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
         padding: const EdgeInsets.symmetric(vertical: 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFC72C41) : Colors.white,
+          color: isSelected ? AppColors.primary : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: const Color(0xFFC72C41)),
+          border: Border.all(color: AppColors.primary),
         ),
         child: FittedBox(
           child: Text(
@@ -315,10 +317,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
           children: [
             Image.asset(Assets.genOrdersEmpty, height: 120, color: const Color(0xFFC72C41)),
             const SizedBox(height: 24),
-            const Text(
-              "You don't have any\nactive orders at this time",
+            Text(
+              S.of(context).noActiveOrders,
               textAlign: TextAlign.center,
-              style: TextStyle(fontFamily: 'MadeEvolveSans', fontSize: 18),
+              style: const TextStyle(fontFamily: 'MadeEvolveSans', fontSize: 18),
             ),
           ],
         ),
@@ -341,7 +343,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
         return Container(
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
               Row(
@@ -431,11 +433,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
               Row(
                 children: [
-                  Expanded(child: _bigButton('Reorder')),
+                  Expanded(child: _bigButton(S.of(context).reorder)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: _bigButton(
-                      'Review',
+                      S.of(context).review,
                       filled: true,
                       onTap: () => _showReviewDialog(order['id']),
                     ),
@@ -451,21 +453,22 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   /// Large action button
   Widget _bigButton(String text, {bool filled = false, VoidCallback? onTap}) {
+    final surface = Theme.of(context).colorScheme.surface;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         height: 42,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: filled ? const Color(0xFFC72C41) : Colors.white,
+          color: filled ? AppColors.primary : surface,
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: const Color(0xFFC72C41)),
+          border: Border.all(color: AppColors.primary),
         ),
         child: Text(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: filled ? Colors.white : const Color(0xFFC72C41),
+            color: filled ? Colors.white : AppColors.primary,
           ),
         ),
       ),

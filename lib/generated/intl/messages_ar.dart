@@ -25,12 +25,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("حول"),
+    "active": MessageLookupByLibrary.simpleMessage("نشطة"),
     "addAdditionalDetails": MessageLookupByLibrary.simpleMessage(
       "Add Additional Details",
     ),
+    "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
     "anErrorOccurred": MessageLookupByLibrary.simpleMessage(
       "An error occurred",
     ),
+    "appVersion": MessageLookupByLibrary.simpleMessage("إصدار التطبيق"),
+    "appearance": MessageLookupByLibrary.simpleMessage("المظهر"),
     "authenticationError": MessageLookupByLibrary.simpleMessage(
       "Authentication Error",
     ),
@@ -40,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "badResponseFromApiserver": MessageLookupByLibrary.simpleMessage(
       "Bad response from ApiServer",
     ),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+    "cancelled": MessageLookupByLibrary.simpleMessage("ملغاة"),
     "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "checkYourEmailForTheConfirmationLink":
         MessageLookupByLibrary.simpleMessage(
@@ -47,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "codeSent": MessageLookupByLibrary.simpleMessage("Code Sent"),
+    "completed": MessageLookupByLibrary.simpleMessage("مكتملة"),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(
       "Confirm password is required",
@@ -64,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with E-mail",
     ),
     "coubot": MessageLookupByLibrary.simpleMessage("COUBOT"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
     "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
@@ -83,12 +92,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
       "Failed to load notifications:",
     ),
+    "failedToPlaceOrder": MessageLookupByLibrary.simpleMessage(
+      "فشل تقديم الطلب. حاول مرة أخرى.",
+    ),
+    "favourites": MessageLookupByLibrary.simpleMessage("المفضلة"),
     "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
     "firstNameIsRequired": MessageLookupByLibrary.simpleMessage(
       "First name is required.",
     ),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "howWasYourOrder": MessageLookupByLibrary.simpleMessage("كيف كان طلبك؟"),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
       "Internal server error",
     ),
@@ -98,27 +112,46 @@ class MessageLookup extends MessageLookupByLibrary {
     "justWaitASecond": MessageLookupByLibrary.simpleMessage(
       "Just Wait a Second",
     ),
+    "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+    "leaveAReview": MessageLookupByLibrary.simpleMessage("أضف تقييماً"),
+    "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Login in if you have an account",
     ),
     "myCart": MessageLookupByLibrary.simpleMessage("My Cart"),
+    "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
     "no": MessageLookupByLibrary.simpleMessage("No"),
+    "noActiveOrders": MessageLookupByLibrary.simpleMessage(
+      "ليس لديك أي\nطلبات نشطة في الوقت الحالي",
+    ),
     "noCurrentUserFoundOrCurrentUsersEmailIsNull":
         MessageLookupByLibrary.simpleMessage(
           "No current user found or current user\'s email is null.",
         ),
+    "noFavouritesYet": MessageLookupByLibrary.simpleMessage(
+      "لا توجد مفضلة بعد",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection",
+    ),
+    "noItemsAvailable": MessageLookupByLibrary.simpleMessage(
+      "لا توجد عناصر متاحة",
     ),
     "noNotificationsAvailable": MessageLookupByLibrary.simpleMessage(
       "No notifications available.",
     ),
+    "noProductsFound": MessageLookupByLibrary.simpleMessage("لا توجد منتجات"),
+    "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "onSale": MessageLookupByLibrary.simpleMessage("تخفيض"),
     "oppsThereWasAnErrorPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
       "opps there was an error, please try again",
     ),
     "or": MessageLookupByLibrary.simpleMessage("OR"),
+    "orderPlacedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تقديم طلبك بنجاح!",
+    ),
     "orders": MessageLookupByLibrary.simpleMessage("Orders"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordIsRequired": MessageLookupByLibrary.simpleMessage(
@@ -141,21 +174,33 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please enter a valid phone number",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "pushNotifications": MessageLookupByLibrary.simpleMessage(
+      "الإشعارات الفورية",
+    ),
+    "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
     "receiveTimeoutInConnectionWithApiserver":
         MessageLookupByLibrary.simpleMessage(
           "Receive timeout in connection with ApiServer",
         ),
+    "reorder": MessageLookupByLibrary.simpleMessage("إعادة الطلب"),
     "requestToApiserverWasCancelled": MessageLookupByLibrary.simpleMessage(
       "Request to ApiServer was cancelled",
     ),
     "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "review": MessageLookupByLibrary.simpleMessage("تقييم"),
+    "reviewAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تمت إضافة التقييم بنجاح",
+    ),
+    "searchProducts": MessageLookupByLibrary.simpleMessage("ابحث عن منتجات..."),
     "secondNameIsRequired": MessageLookupByLibrary.simpleMessage(
       "Second name is required.",
     ),
+    "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
     "sendAgain": MessageLookupByLibrary.simpleMessage("Send Again"),
     "sendTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
       "Send timeout with ApiServer",
     ),
+    "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signInFailedPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
       "Sign in failed, please try again",
     ),
@@ -171,7 +216,11 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Something went wrong, please try again later",
         ),
+    "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
     "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
+    "tapHeartToSaveFavourites": MessageLookupByLibrary.simpleMessage(
+      "اضغط على القلب في أي عنصر لحفظه هنا",
+    ),
     "total": MessageLookupByLibrary.simpleMessage("Total"),
     "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
       "Unknown error occurred",

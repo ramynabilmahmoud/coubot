@@ -15,4 +15,6 @@ class HomeFeed {
 
 abstract class HomeRepository {
   Future<HomeFeed> getHomeFeed();
+  Future<List<String>> getFavourites();
+  Future<void> updateFavourites(List<String> productIds);
 }

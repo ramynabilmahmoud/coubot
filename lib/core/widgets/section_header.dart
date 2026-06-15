@@ -1,3 +1,4 @@
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../config/themes/app_colors.dart';
 
@@ -17,7 +18,7 @@ class SectionHeader extends StatelessWidget {
           TextButton(
             onPressed: onSeeAll,
             style: TextButton.styleFrom(foregroundColor: AppColors.primary),
-            child: const Text("See all"),
+            child: Text(S.of(context).seeAll),
           ),
       ],
     );

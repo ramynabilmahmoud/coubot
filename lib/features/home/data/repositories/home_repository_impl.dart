@@ -10,4 +10,11 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<HomeFeed> getHomeFeed() => remote.getHomeFeed();
+
+  @override
+  Future<List<String>> getFavourites() => remote.getFavourites();
+
+  @override
+  Future<void> updateFavourites(List<String> productIds) =>
+      remote.updateFavourites(productIds);
 }

@@ -15,6 +15,12 @@ abstract class HomeRemoteDataSource {
   /// - top items (always)
   /// - buy again (only if user has previous orders)
   Future<HomeFeed> getHomeFeed();
+
+  /// Returns the list of product IDs the current user has favourited.
+  Future<List<String>> getFavourites();
+
+  /// Persists the full favourites list for the current user.
+  Future<void> updateFavourites(List<String> productIds);
 }
 
 @LazySingleton(as: HomeRemoteDataSource)
@@ -90,6 +96,34 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     final list = (res as List).cast<Map<String, dynamic>>();
     return list.map(ProductModel.fromJson).toList();
+  }
+
+  @override
+  Future<List<String>> getFavourites() async {
+    try {
+      final userId = _client.auth.currentUser?.id;
+      if (userId == null) return [];
+      final res = await _client
+          .from('users')
+          .select('favourites')
+          .eq('id', userId)
+          .single();
+      final raw = res['favourites'];
+      if (raw == null) return [];
+      return List<String>.from(raw as List);
+    } catch (_) {
+      return [];
+    }
+  }
+
+  @override
+  Future<void> updateFavourites(List<String> productIds) async {
+    final userId = _client.auth.currentUser?.id;
+    if (userId == null) return;
+    await _client
+        .from('users')
+        .update({'favourites': productIds})
+        .eq('id', userId);
   }
 
   /// buy again:

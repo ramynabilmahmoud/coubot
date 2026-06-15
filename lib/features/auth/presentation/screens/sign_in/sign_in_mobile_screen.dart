@@ -113,9 +113,8 @@ class SignInMobileScreen extends StatelessWidget {
                                 !isLoading;
 
                             return AuthMainButton(
-                              text: isLoading
-                                  ? S.of(context).justWaitASecond
-                                  : S.of(context).login,
+                              text: S.of(context).login,
+                              isLoading: isLoading,
                               onPressed: canSubmit
                                   ? loginCubit.signInWithEmailAndPassword
                                   : null,

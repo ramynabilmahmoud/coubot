@@ -15,6 +15,12 @@ abstract interface class SplashLocalDataSource {
 
   /// gets the saved theme mode from the local storage
   Future<String> getSavedThemeMode();
+
+  /// saves the notifications enabled preference
+  Future<bool> changeNotifications({required bool enabled});
+
+  /// gets the saved notifications enabled preference
+  Future<bool> getSavedNotifications();
 }
 
 /// this class is responsible for saving and getting the language code
@@ -52,7 +58,21 @@ class SplashLocalDataSourceImpl implements SplashLocalDataSource {
 
   @override
   Future<String> getSavedThemeMode() async {
-    return getIt<DatabaseManager>()
-        .getThemeMode(); // Access the static method using the class name
+    return getIt<DatabaseManager>().getThemeMode();
+  }
+
+  @override
+  Future<bool> changeNotifications({required bool enabled}) async {
+    try {
+      getIt<DatabaseManager>().setNotificationsEnabled(enabled);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> getSavedNotifications() async {
+    return getIt<DatabaseManager>().getNotificationsEnabled();
   }
 }

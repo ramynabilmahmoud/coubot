@@ -1,14 +1,15 @@
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/themes/app_colors.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final ValueChanged<String> onSearch;
-  final String hintText;
+  final String? hintText;
 
   const SearchBarWidget({
     super.key,
     required this.onSearch,
-    this.hintText = 'Search products...',
+    this.hintText,
   });
 
   @override
@@ -23,7 +24,7 @@ class SearchBarWidget extends StatelessWidget {
       child: TextField(
         onChanged: onSearch,
         decoration: InputDecoration(
-          hintText: hintText,
+          hintText: hintText ?? S.of(context).searchProducts,
           hintStyle: const TextStyle(color: AppColors.mutedText),
           prefixIcon: const Icon(Icons.search, color: AppColors.mutedText),
           border: InputBorder.none,

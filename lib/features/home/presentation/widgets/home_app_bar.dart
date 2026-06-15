@@ -44,6 +44,11 @@ class HomeAppBar extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: BlocBuilder<CartCubit, CartState>(
+                  buildWhen: (prev, next) {
+                    final prevQty = prev is CartLoaded ? prev.totalQuantity : 0;
+                    final nextQty = next is CartLoaded ? next.totalQuantity : 0;
+                    return prevQty != nextQty;
+                  },
                   builder: (context, state) {
                     final qty = (state is CartLoaded) ? state.totalQuantity : 0;
 

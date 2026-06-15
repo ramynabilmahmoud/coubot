@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/themes/app_colors.dart';
 import '../../../../core/widgets/price_rating_row.dart';
 import '../../domain/entities/product_entity.dart';
+import '../cubits/home_cubit.dart';
+import '../cubits/home_state.dart';
 
 @RoutePage()
 class ProductsDetailsScreen extends StatelessWidget {
@@ -23,7 +27,6 @@ class ProductsDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quantity = ValueNotifier<int>(1);
-    print(product.imageUrl);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -34,21 +37,16 @@ class ProductsDetailsScreen extends StatelessWidget {
               background: Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.network(
-                      product.imageUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
-                      width: double.infinity,
-                      loadingBuilder: (context, child, progress) {
-                        if (progress == null) return child;
-                        return const Center(child: CircularProgressIndicator.adaptive());
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.black12,
-                          alignment: Alignment.center,
-                          child: const Icon(Icons.image_not_supported_outlined, size: 40),
-                        );
-                      },
+                      placeholder: (_, __) =>
+                          const Center(child: CircularProgressIndicator.adaptive()),
+                      errorWidget: (_, __, ___) => Container(
+                        color: Colors.black12,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.image_not_supported_outlined, size: 40),
+                      ),
                     ),
                   ),
                   if (product.onSale)
@@ -61,9 +59,9 @@ class ProductsDetailsScreen extends StatelessWidget {
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'ON SALE',
-                          style: TextStyle(
+                        child: Text(
+                          S.of(context).onSale,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
                             fontSize: 12,
@@ -97,18 +95,28 @@ class ProductsDetailsScreen extends StatelessWidget {
                                 const SizedBox(height: 4),
                                 Text(
                                   product.description,
-                                  style: const TextStyle(color: AppColors.mutedText, fontSize: 14),
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          IconButton(
-                            onPressed: onToggleFavorite,
-                            icon: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border,
-                              color: AppColors.primary,
-                              size: 28,
-                            ),
+                          BlocBuilder<HomeCubit, HomeState>(
+                            builder: (context, homeState) {
+                              final liveFav = homeState is HomeLoaded
+                                  ? homeState.favorites.contains(product.id)
+                                  : isFavorite;
+                              return IconButton(
+                                onPressed: onToggleFavorite,
+                                icon: Icon(
+                                  liveFav ? Icons.favorite : Icons.favorite_border,
+                                  color: AppColors.primary,
+                                  size: 28,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -118,19 +126,22 @@ class ProductsDetailsScreen extends StatelessWidget {
 
                       const SizedBox(height: 24),
 
-                      /// Quantity selector (plus/minus works)
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: AppColors.chipBg,
+                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Quantity',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                            Text(
+                              S.of(context).quantity,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
                             const SizedBox(height: 12),
                             Row(
@@ -143,14 +154,18 @@ class ProductsDetailsScreen extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.surface,
                                     borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                                    ),
                                   ),
                                   child: Text(
                                     '$q',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                 ),
@@ -167,14 +182,12 @@ class ProductsDetailsScreen extends StatelessWidget {
 
                       const SizedBox(height: 24),
 
-                      /// Add to cart (never disables, clicking again increases quantity in Hive)
                       SizedBox(
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
                           onPressed: () async {
                             final qty = quantity.value;
-
                             await context.read<CartCubit>().add(
                               productId: product.id,
                               title: product.name,
@@ -183,9 +196,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                               imageUrl: product.imageUrl,
                               qty: qty,
                             );
-
                             if (!context.mounted) return;
-
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('${product.name} added to cart (x$qty)'),
@@ -194,9 +205,9 @@ class ProductsDetailsScreen extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
-                          child: const Text(
-                            'ADD TO CART',
-                            style: TextStyle(
+                          child: Text(
+                            S.of(context).addToCart,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
                               fontSize: 16,

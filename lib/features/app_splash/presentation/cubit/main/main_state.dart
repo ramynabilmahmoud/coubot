@@ -13,3 +13,7 @@ class MainChangeLocaleState extends MainState {}
 class MainGetThemeModeState extends MainState {}
 
 class MainChangeThemeState extends MainState {}
+
+class MainGetNotificationsState extends MainState {}
+
+class MainChangeNotificationsState extends MainState {}

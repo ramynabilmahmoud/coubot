@@ -6,6 +6,7 @@ class ProductEntity {
   final bool onSale;
   final double price;
   final double rating;
+  final String? categoryId;
 
   const ProductEntity({
     required this.id,
@@ -15,5 +16,6 @@ class ProductEntity {
     required this.onSale,
     required this.price,
     required this.rating,
+    this.categoryId,
   });
 }

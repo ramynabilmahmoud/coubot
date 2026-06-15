@@ -1,4 +1,3 @@
-import 'package:coubot/config/themes/app_colors.dart';
 import 'package:coubot/features/app_layout/presentation/cubits/app_layout_cubit.dart';
 import 'package:coubot/features/home/presentation/screens/home_screen.dart';
 import 'package:coubot/features/orders/presentation/screens/orders_screen.dart';
@@ -26,9 +25,6 @@ class AppLayoutScreen extends StatelessWidget {
                 context.read<AppLayoutCubit>().selectTab(index);
               },
               type: BottomNavigationBarType.fixed,
-              backgroundColor: AppColors.surface,
-              selectedItemColor: AppColors.primary,
-              unselectedItemColor: AppColors.mutedText,
               elevation: 8,
               items: [
                 BottomNavigationBarItem(

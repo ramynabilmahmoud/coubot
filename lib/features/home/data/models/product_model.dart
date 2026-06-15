@@ -8,6 +8,7 @@ class ProductModel {
   final double rating;
   final String imageUrl;
   final bool onSale;
+  final String? categoryId;
 
   const ProductModel({
     required this.id,
@@ -17,6 +18,7 @@ class ProductModel {
     required this.rating,
     required this.imageUrl,
     required this.onSale,
+    this.categoryId,
   });
 
   ProductEntity toEntity() => ProductEntity(
@@ -27,6 +29,7 @@ class ProductModel {
     rating: rating,
     imageUrl: imageUrl,
     onSale: onSale,
+    categoryId: categoryId,
   );
 
   /// Create ProductModel from Supabase JSON
@@ -36,11 +39,12 @@ class ProductModel {
       name: json['name'] as String? ?? 'Unknown',
       description: json['description'] as String? ?? 'No description',
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      rating: 4.5, // Default rating since Supabase doesn't have this field
+      rating: 4.5,
       imageUrl:
           json['image_url'] as String? ??
           'https://via.placeholder.com/600x400?text=${json['name']}',
-      onSale: false, // Default value since Supabase doesn't have this field
+      onSale: false,
+      categoryId: json['category_id']?.toString(),
     );
   }
 
