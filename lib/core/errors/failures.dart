@@ -3,7 +3,6 @@
 import 'package:coubot/generated/l10n.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// this class is used to manage the failures
@@ -17,8 +16,6 @@ abstract class Failure {
         e is AuthException ||
         e is AuthApiException) {
       return Failure.fromException(e as Exception);
-    } else if (e is SignInWithAppleAuthorizationException) {
-      return SignInWithAppleCustomEx.fromSupabaseSignInWithAppleError(e);
     } else if (e is PlatformException) {
       return PlatformExceptionFailure.fromSupabaseError(e);
     } else {
@@ -90,7 +87,6 @@ class SupabaseFailure extends Failure {
     return 'SupabaseFailure: $errMessage';
   }
 }
-
 
 /// A class to represent the different types of failures that can occur in the app.
 class DioFailure extends Failure {
@@ -176,35 +172,6 @@ class AuthFailure extends Failure {
   }
 }
 
-/// sign in with apple exception
-class SignInWithAppleCustomEx extends Failure {
-  /// constructor
-  SignInWithAppleCustomEx({required String errMessage})
-    : super(errMessage, 'Sign In With Apple Exception');
-
-  /// factory method to create an SignInWithAppleCustomEx object from a SupabaseError object
-  factory SignInWithAppleCustomEx.fromSupabaseSignInWithAppleError(
-    SignInWithAppleAuthorizationException error,
-  ) {
-    switch (error.code) {
-      case AuthorizationErrorCode.canceled:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      case AuthorizationErrorCode.failed:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      case AuthorizationErrorCode.invalidResponse:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      case AuthorizationErrorCode.notHandled:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      case AuthorizationErrorCode.notInteractive:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      case AuthorizationErrorCode.unknown:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-      default:
-        return SignInWithAppleCustomEx(errMessage: error.message);
-    }
-  }
-}
-
 /// PlatformExceptionFailure
 class PlatformExceptionFailure extends Failure {
   /// constructor
@@ -217,7 +184,7 @@ class PlatformExceptionFailure extends Failure {
       case 'sign_in_failed':
         return PlatformExceptionFailure(
           errMessage: S.current.signInFailedPleaseTryAgain,
-        );
+      );
 
       default:
         return PlatformExceptionFailure(errMessage: S.current.anErrorOccurred);
