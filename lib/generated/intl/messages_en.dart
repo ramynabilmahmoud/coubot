@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
     "codeSent": MessageLookupByLibrary.simpleMessage("Code Sent"),
+    "comingSoon": MessageLookupByLibrary.simpleMessage("Coming soon"),
     "completed": MessageLookupByLibrary.simpleMessage("Completed"),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(

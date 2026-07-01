@@ -3,7 +3,9 @@ import '../../domain/entities/product_entity.dart';
 class ProductModel {
   final String id;
   final String name;
+  final String? nameAr;
   final String description;
+  final String? descriptionAr;
   final double price;
   final double rating;
   final String imageUrl;
@@ -13,7 +15,9 @@ class ProductModel {
   const ProductModel({
     required this.id,
     required this.name,
+    this.nameAr,
     required this.description,
+    this.descriptionAr,
     required this.price,
     required this.rating,
     required this.imageUrl,
@@ -24,7 +28,9 @@ class ProductModel {
   ProductEntity toEntity() => ProductEntity(
     id: id,
     name: name,
+    nameAr: nameAr,
     description: description,
+    descriptionAr: descriptionAr,
     price: price,
     rating: rating,
     imageUrl: imageUrl,
@@ -37,7 +43,9 @@ class ProductModel {
     return ProductModel(
       id: json['id'].toString(),
       name: json['name'] as String? ?? 'Unknown',
+      nameAr: json['name_ar'] as String?,
       description: json['description'] as String? ?? 'No description',
+      descriptionAr: json['description_ar'] as String?,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       rating: 4.5,
       imageUrl:

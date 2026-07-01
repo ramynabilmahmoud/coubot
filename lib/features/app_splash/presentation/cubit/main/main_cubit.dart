@@ -192,12 +192,16 @@ class MainCubit extends Cubit<MainState> {
 
         case AuthChangeEvent.signedIn:
           log('Signed in');
-          // Navigate to app layout when user signs in
-          await appRouter.replaceAll([const AppLayoutWrapper()]);
+          // Guard: skip if already in AppLayout (e.g. token refresh fires signedIn
+          // on Supabase and would reset the active tab back to 0).
+          if (!isSplashRouteComplete) {
+            isSplashRouteComplete = true;
+            await appRouter.replaceAll([const AppLayoutWrapper()]);
+          }
 
         case AuthChangeEvent.signedOut:
           log('Signed out');
-          // Navigate back to auth when user signs out
+          isSplashRouteComplete = false;
           await appRouter.replaceAll([const AuthWrapper()]);
 
         case AuthChangeEvent.tokenRefreshed:

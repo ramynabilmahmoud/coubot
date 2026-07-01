@@ -1,5 +1,7 @@
+import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/home/presentation/widgets/product_image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/themes/app_colors.dart';
 import '../../../../core/widgets/price_rating_row.dart';
 import '../../domain/entities/product_entity.dart';
@@ -20,6 +22,7 @@ class ProductCardLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = context.watch<MainCubit>().currentLangCode;
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
@@ -75,7 +78,7 @@ class ProductCardLarge extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.name,
+                      product.localizedName(lang),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -86,7 +89,7 @@ class ProductCardLarge extends StatelessWidget {
                     const SizedBox(height: 4),
                     Expanded(
                       child: Text(
-                        product.description,
+                        product.localizedDescription(lang),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(

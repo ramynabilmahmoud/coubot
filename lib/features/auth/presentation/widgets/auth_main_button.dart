@@ -1,6 +1,6 @@
+import 'package:coubot/config/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
-/// MAIN BUTTON
 class AuthMainButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -16,21 +16,22 @@ class AuthMainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 220,
-      height: 56,
+      width: double.infinity,
+      height: 54,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFC72C41),
-          disabledBackgroundColor: const Color(0xFFC72C41),
+          backgroundColor: AppColors.primary,
+          disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.4),
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(14),
           ),
         ),
         child: isLoading
             ? const SizedBox(
-                width: 24,
-                height: 24,
+                width: 22,
+                height: 22,
                 child: CircularProgressIndicator(
                   color: Colors.white,
                   strokeWidth: 2.5,
@@ -39,9 +40,10 @@ class AuthMainButton extends StatelessWidget {
             : Text(
                 text,
                 style: const TextStyle(
-                  fontFamily: 'MadeEvolveSansEvo',
-                  fontSize: 20,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                   color: Colors.white,
+                  letterSpacing: 0.4,
                 ),
               ),
       ),

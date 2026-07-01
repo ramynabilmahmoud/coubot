@@ -51,6 +51,8 @@ class CategoryShortcuts extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   c.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     color: selectedCategoryId == c.id ? AppColors.primary : Colors.black,

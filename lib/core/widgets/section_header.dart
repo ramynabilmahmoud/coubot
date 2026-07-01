@@ -12,8 +12,14 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
-        const Spacer(),
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ),
         if (onSeeAll != null)
           TextButton(
             onPressed: onSeeAll,

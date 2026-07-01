@@ -101,5 +101,6 @@
   "searchProducts": "Search products...",
   "seeAll": "See all",
   "orderPlacedSuccessfully": "Order placed successfully!",
-  "failedToPlaceOrder": "Failed to place order. Please try again."
+  "failedToPlaceOrder": "Failed to place order. Please try again.",
+  "comingSoon": "Coming soon"
 }

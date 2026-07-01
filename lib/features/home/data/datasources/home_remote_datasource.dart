@@ -69,7 +69,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<CategoryEntity>> _getCategories() async {
     final res = await _client
         .from('categories')
-        .select('id, name, icon_key, media_source')
+        .select('id, name, name_ar, icon_key, media_source')
         .order('name', ascending: true);
 
     final list = (res as List).cast<Map<String, dynamic>>();
@@ -78,9 +78,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       return CategoryEntity(
         id: json['id'].toString(),
         title: (json['name'] as String?)?.trim() ?? 'Category',
+        titleAr: (json['name_ar'] as String?)?.trim(),
         iconKey: (json['icon_key'] as String?)?.trim() ?? 'grid',
-        // NOTE: media_source exists in DB but your Category entity currently
-        // doesn't include it. If you want to render images, extend Category.
       );
     }).toList();
   }
@@ -90,7 +89,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<ProductModel>> _getTopItems() async {
     final res = await _client
         .from('products')
-        .select('id, category_id, name, description, price, estimated_time, image_url')
+        .select('id, category_id, name, name_ar, description, description_ar, price, estimated_time, image_url')
         .order('created_at', ascending: false)
         .limit(10);
 
@@ -153,7 +152,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     // ✅ UPDATED: includes image_url
     final productsRes = await _client
         .from('products')
-        .select('id, category_id, name, description, price, estimated_time, image_url')
+        .select('id, category_id, name, name_ar, description, description_ar, price, estimated_time, image_url')
         .inFilter('id', productIds);
 
     final productsList = (productsRes as List).cast<Map<String, dynamic>>();

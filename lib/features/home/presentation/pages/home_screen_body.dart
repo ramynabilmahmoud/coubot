@@ -1,3 +1,4 @@
+import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,7 +104,11 @@ class _CategoryFeedBody extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: SectionHeader(title: category.title),
+              child: SectionHeader(
+                title: category.localizedTitle(
+                  context.read<MainCubit>().currentLangCode,
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             ProductHorizontalList(

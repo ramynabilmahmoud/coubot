@@ -1,4 +1,5 @@
 import 'package:coubot/features/app_layout/presentation/cubits/app_layout_cubit.dart';
+import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/home/presentation/screens/home_screen.dart';
 import 'package:coubot/features/orders/presentation/screens/orders_screen.dart';
 import 'package:coubot/features/profile/presentation/screens/profile_screen.dart';
@@ -15,32 +16,36 @@ class AppLayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppLayoutCubit(),
-      child: BlocBuilder<AppLayoutCubit, AppLayoutState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: _buildBody(state.selectedTab),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: state.selectedTab,
-              onTap: (index) {
-                context.read<AppLayoutCubit>().selectTab(index);
-              },
-              type: BottomNavigationBarType.fixed,
-              elevation: 8,
-              items: [
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.home_rounded),
-                  label: S.of(context).home,
+      child: BlocBuilder<MainCubit, MainState>(
+        builder: (context, _) {
+          return BlocBuilder<AppLayoutCubit, AppLayoutState>(
+            builder: (context, state) {
+              return Scaffold(
+                body: _buildBody(state.selectedTab),
+                bottomNavigationBar: BottomNavigationBar(
+                  currentIndex: state.selectedTab,
+                  onTap: (index) {
+                    context.read<AppLayoutCubit>().selectTab(index);
+                  },
+                  type: BottomNavigationBarType.fixed,
+                  elevation: 8,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: const Icon(Icons.home_rounded),
+                      label: S.of(context).home,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: const Icon(Icons.shopping_bag_rounded),
+                      label: S.of(context).orders,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: const Icon(Icons.person_rounded),
+                      label: S.of(context).profile,
+                    ),
+                  ],
                 ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.shopping_bag_rounded),
-                  label: S.of(context).orders,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.person_rounded),
-                  label: S.of(context).profile,
-                ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

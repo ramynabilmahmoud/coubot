@@ -24,9 +24,7 @@ class SupabaseManager {
       }
       await Supabase.initialize(
         url: supabaseUrl,
-        anonKey:
-            // ignore: lines_longer_than_80_chars
-            anonKey,
+        publishableKey: anonKey,
         debug: true,
       );
     } catch (e) {

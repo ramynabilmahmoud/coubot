@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,10 @@ class ProductsDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quantity = ValueNotifier<int>(1);
-    return Scaffold(
+    return BlocBuilder<MainCubit, MainState>(
+      builder: (context, _) {
+        final lang = context.read<MainCubit>().currentLangCode;
+        return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -89,12 +93,12 @@ class ProductsDetailsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  product.name,
+                                  product.localizedName(lang),
                                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  product.description,
+                                  product.localizedDescription(lang),
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                     fontSize: 14,
@@ -190,8 +194,8 @@ class ProductsDetailsScreen extends StatelessWidget {
                             final qty = quantity.value;
                             await context.read<CartCubit>().add(
                               productId: product.id,
-                              title: product.name,
-                              subtitle: product.description,
+                              title: product.localizedName(lang),
+                              subtitle: product.localizedDescription(lang),
                               price: product.price,
                               imageUrl: product.imageUrl,
                               qty: qty,
@@ -199,7 +203,7 @@ class ProductsDetailsScreen extends StatelessWidget {
                             if (!context.mounted) return;
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('${product.name} added to cart (x$qty)'),
+                                content: Text('${product.localizedName(lang)} added to cart (x$qty)'),
                                 duration: const Duration(seconds: 2),
                               ),
                             );
@@ -225,6 +229,8 @@ class ProductsDetailsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+      },
     );
   }
 }

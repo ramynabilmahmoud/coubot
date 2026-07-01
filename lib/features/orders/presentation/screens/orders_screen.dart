@@ -193,18 +193,17 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 
-  /// Returns an icon based on order status
-  String _getStatusIcon(String status) {
-    status = status.toLowerCase();
-
-    if (status.contains('pending')) return 'assets/gen/images/pending-icon.ico';
-    if (status.contains('preparing')) return 'assets/gen/images/preparing-icon.ico';
-    if (status.contains('served')) return 'assets/gen/images/serving-icon.ico';
-    if (status.contains('cancelled')) return 'assets/gen/images/cancelled-icon.ico';
-    if (status.contains('delivering')) return 'assets/gen/images/delivering-icon.ico';
-    if (status.contains('ready')) return 'assets/gen/images/ready-icon.ico';
-
-    return 'assets/gen/images/default-icon.ico'; // default fallback
+  /// Returns an icon based on order status.
+  /// .ico assets are unsupported by Flutter — use Material icons instead.
+  IconData _getStatusIcon(String status) {
+    final s = status.toLowerCase();
+    if (s.contains('pending')) return Icons.hourglass_empty;
+    if (s.contains('preparing')) return Icons.restaurant;
+    if (s.contains('served')) return Icons.check_circle_outline;
+    if (s.contains('cancelled')) return Icons.cancel_outlined;
+    if (s.contains('delivering')) return Icons.delivery_dining;
+    if (s.contains('ready')) return Icons.done_all;
+    return Icons.receipt_long_outlined;
   }
 
   /// Pill style button used inside dialogs (auto width, no text cut)
@@ -337,7 +336,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       itemBuilder: (context, index) {
         final order = filteredOrders[index];
         final items = order['order_products'] as List;
-        final firstProduct = items.first['products'];
+        final firstProduct = items.isNotEmpty ? items.first['products'] : null;
         final date = DateTime.parse(order['created_at']);
         final status = order['status'];
 
@@ -364,7 +363,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          firstProduct['name'],
+                          firstProduct?['name'] ?? '—',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -394,13 +393,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image.asset(
+                              Icon(
                                 _getStatusIcon(status),
-                                width: 16,
-                                height: 16,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(Icons.error, size: 16, color: Colors.red);
-                                },
+                                size: 16,
+                                color: const Color(0xFFC72C41),
                               ),
                               const SizedBox(width: 6),
                               Flexible(
@@ -433,7 +429,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
               Row(
                 children: [
-                  Expanded(child: _bigButton(S.of(context).reorder)),
+                  Expanded(
+                    child: _bigButton(
+                      S.of(context).reorder,
+                      onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(S.of(context).comingSoon)),
+                      ),
+                    ),
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: _bigButton(

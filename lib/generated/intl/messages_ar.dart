@@ -21,218 +21,215 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
   static String m0(minLength) =>
-      "Password must be at least ${minLength} characters.";
+      "يجب أن تحتوي كلمة المرور على ${minLength} أحرف على الأقل.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "active": MessageLookupByLibrary.simpleMessage("نشطة"),
     "addAdditionalDetails": MessageLookupByLibrary.simpleMessage(
-      "Add Additional Details",
+      "أضف تفاصيل إضافية",
     ),
     "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
-    "anErrorOccurred": MessageLookupByLibrary.simpleMessage(
-      "An error occurred",
-    ),
+    "anErrorOccurred": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
     "appVersion": MessageLookupByLibrary.simpleMessage("إصدار التطبيق"),
     "appearance": MessageLookupByLibrary.simpleMessage("المظهر"),
     "authenticationError": MessageLookupByLibrary.simpleMessage(
-      "Authentication Error",
+      "خطأ في المصادقة",
     ),
     "badCertificateWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Bad certificate with ApiServer",
+      "شهادة الخادم غير صالحة",
     ),
     "badResponseFromApiserver": MessageLookupByLibrary.simpleMessage(
-      "Bad response from ApiServer",
+      "استجابة غير صالحة من الخادم",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cancelled": MessageLookupByLibrary.simpleMessage("ملغاة"),
-    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("السلة فارغة"),
     "checkYourEmailForTheConfirmationLink":
         MessageLookupByLibrary.simpleMessage(
-          "Check your email for the Confirmation link",
+          "تحقق من بريدك الإلكتروني للرابط التأكيدي",
         ),
-    "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
-    "codeSent": MessageLookupByLibrary.simpleMessage("Code Sent"),
+    "checkout": MessageLookupByLibrary.simpleMessage("إتمام الطلب"),
+    "codeSent": MessageLookupByLibrary.simpleMessage("تم إرسال الرمز"),
+    "comingSoon": MessageLookupByLibrary.simpleMessage("قريباً"),
     "completed": MessageLookupByLibrary.simpleMessage("مكتملة"),
-    "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+    "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmPasswordIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Confirm password is required",
+      "تأكيد كلمة المرور مطلوب",
     ),
     "connectWithFacebook": MessageLookupByLibrary.simpleMessage(
-      "Connect with Facebook",
+      "الاتصال عبر فيسبوك",
     ),
     "connectionErrorWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Connection error with ApiServer",
+      "خطأ في الاتصال بالخادم",
     ),
     "connectionTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Connection timeout with ApiServer",
+      "انتهت مهلة الاتصال بالخادم",
     ),
     "continueWithEmail": MessageLookupByLibrary.simpleMessage(
-      "Continue with E-mail",
+      "المتابعة بالبريد الإلكتروني",
     ),
     "coubot": MessageLookupByLibrary.simpleMessage("COUBOT"),
     "darkMode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
-    "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
-    "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "delivery": MessageLookupByLibrary.simpleMessage("التوصيل"),
+    "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Email Has Been Updated Successfully",
+      "تم تحديث البريد الإلكتروني بنجاح",
     ),
     "emailIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Email is required.",
+      "البريد الإلكتروني مطلوب.",
     ),
-    "endThisProcess": MessageLookupByLibrary.simpleMessage("End This Process"),
+    "endThisProcess": MessageLookupByLibrary.simpleMessage("إنهاء هذه العملية"),
     "enterTheEmailCode": MessageLookupByLibrary.simpleMessage(
-      "Enter the Email Code",
+      "أدخل رمز البريد الإلكتروني",
     ),
-    "error": MessageLookupByLibrary.simpleMessage("Error"),
+    "error": MessageLookupByLibrary.simpleMessage("خطأ"),
     "errorCreatingChat": MessageLookupByLibrary.simpleMessage(
-      "Error creating chat",
+      "خطأ في إنشاء المحادثة",
     ),
     "failedToLoadNotifications": MessageLookupByLibrary.simpleMessage(
-      "Failed to load notifications:",
+      "فشل تحميل الإشعارات:",
     ),
     "failedToPlaceOrder": MessageLookupByLibrary.simpleMessage(
       "فشل تقديم الطلب. حاول مرة أخرى.",
     ),
     "favourites": MessageLookupByLibrary.simpleMessage("المفضلة"),
-    "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
+    "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
     "firstNameIsRequired": MessageLookupByLibrary.simpleMessage(
-      "First name is required.",
+      "الاسم الأول مطلوب.",
     ),
-    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
-    "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+    "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "howWasYourOrder": MessageLookupByLibrary.simpleMessage("كيف كان طلبك؟"),
     "internalServerError": MessageLookupByLibrary.simpleMessage(
-      "Internal server error",
+      "خطأ في الخادم الداخلي",
     ),
     "invalidCurrentPassword": MessageLookupByLibrary.simpleMessage(
-      "Invalid current password.",
+      "كلمة المرور الحالية غير صحيحة.",
     ),
-    "justWaitASecond": MessageLookupByLibrary.simpleMessage(
-      "Just Wait a Second",
-    ),
+    "justWaitASecond": MessageLookupByLibrary.simpleMessage("انتظر لحظة"),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
-    "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+    "lastName": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
     "leaveAReview": MessageLookupByLibrary.simpleMessage("أضف تقييماً"),
     "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
-    "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
-      "Login in if you have an account",
+      "تسجيل الدخول إذا كان لديك حساب",
     ),
-    "myCart": MessageLookupByLibrary.simpleMessage("My Cart"),
+    "myCart": MessageLookupByLibrary.simpleMessage("سلتي"),
     "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
-    "no": MessageLookupByLibrary.simpleMessage("No"),
+    "no": MessageLookupByLibrary.simpleMessage("لا"),
     "noActiveOrders": MessageLookupByLibrary.simpleMessage(
       "ليس لديك أي\nطلبات نشطة في الوقت الحالي",
     ),
     "noCurrentUserFoundOrCurrentUsersEmailIsNull":
         MessageLookupByLibrary.simpleMessage(
-          "No current user found or current user\'s email is null.",
+          "لم يتم العثور على مستخدم حالي أو أن بريده الإلكتروني فارغ.",
         ),
     "noFavouritesYet": MessageLookupByLibrary.simpleMessage(
       "لا توجد مفضلة بعد",
     ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
-      "No internet connection",
+      "لا يوجد اتصال بالإنترنت",
     ),
     "noItemsAvailable": MessageLookupByLibrary.simpleMessage(
       "لا توجد عناصر متاحة",
     ),
     "noNotificationsAvailable": MessageLookupByLibrary.simpleMessage(
-      "No notifications available.",
+      "لا توجد إشعارات متاحة.",
     ),
     "noProductsFound": MessageLookupByLibrary.simpleMessage("لا توجد منتجات"),
     "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "onSale": MessageLookupByLibrary.simpleMessage("تخفيض"),
     "oppsThereWasAnErrorPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
-      "opps there was an error, please try again",
+      "عذراً، حدث خطأ، يرجى المحاولة مرة أخرى",
     ),
-    "or": MessageLookupByLibrary.simpleMessage("OR"),
+    "or": MessageLookupByLibrary.simpleMessage("أو"),
     "orderPlacedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تم تقديم طلبك بنجاح!",
     ),
-    "orders": MessageLookupByLibrary.simpleMessage("Orders"),
-    "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
+    "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Password is required.",
+      "كلمة المرور مطلوبة.",
     ),
     "passwordMustBeAtLeastNumberCharacters": m0,
     "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
-      "Password updated successfully",
+      "تم تحديث كلمة المرور بنجاح",
     ),
     "passwordsDoNotMatch": MessageLookupByLibrary.simpleMessage(
-      "Passwords do not match",
+      "كلمتا المرور غير متطابقتين",
     ),
     "phoneNumberIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Phone number is required",
+      "رقم الهاتف مطلوب",
     ),
     "pleaseEnterAValidEmailAddress": MessageLookupByLibrary.simpleMessage(
-      "Please enter a valid email address.",
+      "الرجاء إدخال بريد إلكتروني صحيح.",
     ),
     "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
-      "Please enter a valid phone number",
+      "الرجاء إدخال رقم هاتف صحيح",
     ),
-    "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "pushNotifications": MessageLookupByLibrary.simpleMessage(
       "الإشعارات الفورية",
     ),
     "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
     "receiveTimeoutInConnectionWithApiserver":
         MessageLookupByLibrary.simpleMessage(
-          "Receive timeout in connection with ApiServer",
+          "انتهت مهلة استقبال البيانات من الخادم",
         ),
     "reorder": MessageLookupByLibrary.simpleMessage("إعادة الطلب"),
     "requestToApiserverWasCancelled": MessageLookupByLibrary.simpleMessage(
-      "Request to ApiServer was cancelled",
+      "تم إلغاء الطلب إلى الخادم",
     ),
-    "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
     "review": MessageLookupByLibrary.simpleMessage("تقييم"),
     "reviewAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تمت إضافة التقييم بنجاح",
     ),
     "searchProducts": MessageLookupByLibrary.simpleMessage("ابحث عن منتجات..."),
     "secondNameIsRequired": MessageLookupByLibrary.simpleMessage(
-      "Second name is required.",
+      "الاسم الثاني مطلوب.",
     ),
     "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
-    "sendAgain": MessageLookupByLibrary.simpleMessage("Send Again"),
+    "sendAgain": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
     "sendTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
-      "Send timeout with ApiServer",
+      "انتهت مهلة إرسال الطلب إلى الخادم",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signInFailedPleaseTryAgain": MessageLookupByLibrary.simpleMessage(
-      "Sign in failed, please try again",
+      "فشل تسجيل الدخول، يرجى المحاولة مرة أخرى",
     ),
-    "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "signUpIfYoureNew": MessageLookupByLibrary.simpleMessage(
-      "Sign up if you’re new",
+      "سجّل إذا كنت جديداً",
     ),
     "signinWithAppleIdWasCanceledOrFailed":
         MessageLookupByLibrary.simpleMessage(
-          "Sign-in with Apple ID was canceled or failed.",
+          "تم إلغاء تسجيل الدخول بمعرف Apple أو فشل.",
         ),
     "somethingWentWrongPleaseTryAgainLater":
         MessageLookupByLibrary.simpleMessage(
-          "Something went wrong, please try again later",
+          "حدث خطأ ما، يرجى المحاولة مرة أخرى لاحقاً",
         ),
     "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
-    "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
+    "subtotal": MessageLookupByLibrary.simpleMessage("المجموع الفرعي"),
     "tapHeartToSaveFavourites": MessageLookupByLibrary.simpleMessage(
       "اضغط على القلب في أي عنصر لحفظه هنا",
     ),
-    "total": MessageLookupByLibrary.simpleMessage("Total"),
+    "total": MessageLookupByLibrary.simpleMessage("الإجمالي"),
     "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
-      "Unknown error occurred",
+      "حدث خطأ غير معروف",
     ),
-    "username": MessageLookupByLibrary.simpleMessage("User-name"),
-    "wait": MessageLookupByLibrary.simpleMessage("Wait ..."),
+    "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+    "wait": MessageLookupByLibrary.simpleMessage("جاري التحميل..."),
     "weveSendACodeToYourEmailnPleaseEnterCode":
         MessageLookupByLibrary.simpleMessage(
-          " We’ve send a code to your email\\n please enter code to reset your password",
+          "لقد أرسلنا رمزاً إلى بريدك الإلكتروني\\nيرجى إدخاله لإعادة تعيين كلمة المرور",
         ),
     "yourFavoriteFoodndeliveredToYou": MessageLookupByLibrary.simpleMessage(
-      "Your favorite food\\nDelivered to you",
+      "طعامك المفضل\\nيصلك إليك",
     ),
   };
 }
