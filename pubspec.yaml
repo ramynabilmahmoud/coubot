@@ -32,6 +32,8 @@
     pinput: ^6.0.1
     supabase_flutter: ^2.10.3
     upgrader: ^12.3.0
+    shared_preferences: ^2.5.0
+    http: ^1.2.1
 
   dev_dependencies:
     auto_route_generator: ^9.0.0

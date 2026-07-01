@@ -336,14 +336,24 @@ class _OrdersScreenState extends State<OrdersScreen> {
       separatorBuilder: (_, __) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final order = filteredOrders[index];
-        final items = order['order_products'] as List;
-        final firstProduct = items.first['products'];
+
+        final items = (order['order_products'] as List?) ?? [];
+
+        final String productName = items.isNotEmpty &&
+            items.first['products'] != null &&
+            items.first['products']['name'] != null
+            ? items.first['products']['name'].toString()
+            : 'Cancelled before items were saved';
+
         final date = DateTime.parse(order['created_at']);
         final status = order['status'];
 
         return Container(
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Column(
             children: [
               Row(
@@ -356,7 +366,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       color: const Color(0xFFFFE5E5),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(Icons.fastfood, color: Color(0xFFC72C41)),
+                    child: const Icon(
+                      Icons.fastfood,
+                      color: Color(0xFFC72C41),
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -364,7 +377,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          firstProduct['name'],
+                          productName,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -386,7 +399,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         ),
                         const SizedBox(height: 6),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFFC72C41).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(20),
@@ -399,7 +415,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 width: 16,
                                 height: 16,
                                 errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(Icons.error, size: 16, color: Colors.red);
+                                  return const Icon(
+                                    Icons.error,
+                                    size: 16,
+                                    color: Colors.red,
+                                  );
                                 },
                               ),
                               const SizedBox(width: 6),
@@ -424,16 +444,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   const SizedBox(width: 6),
                   Text(
                     '\$${order['total_price']}',
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC72C41)),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC72C41),
+                    ),
                   ),
                 ],
               ),
-
               const SizedBox(height: 12),
-
               Row(
                 children: [
-                  Expanded(child: _bigButton(S.of(context).reorder)),
+                  Expanded(
+                    child: _bigButton(S.of(context).reorder),
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: _bigButton(
@@ -450,7 +473,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
       },
     );
   }
-
   /// Large action button
   Widget _bigButton(String text, {bool filled = false, VoidCallback? onTap}) {
     final surface = Theme.of(context).colorScheme.surface;
