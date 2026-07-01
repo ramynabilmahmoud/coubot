@@ -8,6 +8,7 @@ class AuthInputField extends StatelessWidget {
   /// NEW
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final Color? textColor;
 
   const AuthInputField({
     super.key,
@@ -15,6 +16,7 @@ class AuthInputField extends StatelessWidget {
     this.obscure = false,
     this.controller,
     this.onChanged,
+    this.textColor,
   });
 
   @override
@@ -23,6 +25,10 @@ class AuthInputField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       obscureText: obscure,
+      style: TextStyle(
+        fontFamily: 'MadeEvolveSans',
+        color: textColor,
+      ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(fontFamily: 'MadeEvolveSans'),

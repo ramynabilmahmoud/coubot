@@ -48,6 +48,7 @@
 
     assets:
       - assets/gen/images/
+      - assets/gen/SVGs/
       - .env
 
     fonts:

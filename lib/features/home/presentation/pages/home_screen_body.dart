@@ -25,7 +25,9 @@ class HomeScreenBody extends StatelessWidget {
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 if (state is HomeInitial || state is HomeLoading) {
-                  return const Center(child: CircularProgressIndicator.adaptive());
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
                 }
 
                 if (state is HomeError) {
@@ -60,7 +62,6 @@ class HomeScreenBody extends StatelessWidget {
       ),
     );
   }
-
 }
 
 // ── Category feed: one horizontal row per category ──────────────────────────
@@ -84,7 +85,10 @@ class _CategoryFeedBody extends StatelessWidget {
       return Center(
         child: Text(
           S.of(ctx).noItemsAvailable,
-          style: const TextStyle(color: AppColors.mutedText, fontWeight: FontWeight.w600),
+          style: const TextStyle(
+            color: AppColors.mutedText,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
@@ -156,7 +160,10 @@ class _SearchResultsBody extends StatelessWidget {
       return Center(
         child: Text(
           S.of(ctx).noProductsFound,
-          style: const TextStyle(color: AppColors.mutedText, fontWeight: FontWeight.w600),
+          style: const TextStyle(
+            color: AppColors.mutedText,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }

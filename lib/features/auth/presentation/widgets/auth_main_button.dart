@@ -5,19 +5,27 @@ class AuthMainButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
+  final double fontSize;
+  final double width;
+  final double height;
+  final FontWeight fontWeight;
 
   const AuthMainButton({
     super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
+    this.fontSize = 20,
+    this.width = 220,
+    this.height = 56,
+    this.fontWeight = FontWeight.w500,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 220,
-      height: 56,
+      width: width,
+      height: height,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -38,9 +46,10 @@ class AuthMainButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'MadeEvolveSansEvo',
-                  fontSize: 20,
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
                   color: Colors.white,
                 ),
               ),

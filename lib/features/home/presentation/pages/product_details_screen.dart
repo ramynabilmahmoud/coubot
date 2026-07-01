@@ -31,7 +31,7 @@ class ProductsDetailsScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 300,
+            expandedHeight: 450,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
@@ -40,12 +40,16 @@ class ProductsDetailsScreen extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
-                      placeholder: (_, __) =>
-                          const Center(child: CircularProgressIndicator.adaptive()),
+                      placeholder: (_, __) => const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
                       errorWidget: (_, __, ___) => Container(
                         color: Colors.black12,
                         alignment: Alignment.center,
-                        child: const Icon(Icons.image_not_supported_outlined, size: 40),
+                        child: const Icon(
+                          Icons.image_not_supported_outlined,
+                          size: 40,
+                        ),
                       ),
                     ),
                   ),
@@ -54,7 +58,10 @@ class ProductsDetailsScreen extends StatelessWidget {
                       top: 50,
                       right: 16,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(8),
@@ -75,7 +82,7 @@ class ProductsDetailsScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(15),
               child: ValueListenableBuilder<int>(
                 valueListenable: quantity,
                 builder: (context, q, _) {
@@ -90,13 +97,19 @@ class ProductsDetailsScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   product.name,
-                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                                  style: const TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   product.description,
                                   style: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withValues(alpha: 0.6),
                                     fontSize: 14,
                                   ),
                                 ),
@@ -111,7 +124,9 @@ class ProductsDetailsScreen extends StatelessWidget {
                               return IconButton(
                                 onPressed: onToggleFavorite,
                                 icon: Icon(
-                                  liveFav ? Icons.favorite : Icons.favorite_border,
+                                  liveFav
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
                                   color: AppColors.primary,
                                   size: 28,
                                 ),
@@ -122,14 +137,19 @@ class ProductsDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      PriceRatingRow(price: product.price, rating: product.rating),
+                      PriceRatingRow(
+                        price: product.price,
+                        rating: product.rating,
+                      ),
 
                       const SizedBox(height: 24),
 
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
@@ -147,17 +167,27 @@ class ProductsDetailsScreen extends StatelessWidget {
                             Row(
                               children: [
                                 IconButton(
-                                  onPressed: q > 1 ? () => quantity.value = q - 1 : null,
+                                  onPressed: q > 1
+                                      ? () => quantity.value = q - 1
+                                      : null,
                                   icon: const Icon(Icons.remove_circle_outline),
                                   color: AppColors.primary,
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 8,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.surface,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.surface,
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .outline
+                                          .withValues(alpha: 0.2),
                                     ),
                                   ),
                                   child: Text(
@@ -165,7 +195,9 @@ class ProductsDetailsScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface,
                                     ),
                                   ),
                                 ),
@@ -199,12 +231,16 @@ class ProductsDetailsScreen extends StatelessWidget {
                             if (!context.mounted) return;
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('${product.name} added to cart (x$qty)'),
+                                content: Text(
+                                  '${product.name} added to cart (x$qty)',
+                                ),
                                 duration: const Duration(seconds: 2),
                               ),
                             );
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                          ),
                           child: Text(
                             S.of(context).addToCart,
                             style: const TextStyle(

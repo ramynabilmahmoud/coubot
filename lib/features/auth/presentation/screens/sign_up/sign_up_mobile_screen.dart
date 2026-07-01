@@ -6,6 +6,7 @@ import 'package:coubot/features/auth/presentation/widgets/auth_main_button.dart'
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SignUpMobileScreen extends StatelessWidget {
   const SignUpMobileScreen({super.key});
@@ -30,15 +31,16 @@ class SignUpMobileScreen extends StatelessWidget {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xFFFFF1F1),
+        backgroundColor: const Color(0xFFF0F0F0),
         body: Stack(
           children: [
             /// RED TOP SECTION
             Container(
               width: double.infinity,
+              height: 480,
               padding: const EdgeInsets.fromLTRB(24, 60, 24, 24),
               decoration: const BoxDecoration(
-                color: Color(0xFFC72C41),
+                color: Color(0xFFBD2D3D),
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(55),
                 ),
@@ -53,9 +55,13 @@ class SignUpMobileScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(
-                    'assets/gen/images/logo_horizontal.png',
-                    height: 60,
+                  const SizedBox(height: 90),
+
+                  SvgPicture.asset(
+                    'assets/gen/SVGs/Logo white_2.svg',
+                    color: Colors.white,
+                    width: 50,
+                    height: 50,
                   ),
                   const SizedBox(height: 28),
 
@@ -67,15 +73,20 @@ class SignUpMobileScreen extends StatelessWidget {
                         child: AuthInputField(
                           hint: S.of(context).firstName,
                           controller: loginCubit.firstNameController,
+                          textColor: Colors.black,
+
                           onChanged: actionsCubit.checkNameFilled,
                         ),
                       ),
                       const SizedBox(width: 12),
+
                       /// LAST NAME
                       Expanded(
                         child: AuthInputField(
                           hint: S.of(context).lastName,
                           controller: loginCubit.secondNameController,
+                          textColor: Colors.black,
+
                           onChanged: actionsCubit.checkNameFilled,
                         ),
                       ),
@@ -87,6 +98,8 @@ class SignUpMobileScreen extends StatelessWidget {
                   AuthInputField(
                     hint: S.of(context).email,
                     controller: loginCubit.emailController,
+                    textColor: Colors.black,
+
                     onChanged: (v) => actionsCubit.checkEmailFilled(v.trim()),
                   ),
                   const SizedBox(height: 16),
@@ -95,6 +108,8 @@ class SignUpMobileScreen extends StatelessWidget {
                   AuthInputField(
                     hint: S.of(context).password,
                     obscure: true,
+                    textColor: Colors.black,
+
                     controller: loginCubit.setPasswordController,
                     onChanged: actionsCubit.checkSetPasswordFilled,
                   ),
@@ -117,7 +132,7 @@ class SignUpMobileScreen extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 100),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -141,6 +156,10 @@ class SignUpMobileScreen extends StatelessWidget {
                               text: isLoading
                                   ? S.of(context).justWaitASecond
                                   : S.of(context).signUp,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w600,
+                              width: 250,
+                              height: 70,
                               onPressed: canSubmit ? loginCubit.signUp : null,
                             );
                           },
