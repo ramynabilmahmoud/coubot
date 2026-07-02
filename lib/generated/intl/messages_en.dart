@@ -229,6 +229,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tap the heart on any item to save it here",
     ),
     "total": MessageLookupByLibrary.simpleMessage("Total"),
+    "transformTimeoutWithApiServer": MessageLookupByLibrary.simpleMessage(
+      "Transform timeout with API server",
+    ),
     "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
       "Unknown error occurred",
     ),

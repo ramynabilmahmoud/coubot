@@ -219,6 +219,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "اضغط على القلب في أي عنصر لحفظه هنا",
     ),
     "total": MessageLookupByLibrary.simpleMessage("الإجمالي"),
+    "transformTimeoutWithApiServer": MessageLookupByLibrary.simpleMessage(
+      "Transform timeout with API server",
+    ),
     "unknownErrorOccurred": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ غير معروف",
     ),

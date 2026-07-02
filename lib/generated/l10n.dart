@@ -868,6 +868,16 @@ class S {
   String get comingSoon {
     return Intl.message('Coming soon', name: 'comingSoon', desc: '', args: []);
   }
+
+  /// `Transform timeout with API server`
+  String get transformTimeoutWithApiServer {
+    return Intl.message(
+      'Transform timeout with API server',
+      name: 'transformTimeoutWithApiServer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

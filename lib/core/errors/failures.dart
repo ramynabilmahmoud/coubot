@@ -116,6 +116,8 @@ class DioFailure extends Failure {
 
       case DioExceptionType.unknown:
         return DioFailure(S.current.unknownErrorOccurred);
+      case DioExceptionType.transformTimeout:
+        return DioFailure(S.current.transformTimeoutWithApiServer);
     }
   }
 
@@ -184,7 +186,7 @@ class PlatformExceptionFailure extends Failure {
       case 'sign_in_failed':
         return PlatformExceptionFailure(
           errMessage: S.current.signInFailedPleaseTryAgain,
-      );
+        );
 
       default:
         return PlatformExceptionFailure(errMessage: S.current.anErrorOccurred);

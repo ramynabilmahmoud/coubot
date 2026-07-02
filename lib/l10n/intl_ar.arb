@@ -103,5 +103,6 @@
   "seeAll": "عرض الكل",
   "orderPlacedSuccessfully": "تم تقديم طلبك بنجاح!",
   "failedToPlaceOrder": "فشل تقديم الطلب. حاول مرة أخرى.",
-  "comingSoon": "قريباً"
+  "comingSoon": "قريباً",
+  "transformTimeoutWithApiServer": "Transform timeout with API server"
 }
