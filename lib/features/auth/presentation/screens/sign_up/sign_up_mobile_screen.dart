@@ -7,6 +7,7 @@ import 'package:coubot/features/auth/presentation/widgets/auth_main_button.dart'
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SignUpMobileScreen extends StatefulWidget {
   const SignUpMobileScreen({super.key});
@@ -45,8 +46,9 @@ class _SignUpMobileScreenState extends State<SignUpMobileScreen>
     return BlocListener<LoginAndRegisterCubit, LoginAndRegisterState>(
       listener: (context, state) {
         if (state is RegisterError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
         if (state is RegisterSuccess) {
           context.router.replaceNamed('/app-layout-wrapper');
@@ -79,8 +81,8 @@ class _SignUpMobileScreenState extends State<SignUpMobileScreen>
 
                   // ── Brand block ───────────────────────────────────────────
                   Center(
-                    child: Image.asset(
-                      'assets/gen/images/logo_vertical.png',
+                    child: SvgPicture.asset(
+                      'assets/gen/SVGs/Logo_white_2.svg',
                       height: 80,
                     ),
                   ),
@@ -167,11 +169,14 @@ class _SignUpMobileScreenState extends State<SignUpMobileScreen>
                   // ── Primary button ────────────────────────────────────────
                   BlocBuilder<AuthActionsCubit, AuthActionsState>(
                     builder: (context, aState) {
-                      return BlocBuilder<LoginAndRegisterCubit,
-                          LoginAndRegisterState>(
+                      return BlocBuilder<
+                        LoginAndRegisterCubit,
+                        LoginAndRegisterState
+                      >(
                         builder: (context, lState) {
                           final isLoading = lState is RegisterLoading;
-                          final canSubmit = aState.isEmailFilled &&
+                          final canSubmit =
+                              aState.isEmailFilled &&
                               aState.isUserNameFilled &&
                               aState.isSetPasswordFilled &&
                               !isLoading;

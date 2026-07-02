@@ -7,6 +7,7 @@ class AuthInputField extends StatefulWidget {
   final IconData? iconData;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final Color? textColor;
 
   const AuthInputField({
     super.key,
@@ -15,6 +16,7 @@ class AuthInputField extends StatefulWidget {
     this.iconData,
     this.controller,
     this.onChanged,
+    this.textColor,
   });
 
   @override
@@ -37,12 +39,10 @@ class _AuthInputFieldState extends State<AuthInputField> {
       controller: widget.controller,
       onChanged: widget.onChanged,
       obscureText: _obscured,
+      style: TextStyle(fontFamily: 'MadeEvolveSans', color: widget.textColor),
       decoration: InputDecoration(
         hintText: widget.hint,
-        hintStyle: TextStyle(
-          color: cs.onSurfaceVariant,
-          fontSize: 14,
-        ),
+        hintStyle: TextStyle(color: cs.onSurfaceVariant, fontSize: 14),
         filled: true,
         fillColor: cs.surfaceContainerHighest,
         prefixIcon: widget.iconData != null
@@ -72,8 +72,10 @@ class _AuthInputFieldState extends State<AuthInputField> {
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
       ),
     );
   }

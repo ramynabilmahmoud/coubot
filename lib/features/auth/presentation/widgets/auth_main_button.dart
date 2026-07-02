@@ -5,12 +5,20 @@ class AuthMainButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
+  final double fontSize;
+  final double width;
+  final double height;
+  final FontWeight fontWeight;
 
   const AuthMainButton({
     super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
+    this.fontSize = 20,
+    this.width = 220,
+    this.height = 56,
+    this.fontWeight = FontWeight.w500,
   });
 
   @override

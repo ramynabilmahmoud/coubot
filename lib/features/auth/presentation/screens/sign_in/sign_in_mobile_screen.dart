@@ -8,6 +8,7 @@ import 'package:coubot/features/auth/presentation/widgets/auth_main_button.dart'
 import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SignInMobileScreen extends StatefulWidget {
   const SignInMobileScreen({super.key});
@@ -42,12 +43,12 @@ class _SignInMobileScreenState extends State<SignInMobileScreen>
     final cs = Theme.of(context).colorScheme;
     final loginCubit = context.read<LoginAndRegisterCubit>();
     final actionsCubit = context.read<AuthActionsCubit>();
-
     return BlocListener<LoginAndRegisterCubit, LoginAndRegisterState>(
       listener: (context, state) {
         if (state is LoginError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
         if (state is LoginSuccess) {
           context.router.replace(const AppLayoutWrapper());
@@ -65,8 +66,8 @@ class _SignInMobileScreenState extends State<SignInMobileScreen>
                 children: [
                   // ── Brand block ──────────────────────────────────────────
                   Center(
-                    child: Image.asset(
-                      'assets/gen/images/logo_vertical.png',
+                    child: SvgPicture.asset(
+                      'assets/gen/SVGs/Logo_white_2.svg',
                       height: 90,
                     ),
                   ),
@@ -138,11 +139,14 @@ class _SignInMobileScreenState extends State<SignInMobileScreen>
                   // ── Primary button ────────────────────────────────────────
                   BlocBuilder<AuthActionsCubit, AuthActionsState>(
                     builder: (context, aState) {
-                      return BlocBuilder<LoginAndRegisterCubit,
-                          LoginAndRegisterState>(
+                      return BlocBuilder<
+                        LoginAndRegisterCubit,
+                        LoginAndRegisterState
+                      >(
                         builder: (context, lState) {
                           final isLoading = lState is LoginLoading;
-                          final canSubmit = aState.isEmailFilled &&
+                          final canSubmit =
+                              aState.isEmailFilled &&
                               aState.isSetPasswordFilled &&
                               !isLoading;
                           return AuthMainButton(

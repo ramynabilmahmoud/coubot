@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends RootStackRouter {
   AppRouter({GlobalKey<NavigatorState>? navigatorKey})
-      : _navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
+    : _navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
 
   final GlobalKey<NavigatorState> _navigatorKey;
 
@@ -28,15 +28,8 @@ class AppRouter extends RootStackRouter {
       path: AppPaths.authWrapper,
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
-        AutoRoute(
-          initial: true,
-          page: SignInRoute.page,
-          path: AppPaths.signIn,
-        ),
-        AutoRoute(
-          page: SignUpRoute.page,
-          path: AppPaths.signUp,
-        ),
+        AutoRoute(initial: true, page: SignInRoute.page, path: AppPaths.signIn),
+        AutoRoute(page: SignUpRoute.page, path: AppPaths.signUp),
       ],
     ),
 
@@ -54,10 +47,10 @@ class AppRouter extends RootStackRouter {
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
 
-      CustomRoute<void>(
-        page: CartRoute.page,
-        path: AppPaths.cart,
-        transitionsBuilder: TransitionsBuilders.fadeIn,),
-
+    CustomRoute<void>(
+      page: CartRoute.page,
+      path: AppPaths.cart,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
   ];
 }

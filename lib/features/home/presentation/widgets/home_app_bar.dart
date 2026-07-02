@@ -15,7 +15,7 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-      color: AppColors.primary,
+      color: const Color(0xFFBD2D3D),
       child: SafeArea(
         bottom: false,
         child: SizedBox(
@@ -23,7 +23,7 @@ class HomeAppBar extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-               Text(
+              Text(
                 S.of(context).coubot,
                 style: TextStyle(
                   color: Colors.white,
@@ -37,7 +37,10 @@ class HomeAppBar extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.notifications_none, color: Colors.white),
+                  icon: const Icon(
+                    Icons.notifications_none,
+                    color: Colors.white,
+                  ),
                 ),
               ),
 
@@ -56,8 +59,12 @@ class HomeAppBar extends StatelessWidget {
                       clipBehavior: Clip.none,
                       children: [
                         IconButton(
-                          onPressed: () => context.router.push(const CartRoute()),
-                          icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
+                          onPressed: () =>
+                              context.router.push(const CartRoute()),
+                          icon: const Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.white,
+                          ),
                         ),
 
                         if (qty > 0)
@@ -65,7 +72,10 @@ class HomeAppBar extends StatelessWidget {
                             right: 4,
                             top: 2,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
