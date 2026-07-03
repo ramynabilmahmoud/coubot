@@ -12,6 +12,7 @@ import '../widgets/home_app_bar.dart';
 import '../widgets/product_card_large.dart';
 import '../widgets/product_horizontal_list.dart';
 import 'product_details_screen.dart';
+import 'package:coubot/ai/widgets/recommendation_banner.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -22,6 +23,7 @@ class HomeScreenBody extends StatelessWidget {
       body: Column(
         children: [
           const HomeAppBar(),
+          const RecommendationBanner(),
           Expanded(
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {

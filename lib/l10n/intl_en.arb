@@ -103,5 +103,17 @@
   "orderPlacedSuccessfully": "Order placed successfully!",
   "failedToPlaceOrder": "Failed to place order. Please try again.",
   "comingSoon": "Coming soon",
-  "transformTimeoutWithApiServer": "Transform timeout with API server"
+  "transformTimeoutWithApiServer": "Transform timeout with API server",
+  "aiRecommendationTitle": "AI Recommendation",
+  "aiRecommendationSubtitle": "Not sure what to eat?\nLet AI choose something you'll love.",
+  "aiRecommendButton": "Recommend",
+  "aiRecommendationUnavailable": "AI recommendation is unavailable",
+  "close": "Close",
+  "tryAgain": "Try Again",
+  "aiPick": "AI pick",
+  "minutesShort": "{minutes} min",
+  "tryAnother": "Try Another",
+  "orderNow": "Order Now",
+  "aiRecommendationOutdatedFunction": "The recommendation function is still using the old category field. Restart or redeploy the Supabase function, then try again.",
+  "aiBusyTryAgain": "Gemini is busy right now. Please try again in a moment."
 }

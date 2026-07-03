@@ -104,5 +104,17 @@
   "orderPlacedSuccessfully": "تم تقديم طلبك بنجاح!",
   "failedToPlaceOrder": "فشل تقديم الطلب. حاول مرة أخرى.",
   "comingSoon": "قريباً",
-  "transformTimeoutWithApiServer": "Transform timeout with API server"
+  "transformTimeoutWithApiServer": "Transform timeout with API server",
+  "aiRecommendationTitle": "توصية الذكاء الاصطناعي",
+  "aiRecommendationSubtitle": "لست متأكدًا مما تريد أكله؟\nدع الذكاء الاصطناعي يختار لك شيئًا ستحبه.",
+  "aiRecommendButton": "اقترح",
+  "aiRecommendationUnavailable": "توصية الذكاء الاصطناعي غير متاحة",
+  "close": "إغلاق",
+  "tryAgain": "حاول مرة أخرى",
+  "aiPick": "اختيار الذكاء الاصطناعي",
+  "minutesShort": "{minutes} دقيقة",
+  "tryAnother": "جرّب اقتراحاً آخر",
+  "orderNow": "اطلب الآن",
+  "aiRecommendationOutdatedFunction": "دالة التوصية لا تزال تستخدم حقل الفئة القديم. أعد تشغيل أو إعادة نشر دالة Supabase، ثم حاول مرة أخرى.",
+  "aiBusyTryAgain": "Gemini مشغول حالياً. حاول مرة أخرى بعد قليل."
 }
