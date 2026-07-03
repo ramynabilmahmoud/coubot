@@ -1,6 +1,7 @@
 import 'package:coubot/ai/models/recommendation_model.dart';
 import 'package:coubot/ai/services/recommendation_service.dart';
 import 'package:coubot/config/themes/app_colors.dart';
+import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/home/presentation/cubits/home_cubit.dart';
 import 'package:coubot/features/home/presentation/cubits/home_state.dart';
 import 'package:coubot/features/home/presentation/pages/product_details_screen.dart';
@@ -39,6 +40,7 @@ class _RecommendationDialogState extends State<RecommendationDialog> {
     try {
       final recommendation = await _service.getRecommendation(
         exclude: _exclude,
+        lang: context.read<MainCubit>().currentLangCode,
       );
       if (!mounted) return;
 
@@ -216,6 +218,8 @@ class _RecommendationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = context.watch<MainCubit>().currentLangCode;
+
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -295,7 +299,7 @@ class _RecommendationContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 Text(
-                  recommendation.name,
+                  recommendation.localizedName(lang),
                   style: const TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
@@ -303,7 +307,7 @@ class _RecommendationContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  recommendation.description,
+                  recommendation.localizedDescription(lang),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

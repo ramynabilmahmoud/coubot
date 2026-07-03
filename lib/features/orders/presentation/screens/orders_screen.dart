@@ -343,6 +343,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         final firstProduct = items.isNotEmpty ? items.first['products'] : null;
         final date = DateTime.parse(order['created_at']);
         final status = order['status'];
+        final isDelivered = status.toString().toLowerCase().contains('served');
 
         return Container(
           padding: const EdgeInsets.all(14),
@@ -437,27 +438,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _bigButton(
-                      S.of(context).reorder,
-                      onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(S.of(context).comingSoon)),
+              if (isDelivered) ...[
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _bigButton(
+                        S.of(context).reorder,
+                        onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(S.of(context).comingSoon)),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: _bigButton(
-                      S.of(context).review,
-                      filled: true,
-                      onTap: () => _showReviewDialog(order['id']),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: _bigButton(
+                        S.of(context).review,
+                        filled: true,
+                        onTap: () => _showReviewDialog(order['id']),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ],
           ),
         );

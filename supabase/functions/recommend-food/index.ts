@@ -5,7 +5,9 @@ type Product = {
   id: string | number;
   category_id: string | number | null;
   name: string;
+  name_ar: string | null;
   description: string | null;
+  description_ar: string | null;
   price: number;
   estimated_time: number | null;
   image_url: string | null;
@@ -114,6 +116,7 @@ serve(async (req) => {
   }
 
   const excludedProducts = parseExclude(body.exclude);
+  const lang = body.lang === "ar" ? "ar" : "en";
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
@@ -144,7 +147,9 @@ serve(async (req) => {
       id,
       category_id,
       name,
+      name_ar,
       description,
+      description_ar,
       price,
       estimated_time,
       image_url
@@ -260,6 +265,7 @@ You recommend food for a restaurant ordering app.
 Choose exactly one product from candidate_products. Never invent products.
 Prefer the favorite category, avoid the last ordered product when possible, and stay near the average budget.
 If there is no order history, choose a beginner-friendly product.
+Write the "reason" in ${lang === "ar" ? "Arabic" : "English"}.
 
 Return only JSON with this shape:
 {"product_id":"", "reason":""}
@@ -329,13 +335,19 @@ candidate_products: ${JSON.stringify(candidates)}
     return jsonResponse({ error: "No product could be selected." }, 404);
   }
 
+  const fallbackReason = lang === "ar"
+    ? (orders.length === 0
+      ? "اختيار ودود لأول طلب بسعر مناسب يعجب الجميع."
+      : "يناسب ذوقك الأخير ويبقى قريباً من ميزانيتك المعتادة.")
+    : (orders.length === 0
+      ? "A friendly first pick with an easy price and broad appeal."
+      : "This matches your recent taste and stays close to your usual budget.");
+
   const reason = geminiProduct &&
       typeof geminiJson.reason === "string" &&
       geminiJson.reason.trim()
     ? geminiJson.reason.trim()
-    : orders.length === 0
-    ? "A friendly first pick with an easy price and broad appeal."
-    : "This matches your recent taste and stays close to your usual budget.";
+    : fallbackReason;
 
   return jsonResponse({
     product: selectedProduct,

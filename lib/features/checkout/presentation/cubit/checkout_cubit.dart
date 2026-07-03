@@ -52,6 +52,9 @@ class CheckoutCubit extends Cubit<CheckoutState> {
             fileOptions: FileOptions(contentType: 'image/$ext'),
           );
 
+      final screenshotUrl =
+          client.storage.from('payment-screenshots').getPublicUrl(path);
+
       final orderRow = await client
           .from('orders')
           .insert({
@@ -60,7 +63,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
             'total_price': total,
             'location': state.hall,
             'payment_method': state.paymentMethod,
-            'payment_screenshot_url': path,
+            'payment_screenshot_url': screenshotUrl,
           })
           .select('id')
           .single();

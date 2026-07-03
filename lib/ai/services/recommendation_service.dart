@@ -13,13 +13,14 @@ class RecommendationService {
 
   Future<RecommendationModel> getRecommendation({
     List<String> exclude = const [],
+    required String lang,
   }) async {
     final FunctionResponse response;
 
     try {
       response = await supabase.functions.invoke(
         'recommend-food',
-        body: {'exclude': exclude},
+        body: {'exclude': exclude, 'lang': lang},
       );
     } catch (e) {
       throw Exception(_readableError(e));
