@@ -23,6 +23,7 @@ class ProfileScreen extends StatelessWidget {
     final fullName = [firstName, lastName].where((s) => s.isNotEmpty).join(' ');
     final displayName = fullName.isNotEmpty ? fullName : email.split('@').first;
     final initials = _initials(displayName);
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -60,10 +61,10 @@ class ProfileScreen extends StatelessWidget {
           Center(
             child: Text(
               displayName,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
-                color: AppColors.text,
+                color: cs.onSurface,
               ),
             ),
           ),
@@ -74,9 +75,9 @@ class ProfileScreen extends StatelessWidget {
           Center(
             child: Text(
               email,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 13,
-                color: AppColors.mutedText,
+                color: context.mutedTextColor,
               ),
             ),
           ),

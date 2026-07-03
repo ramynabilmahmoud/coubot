@@ -12,12 +12,12 @@ class PriceRatingRow extends StatelessWidget {
     return Row(
       children: [
         Text("${price.toStringAsFixed(0)} LE",
-            style: const TextStyle(fontWeight: FontWeight.w800)),
+            style: TextStyle(fontWeight: FontWeight.w800, color: context.textColor)),
         const Spacer(),
         const Icon(Icons.star, size: 16, color: AppColors.primary),
         const SizedBox(width: 4),
         Text(rating.toStringAsFixed(1),
-            style: const TextStyle(fontWeight: FontWeight.w700)),
+            style: TextStyle(fontWeight: FontWeight.w700, color: context.textColor)),
       ],
     );
   }

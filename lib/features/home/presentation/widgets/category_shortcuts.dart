@@ -55,7 +55,9 @@ class CategoryShortcuts extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
-                    color: selectedCategoryId == c.id ? AppColors.primary : Colors.black,
+                    color: selectedCategoryId == c.id
+                        ? AppColors.primary
+                        : context.textColor,
                   ),
                 ),
               ],

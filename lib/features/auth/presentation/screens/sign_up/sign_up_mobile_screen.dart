@@ -39,6 +39,10 @@ class _SignUpMobileScreenState extends State<SignUpMobileScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Add this line just before the SvgPicture widget, inside the build method:
+    final logoPath = Theme.of(context).brightness == Brightness.dark
+        ? 'assets/gen/SVGs/Logo white_2.svg'
+        : 'assets/gen/SVGs/Logo Black.svg';
     final cs = Theme.of(context).colorScheme;
     final loginCubit = context.read<LoginAndRegisterCubit>();
     final actionsCubit = context.read<AuthActionsCubit>();
@@ -80,10 +84,15 @@ class _SignUpMobileScreenState extends State<SignUpMobileScreen>
                   const SizedBox(height: 12),
 
                   // ── Brand block ───────────────────────────────────────────
-                  Center(
-                    child: SvgPicture.asset(
-                      'assets/gen/SVGs/Logo_white_2.svg',
-                      height: 80,
+                  SvgPicture.asset(
+                    logoPath,
+                    height: 80,
+                    fit: BoxFit.contain,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      BlendMode.srcIn,
                     ),
                   ),
                   const SizedBox(height: 28),

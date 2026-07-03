@@ -43,6 +43,11 @@ import '../features/home/data/repositories/home_repository_impl.dart' as _i6;
 import '../features/home/domain/repositories/home_repository.dart' as _i66;
 import '../features/home/domain/usecases/get_home_feed.dart' as _i926;
 import '../features/home/presentation/cubits/home_cubit.dart' as _i527;
+import '../features/notifications/data/datasource/local/notifications_local_data_source.dart'
+    as _i738;
+import '../features/notifications/presentation/cubit/notifications_cubit.dart'
+    as _i511;
+import 'services/notification_service.dart' as _i98;
 import 'utils/database_manager.dart' as _i273;
 import 'utils/supabase_manager.dart' as _i635;
 
@@ -59,8 +64,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i635.SupabaseManager>(() => _i635.SupabaseManager());
     gh.lazySingleton<_i273.DatabaseManager>(() => _i273.DatabaseManager());
+    gh.lazySingleton<_i98.NotificationService>(
+        () => _i98.NotificationService());
     gh.lazySingleton<_i187.CartLocalDataSource>(
         () => _i187.CartLocalDataSource());
+    gh.lazySingleton<_i738.NotificationsLocalDataSource>(
+        () => _i738.NotificationsLocalDataSource());
     gh.lazySingleton<_i75.HomeRemoteDataSource>(
         () => _i75.HomeRemoteDataSourceImpl());
     gh.lazySingleton<_i604.SplashLocalDataSource>(
@@ -83,6 +92,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i797.SignUpUsecase(gh<_i82.AuthRepo>()));
     gh.lazySingleton<_i285.UpdateUserPasswordUsecase>(
         () => _i285.UpdateUserPasswordUsecase(gh<_i82.AuthRepo>()));
+    gh.factory<_i511.NotificationsCubit>(() => _i511.NotificationsCubit(
+          gh<_i738.NotificationsLocalDataSource>(),
+          gh<_i98.NotificationService>(),
+        ));
     gh.lazySingleton<_i66.HomeRepository>(
         () => _i6.HomeRepositoryImpl(gh<_i75.HomeRemoteDataSource>()));
     gh.lazySingleton<_i837.GetSavedLangUseCase>(

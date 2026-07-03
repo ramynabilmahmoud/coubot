@@ -9,6 +9,7 @@ import 'package:coubot/features/app_splash/domain/usecases/get_saved_notificatio
 import 'package:coubot/features/app_splash/domain/usecases/get_saved_theme_mode.dart';
 import 'package:coubot/features/app_splash/presentation/cubit/main/main_cubit.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:coubot/features/notifications/presentation/cubit/notifications_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -33,6 +34,7 @@ class MultiBlocManager {
             ..authChangeTracker(),
     ),
     BlocProvider(create: (context) => getIt<CartCubit>()..start()),
+    BlocProvider(create: (context) => getIt<NotificationsCubit>()..start()),
   ];
 
   /// this method is used to get the multi bloc listener list

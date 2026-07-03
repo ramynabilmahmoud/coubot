@@ -17,3 +17,20 @@ class AppColors {
   static const mutedTextDark = Color(0xFFAA9AA8);
   static const chipBgDark = Color(0xFF2E2230);
 }
+
+/// Theme-aware color accessors for one-off [TextStyle] literals.
+///
+/// Prefer `Theme.of(context).textTheme.<style>` when an existing named
+/// text style fits, since [AppTheme]/[AppThemeDark] already configure
+/// `textTheme` correctly per brightness. Use these getters only when a
+/// literal [TextStyle] needs an explicit color.
+extension ThemeColorX on BuildContext {
+  bool get _isDark => Theme.of(this).brightness == Brightness.dark;
+
+  /// Primary text color for the current theme brightness.
+  Color get textColor => _isDark ? AppColors.textDark : AppColors.text;
+
+  /// Muted/secondary text color for the current theme brightness.
+  Color get mutedTextColor =>
+      _isDark ? AppColors.mutedTextDark : AppColors.mutedText;
+}

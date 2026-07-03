@@ -228,7 +228,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             style: TextStyle(
               fontFamily: 'LeagueSpartan',
               fontWeight: FontWeight.w600,
-              color: filled ? Colors.white : const Color(0xFFC72C41),
+              color: filled ? Colors.white : AppColors.primary,
             ),
           ),
         ),
@@ -297,7 +297,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.white : const Color(0xFFC72C41),
+              color: isSelected ? Colors.white : AppColors.primary,
             ),
           ),
         ),
@@ -319,7 +319,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
             Text(
               S.of(context).noActiveOrders,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontFamily: 'MadeEvolveSans', fontSize: 18),
+              style: TextStyle(
+                fontFamily: 'MadeEvolveSans',
+                fontSize: 18,
+                color: context.textColor,
+              ),
             ),
           ],
         ),
@@ -366,19 +370,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           firstProduct?['name'] ?? '—',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'MadeEvolveSans',
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFFC80335),
+                            color: context.textColor,
                             fontSize: 20,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           DateFormat('dd MMM, hh:mm a').format(date),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'LeagueSpartan',
-                            color: Color(0xFFC80335),
+                            color: context.mutedTextColor,
                             fontWeight: FontWeight.w300,
                             fontSize: 14,
                           ),
@@ -407,7 +411,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                     fontFamily: 'LeagueSpartan',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w300,
-                                    color: Color(0xFFC72C41),
+                                    color: AppColors.primary,
                                   ),
                                 ),
                               ),
@@ -420,7 +424,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   const SizedBox(width: 6),
                   Text(
                     '\$${order['total_price']}',
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC72C41)),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
                   ),
                 ],
               ),

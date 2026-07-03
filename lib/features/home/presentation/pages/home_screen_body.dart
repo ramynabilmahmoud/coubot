@@ -86,8 +86,8 @@ class _CategoryFeedBody extends StatelessWidget {
       return Center(
         child: Text(
           S.of(ctx).noItemsAvailable,
-          style: const TextStyle(
-            color: AppColors.mutedText,
+          style: TextStyle(
+            color: ctx.mutedTextColor,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -165,8 +165,8 @@ class _SearchResultsBody extends StatelessWidget {
       return Center(
         child: Text(
           S.of(ctx).noProductsFound,
-          style: const TextStyle(
-            color: AppColors.mutedText,
+          style: TextStyle(
+            color: ctx.mutedTextColor,
             fontWeight: FontWeight.w600,
           ),
         ),

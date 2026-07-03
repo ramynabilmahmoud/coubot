@@ -26,7 +26,7 @@ class CartSummaryRow extends StatelessWidget {
           style: TextStyle(
             fontSize: isTotal ? 15 : 13,
             fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
-            color: isTotal ? AppColors.text : AppColors.mutedText,
+            color: isTotal ? context.textColor : context.mutedTextColor,
           ),
         ),
         Text(
@@ -34,7 +34,7 @@ class CartSummaryRow extends StatelessWidget {
           style: TextStyle(
             fontSize: isTotal ? 16 : 13,
             fontWeight: isTotal ? FontWeight.bold : FontWeight.w700,
-            color: isTotal ? AppColors.primary : AppColors.text,
+            color: isTotal ? AppColors.primary : context.textColor,
           ),
         ),
       ],

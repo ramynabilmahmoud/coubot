@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../data/datasrouce/local/cart_local_data_source.dart';
 import '../../data/models/cart_item_model.dart';
@@ -106,45 +105,6 @@ class CartCubit extends Cubit<CartState> {
     } catch (e) {
       emit(CartError(e.toString()));
       _emit();
-    }
-  }
-
-  Future<bool> checkout() async {
-    final current = state;
-    if (current is! CartLoaded || current.items.isEmpty) return false;
-
-    try {
-      final client = Supabase.instance.client;
-      final userId = client.auth.currentUser!.id;
-
-      final orderRow = await client
-          .from('orders')
-          .insert({
-            'customer_id': userId,
-            'status': 'pending',
-            'total_price': current.total,
-          })
-          .select('id')
-          .single();
-
-      final orderId = orderRow['id'] as int;
-
-      await client.from('order_products').insert(
-        current.items
-            .map((item) => {
-                  'order_id': orderId,
-                  'product_id': item.productId,
-                  'quantity': item.quantity,
-                })
-            .toList(),
-      );
-
-      await clearCart();
-      return true;
-    } catch (e) {
-      emit(CartError(e.toString()));
-      _emit();
-      return false;
     }
   }
 

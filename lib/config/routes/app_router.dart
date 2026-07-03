@@ -52,5 +52,29 @@ class AppRouter extends RootStackRouter {
       path: AppPaths.cart,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
+
+    CustomRoute<void>(
+      page: NotificationsRoute.page,
+      path: AppPaths.notifications,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    ),
+
+    /// Checkout Wrapper (hall + payment method -> payment details)
+    CustomRoute<void>(
+      page: CheckoutWrapper.page,
+      path: AppPaths.checkoutWrapper,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      children: [
+        AutoRoute(
+          initial: true,
+          page: CheckoutLocationRoute.page,
+          path: AppPaths.checkoutLocation,
+        ),
+        AutoRoute(
+          page: CheckoutPaymentRoute.page,
+          path: AppPaths.checkoutPayment,
+        ),
+      ],
+    ),
   ];
 }

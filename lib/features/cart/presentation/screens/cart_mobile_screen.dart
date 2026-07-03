@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_state.dart';
 import 'package:coubot/features/cart/presentation/widgets/cart_item_card_widget.dart';
@@ -6,6 +7,7 @@ import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/routes/app_router.gr.dart';
 import '../../../../config/themes/app_colors.dart';
 
 class CartMobileScreen extends StatelessWidget {
@@ -40,8 +42,8 @@ class CartMobileScreen extends StatelessWidget {
             return Center(
               child: Text(
                 state.message,
-                style: const TextStyle(
-                  color: AppColors.mutedText,
+                style: TextStyle(
+                  color: context.mutedTextColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -54,8 +56,8 @@ class CartMobileScreen extends StatelessWidget {
             return Center(
               child: Text(
                 S.of(context).cartIsEmpty,
-                style: const TextStyle(
-                  color: AppColors.mutedText,
+                style: TextStyle(
+                  color: context.mutedTextColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -132,17 +134,11 @@ class CartMobileScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        onPressed: () async {
-                          final success =
-                              await context.read<CartCubit>().checkout();
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                success
-                                    ? S.of(context).orderPlacedSuccessfully
-                                    : S.of(context).failedToPlaceOrder,
-                              ),
+                        onPressed: () {
+                          context.router.push(
+                            CheckoutWrapper(
+                              items: loaded.items,
+                              total: loaded.total,
                             ),
                           );
                         },

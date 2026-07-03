@@ -24,4 +24,12 @@ class AppPaths {
 
   static const cart = '/cart';
 
+  /// notifications
+  static const notifications = '/notifications';
+
+  /// checkout
+  static const String checkoutWrapper = '/checkout';
+  static const String checkoutLocation = 'location';
+  static const String checkoutPayment = 'payment';
+
 }

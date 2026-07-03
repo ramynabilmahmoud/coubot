@@ -7,6 +7,7 @@ import 'package:coubot/core/utils/app_strings.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
 import 'package:coubot/features/cart/data/models/cart_item_model.dart';
+import 'package:coubot/features/notifications/data/models/order_notification_model.dart';
 
 enum DataBoxes {
   auth,
@@ -14,6 +15,7 @@ enum DataBoxes {
   lastAnnouncementID,
   screenshots,
   cart,
+  orderNotifications,
 }
 
 /// this class is used to manage the local database
@@ -28,10 +30,14 @@ class DatabaseManager {
     if (!Hive.isAdapterRegistered(10)) {
       Hive.registerAdapter(CartItemModelAdapter());
     }
+    if (!Hive.isAdapterRegistered(11)) {
+      Hive.registerAdapter(OrderNotificationModelAdapter());
+    }
     await Future.wait([
       Hive.openBox<dynamic>(DataBoxes.settings.name),
       Hive.openBox<dynamic>(DataBoxes.lastAnnouncementID.name),
       Hive.openBox<CartItemModel>(DataBoxes.cart.name),
+      Hive.openBox<OrderNotificationModel>(DataBoxes.orderNotifications.name),
       initScreenShotsEntityAdapter(),
       initAuthEntityAdapter(),
     ]);

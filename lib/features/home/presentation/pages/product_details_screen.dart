@@ -101,9 +101,12 @@ class ProductsDetailsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       product.localizedName(lang),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 28,
                                         fontWeight: FontWeight.w900,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                       ),
                                     ),
                                     const SizedBox(height: 4),
