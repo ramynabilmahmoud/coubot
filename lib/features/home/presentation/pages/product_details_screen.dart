@@ -245,7 +245,10 @@ class ProductsDetailsScreen extends StatelessWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      '${product.localizedName(lang)} added to cart (x$qty)',
+                                      S.of(context).addedToCartWithQty(
+                                            product.localizedName(lang),
+                                            qty,
+                                          ),
                                     ),
                                     duration: const Duration(seconds: 2),
                                   ),

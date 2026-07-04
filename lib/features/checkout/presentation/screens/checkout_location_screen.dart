@@ -3,6 +3,7 @@ import 'package:coubot/config/themes/app_colors.dart';
 import 'package:coubot/core/presentation/widgets/custom_button.dart';
 import 'package:coubot/features/checkout/presentation/cubit/checkout_cubit.dart';
 import 'package:coubot/features/checkout/presentation/cubit/checkout_state.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class CheckoutLocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title: Text(S.of(context).checkout),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.canPop()
@@ -32,7 +33,7 @@ class CheckoutLocationScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Select hall',
+                  S.of(context).selectHall,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
@@ -60,7 +61,7 @@ class CheckoutLocationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 28),
                 Text(
-                  'Payment method',
+                  S.of(context).paymentMethod,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
@@ -69,19 +70,19 @@ class CheckoutLocationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _PaymentMethodTile(
-                  label: 'E-Wallet',
+                  label: S.of(context).eWallet,
                   value: 'e_wallet',
                   selected: state.paymentMethod == 'e_wallet',
                 ),
                 const SizedBox(height: 10),
                 _PaymentMethodTile(
-                  label: 'Instapay',
+                  label: S.of(context).instapay,
                   value: 'instapay',
                   selected: state.paymentMethod == 'instapay',
                 ),
                 const Spacer(),
                 CustomButton(
-                  title: 'Next',
+                  title: S.of(context).next,
                   onPressed: state.canProceedToPayment
                       ? () => context.router.push(const CheckoutPaymentRoute())
                       : () {},

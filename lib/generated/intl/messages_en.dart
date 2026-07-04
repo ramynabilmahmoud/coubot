@@ -20,10 +20,19 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(minutes) => "${minutes} min";
+  static String m0(name, qty) => "${name} added to cart (x${qty})";
 
-  static String m1(minLength) =>
+  static String m1(time) => "Arriving in ${time}";
+
+  static String m2(minutes) => "${minutes} min";
+
+  static String m3(orderId, status) =>
+      "Your order #${orderId} is now ${status}";
+
+  static String m4(minLength) =>
       "Password must be at least ${minLength} characters.";
+
+  static String m5(method) => "Pay via ${method}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -32,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addAdditionalDetails":
             MessageLookupByLibrary.simpleMessage("Add Additional Details"),
         "addToCart": MessageLookupByLibrary.simpleMessage("ADD TO CART"),
+        "addedToCartWithQty": m0,
         "aiBusyTryAgain": MessageLookupByLibrary.simpleMessage(
             "Gemini is busy right now. Please try again in a moment."),
         "aiPick": MessageLookupByLibrary.simpleMessage("AI pick"),
@@ -48,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "appVersion": MessageLookupByLibrary.simpleMessage("App Version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "arrivingAnyMoment":
+            MessageLookupByLibrary.simpleMessage("Arriving any moment"),
+        "arrivingInTime": m1,
         "authenticationError":
             MessageLookupByLibrary.simpleMessage("Authentication Error"),
         "badCertificateWithApiserver": MessageLookupByLibrary.simpleMessage(
@@ -79,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "coubot": MessageLookupByLibrary.simpleMessage("COUBOT"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
+        "eWallet": MessageLookupByLibrary.simpleMessage("E-Wallet"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Email Has Been Updated Successfully"),
@@ -104,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "howWasYourOrder":
             MessageLookupByLibrary.simpleMessage("How was your order?"),
+        "instapay": MessageLookupByLibrary.simpleMessage("Instapay"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
         "invalidCurrentPassword":
@@ -117,9 +132,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
             "Login in if you have an account"),
-        "minutesShort": m0,
+        "minutesShort": m2,
         "myCart": MessageLookupByLibrary.simpleMessage("My Cart"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noActiveOrders": MessageLookupByLibrary.simpleMessage(
             "You don\'t have any\nactive orders at this time"),
@@ -134,6 +150,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No items available"),
         "noNotificationsAvailable":
             MessageLookupByLibrary.simpleMessage("No notifications available."),
+        "noNotificationsYet":
+            MessageLookupByLibrary.simpleMessage("No notifications yet"),
         "noProductsFound":
             MessageLookupByLibrary.simpleMessage("No products found"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
@@ -145,17 +163,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderNow": MessageLookupByLibrary.simpleMessage("Order Now"),
         "orderPlacedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Order placed successfully!"),
+        "orderStatusUpdateMessage": m3,
+        "orderUpdate": MessageLookupByLibrary.simpleMessage("Order update"),
+        "orderUpdatesChannelDescription": MessageLookupByLibrary.simpleMessage(
+            "Notifications about your order status"),
+        "orderUpdatesChannelName":
+            MessageLookupByLibrary.simpleMessage("Order updates"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsRequired":
             MessageLookupByLibrary.simpleMessage("Password is required."),
-        "passwordMustBeAtLeastNumberCharacters": m1,
+        "passwordMustBeAtLeastNumberCharacters": m4,
         "passwordUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Password updated successfully"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "payVia": m5,
+        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+        "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment method"),
         "phoneNumberIsRequired":
             MessageLookupByLibrary.simpleMessage("Phone number is required"),
+        "placeOrder": MessageLookupByLibrary.simpleMessage("Place Order"),
         "pleaseEnterAValidEmailAddress": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid email address."),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
@@ -179,6 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "secondNameIsRequired":
             MessageLookupByLibrary.simpleMessage("Second name is required."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
+        "selectHall": MessageLookupByLibrary.simpleMessage("Select hall"),
         "sendAgain": MessageLookupByLibrary.simpleMessage("Send Again"),
         "sendTimeoutWithApiserver":
             MessageLookupByLibrary.simpleMessage("Send timeout with ApiServer"),
@@ -205,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAnother": MessageLookupByLibrary.simpleMessage("Try Another"),
         "unknownErrorOccurred":
             MessageLookupByLibrary.simpleMessage("Unknown error occurred"),
+        "uploadTransactionScreenshot": MessageLookupByLibrary.simpleMessage(
+            "Upload transaction screenshot"),
         "username": MessageLookupByLibrary.simpleMessage("User-name"),
         "wait": MessageLookupByLibrary.simpleMessage("Wait ..."),
         "weveSendACodeToYourEmailnPleaseEnterCode":

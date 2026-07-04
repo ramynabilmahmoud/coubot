@@ -116,5 +116,22 @@
   "tryAnother": "جرّب اقتراحاً آخر",
   "orderNow": "اطلب الآن",
   "aiRecommendationOutdatedFunction": "دالة التوصية لا تزال تستخدم حقل الفئة القديم. أعد تشغيل أو إعادة نشر دالة Supabase، ثم حاول مرة أخرى.",
-  "aiBusyTryAgain": "Gemini مشغول حالياً. حاول مرة أخرى بعد قليل."
+  "aiBusyTryAgain": "Gemini مشغول حالياً. حاول مرة أخرى بعد قليل.",
+  "arrivingInTime": "الوصول خلال {time}",
+  "arrivingAnyMoment": "الوصول في أي لحظة",
+  "selectHall": "اختر القاعة",
+  "paymentMethod": "طريقة الدفع",
+  "eWallet": "المحفظة الإلكترونية",
+  "instapay": "إنستاباي",
+  "next": "التالي",
+  "payment": "الدفع",
+  "payVia": "ادفع عبر {method}",
+  "uploadTransactionScreenshot": "ارفع لقطة شاشة للتحويل",
+  "placeOrder": "تأكيد الطلب",
+  "orderUpdatesChannelName": "تحديثات الطلب",
+  "orderUpdatesChannelDescription": "إشعارات حول حالة طلبك",
+  "orderStatusUpdateMessage": "طلبك رقم #{orderId} أصبح الآن {status}",
+  "orderUpdate": "تحديث الطلب",
+  "noNotificationsYet": "لا توجد إشعارات بعد",
+  "addedToCartWithQty": "{name} أضيف إلى السلة (x{qty})"
 }

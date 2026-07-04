@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coubot/config/themes/app_colors.dart';
 import 'package:coubot/core/utils/assets.dart';
 import 'package:coubot/generated/l10n.dart';
@@ -19,6 +21,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
   // Realtime channel for order updates
   RealtimeChannel? _ordersChannel;
 
+  // Ticks every minute so the live "arriving in X min" countdown updates.
+  Timer? _liveTrackingTimer;
+
   // Currently selected tab
   String selectedTab = 'active';
 
@@ -36,11 +41,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
     super.initState();
     fetchOrders(); // Initial data load
     _listenToOrderChanges(); // Start realtime listener
+    _liveTrackingTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => setState(() {}), // just rebuild to refresh live countdowns
+    );
   }
 
   @override
   void dispose() {
     _ordersChannel?.unsubscribe(); // Stop realtime when screen closes
+    _liveTrackingTimer?.cancel();
     super.dispose();
   }
 
@@ -59,6 +69,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             status,
             total_price,
             notes,
+            estimated_time,
             order_products (
               quantity,
               products (
@@ -201,9 +212,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
     if (s.contains('preparing')) return Icons.restaurant;
     if (s.contains('served')) return Icons.check_circle_outline;
     if (s.contains('cancelled')) return Icons.cancel_outlined;
+    if (s.contains('arrived')) return Icons.pin_drop;
     if (s.contains('delivering')) return Icons.delivery_dining;
     if (s.contains('ready')) return Icons.done_all;
     return Icons.receipt_long_outlined;
+  }
+
+  /// Live "arriving in X min" label, computed against wall-clock time.
+  /// Returns null for orders that are already done (served/cancelled) or
+  /// have no ETA.
+  String? _liveCountdownLabel(String status, dynamic estimatedTimeRaw) {
+    final s = status.toLowerCase();
+    if (s.contains('served') || s.contains('cancelled')) return null;
+    if (estimatedTimeRaw == null) return null;
+
+    final eta = DateTime.tryParse(estimatedTimeRaw.toString());
+    if (eta == null) return null;
+
+    final remaining = eta.difference(DateTime.now());
+    if (remaining.inSeconds <= 0) return S.of(context).arrivingAnyMoment;
+
+    final minutes = remaining.inMinutes;
+    final seconds = remaining.inSeconds % 60;
+    final time =
+        '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    return S.of(context).arrivingInTime(time);
   }
 
   /// Pill style button used inside dialogs (auto width, no text cut)
@@ -428,6 +461,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             ],
                           ),
                         ),
+                        if (_liveCountdownLabel(status, order['estimated_time']) case final label?) ...[
+                          const SizedBox(height: 6),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                size: 14,
+                                color: context.mutedTextColor,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                label,
+                                style: TextStyle(
+                                  fontFamily: 'LeagueSpartan',
+                                  color: context.mutedTextColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ],
                     ),
                   ),

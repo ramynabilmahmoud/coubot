@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:coubot/core/services/notification_service.dart';
 import 'package:coubot/features/notifications/data/datasource/local/notifications_local_data_source.dart';
 import 'package:coubot/features/notifications/data/models/order_notification_model.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -75,7 +76,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     if (status == null || rawId == null) return;
 
     final orderId = rawId is int ? rawId : int.tryParse(rawId.toString()) ?? 0;
-    final message = 'Your order #$orderId is now $status';
+    final message = S.current.orderStatusUpdateMessage(orderId, status);
 
     await _local.add(OrderNotificationModel(
       id: '${orderId}_${DateTime.now().millisecondsSinceEpoch}',
@@ -85,7 +86,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       createdAt: DateTime.now(),
     ));
 
-    await _notificationService.show(title: 'Order update', body: message);
+    await _notificationService.show(title: S.current.orderUpdate, body: message);
   }
 
   void _unsubscribeOrders() {

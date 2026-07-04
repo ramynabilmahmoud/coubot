@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coubot/config/themes/app_colors.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +28,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notifications')),
+      appBar: AppBar(title: Text(S.of(context).notifications)),
       body: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
           final items = state is NotificationsLoaded ? state.items : const [];
@@ -35,7 +36,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           if (items.isEmpty) {
             return Center(
               child: Text(
-                'No notifications yet',
+                S.of(context).noNotificationsYet,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: context.mutedTextColor,

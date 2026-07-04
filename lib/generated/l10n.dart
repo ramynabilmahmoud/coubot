@@ -1219,6 +1219,176 @@ class S {
       args: [],
     );
   }
+
+  /// `Arriving in {time}`
+  String arrivingInTime(Object time) {
+    return Intl.message(
+      'Arriving in $time',
+      name: 'arrivingInTime',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Arriving any moment`
+  String get arrivingAnyMoment {
+    return Intl.message(
+      'Arriving any moment',
+      name: 'arrivingAnyMoment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select hall`
+  String get selectHall {
+    return Intl.message(
+      'Select hall',
+      name: 'selectHall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment method`
+  String get paymentMethod {
+    return Intl.message(
+      'Payment method',
+      name: 'paymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E-Wallet`
+  String get eWallet {
+    return Intl.message(
+      'E-Wallet',
+      name: 'eWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Instapay`
+  String get instapay {
+    return Intl.message(
+      'Instapay',
+      name: 'instapay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment`
+  String get payment {
+    return Intl.message(
+      'Payment',
+      name: 'payment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay via {method}`
+  String payVia(Object method) {
+    return Intl.message(
+      'Pay via $method',
+      name: 'payVia',
+      desc: '',
+      args: [method],
+    );
+  }
+
+  /// `Upload transaction screenshot`
+  String get uploadTransactionScreenshot {
+    return Intl.message(
+      'Upload transaction screenshot',
+      name: 'uploadTransactionScreenshot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Place Order`
+  String get placeOrder {
+    return Intl.message(
+      'Place Order',
+      name: 'placeOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order updates`
+  String get orderUpdatesChannelName {
+    return Intl.message(
+      'Order updates',
+      name: 'orderUpdatesChannelName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications about your order status`
+  String get orderUpdatesChannelDescription {
+    return Intl.message(
+      'Notifications about your order status',
+      name: 'orderUpdatesChannelDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order #{orderId} is now {status}`
+  String orderStatusUpdateMessage(Object orderId, Object status) {
+    return Intl.message(
+      'Your order #$orderId is now $status',
+      name: 'orderStatusUpdateMessage',
+      desc: '',
+      args: [orderId, status],
+    );
+  }
+
+  /// `Order update`
+  String get orderUpdate {
+    return Intl.message(
+      'Order update',
+      name: 'orderUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No notifications yet`
+  String get noNotificationsYet {
+    return Intl.message(
+      'No notifications yet',
+      name: 'noNotificationsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} added to cart (x{qty})`
+  String addedToCartWithQty(Object name, Object qty) {
+    return Intl.message(
+      '$name added to cart (x$qty)',
+      name: 'addedToCartWithQty',
+      desc: '',
+      args: [name, qty],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

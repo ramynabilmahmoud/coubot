@@ -34,6 +34,8 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
       ),
     );
 
+    if (isClosed) return;
+
     result.fold(
       (failure) => emit(LoginError(errorMessage: failure.errMessage)),
       (user) {
@@ -55,6 +57,8 @@ class LoginAndRegisterCubit extends Cubit<LoginAndRegisterState> {
         password: setPasswordController.text,
       ),
     );
+
+    if (isClosed) return;
 
     result.fold(
       (failure) => emit(RegisterError(errorMessage: failure.errMessage)),

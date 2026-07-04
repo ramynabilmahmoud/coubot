@@ -20,10 +20,19 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(minutes) => "${minutes} دقيقة";
+  static String m0(name, qty) => "${name} أضيف إلى السلة (x${qty})";
 
-  static String m1(minLength) =>
+  static String m1(time) => "الوصول خلال ${time}";
+
+  static String m2(minutes) => "${minutes} دقيقة";
+
+  static String m3(orderId, status) =>
+      "طلبك رقم #${orderId} أصبح الآن ${status}";
+
+  static String m4(minLength) =>
       "يجب أن تحتوي كلمة المرور على ${minLength} أحرف على الأقل.";
+
+  static String m5(method) => "ادفع عبر ${method}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -32,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addAdditionalDetails":
             MessageLookupByLibrary.simpleMessage("أضف تفاصيل إضافية"),
         "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
+        "addedToCartWithQty": m0,
         "aiBusyTryAgain": MessageLookupByLibrary.simpleMessage(
             "Gemini مشغول حالياً. حاول مرة أخرى بعد قليل."),
         "aiPick":
@@ -48,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "anErrorOccurred": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
         "appVersion": MessageLookupByLibrary.simpleMessage("إصدار التطبيق"),
         "appearance": MessageLookupByLibrary.simpleMessage("المظهر"),
+        "arrivingAnyMoment":
+            MessageLookupByLibrary.simpleMessage("الوصول في أي لحظة"),
+        "arrivingInTime": m1,
         "authenticationError":
             MessageLookupByLibrary.simpleMessage("خطأ في المصادقة"),
         "badCertificateWithApiserver":
@@ -79,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "coubot": MessageLookupByLibrary.simpleMessage("COUBOT"),
         "darkMode": MessageLookupByLibrary.simpleMessage("الوضع الداكن"),
         "delivery": MessageLookupByLibrary.simpleMessage("التوصيل"),
+        "eWallet": MessageLookupByLibrary.simpleMessage("المحفظة الإلكترونية"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "emailHasBeenUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تم تحديث البريد الإلكتروني بنجاح"),
@@ -104,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "howWasYourOrder":
             MessageLookupByLibrary.simpleMessage("كيف كان طلبك؟"),
+        "instapay": MessageLookupByLibrary.simpleMessage("إنستاباي"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("خطأ في الخادم الداخلي"),
         "invalidCurrentPassword": MessageLookupByLibrary.simpleMessage(
@@ -116,9 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginInIfYouHaveAnAccount": MessageLookupByLibrary.simpleMessage(
             "تسجيل الدخول إذا كان لديك حساب"),
-        "minutesShort": m0,
+        "minutesShort": m2,
         "myCart": MessageLookupByLibrary.simpleMessage("سلتي"),
         "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
+        "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noActiveOrders": MessageLookupByLibrary.simpleMessage(
             "ليس لديك أي\nطلبات نشطة في الوقت الحالي"),
@@ -133,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا توجد عناصر متاحة"),
         "noNotificationsAvailable":
             MessageLookupByLibrary.simpleMessage("لا توجد إشعارات متاحة."),
+        "noNotificationsYet":
+            MessageLookupByLibrary.simpleMessage("لا توجد إشعارات بعد"),
         "noProductsFound":
             MessageLookupByLibrary.simpleMessage("لا توجد منتجات"),
         "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
@@ -144,17 +162,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderNow": MessageLookupByLibrary.simpleMessage("اطلب الآن"),
         "orderPlacedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم تقديم طلبك بنجاح!"),
+        "orderStatusUpdateMessage": m3,
+        "orderUpdate": MessageLookupByLibrary.simpleMessage("تحديث الطلب"),
+        "orderUpdatesChannelDescription":
+            MessageLookupByLibrary.simpleMessage("إشعارات حول حالة طلبك"),
+        "orderUpdatesChannelName":
+            MessageLookupByLibrary.simpleMessage("تحديثات الطلب"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "passwordIsRequired":
             MessageLookupByLibrary.simpleMessage("كلمة المرور مطلوبة."),
-        "passwordMustBeAtLeastNumberCharacters": m1,
+        "passwordMustBeAtLeastNumberCharacters": m4,
         "passwordUpdatedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم تحديث كلمة المرور بنجاح"),
         "passwordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("كلمتا المرور غير متطابقتين"),
+        "payVia": m5,
+        "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
+        "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "phoneNumberIsRequired":
             MessageLookupByLibrary.simpleMessage("رقم الهاتف مطلوب"),
+        "placeOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "pleaseEnterAValidEmailAddress": MessageLookupByLibrary.simpleMessage(
             "الرجاء إدخال بريد إلكتروني صحيح."),
         "pleaseEnterAValidPhoneNumber":
@@ -178,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "secondNameIsRequired":
             MessageLookupByLibrary.simpleMessage("الاسم الثاني مطلوب."),
         "seeAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+        "selectHall": MessageLookupByLibrary.simpleMessage("اختر القاعة"),
         "sendAgain": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
         "sendTimeoutWithApiserver": MessageLookupByLibrary.simpleMessage(
             "انتهت مهلة إرسال الطلب إلى الخادم"),
@@ -204,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAnother": MessageLookupByLibrary.simpleMessage("جرّب اقتراحاً آخر"),
         "unknownErrorOccurred":
             MessageLookupByLibrary.simpleMessage("حدث خطأ غير معروف"),
+        "uploadTransactionScreenshot":
+            MessageLookupByLibrary.simpleMessage("ارفع لقطة شاشة للتحويل"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "wait": MessageLookupByLibrary.simpleMessage("جاري التحميل..."),
         "weveSendACodeToYourEmailnPleaseEnterCode":

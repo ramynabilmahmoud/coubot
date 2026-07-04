@@ -7,6 +7,7 @@ import 'package:coubot/core/presentation/widgets/custom_button.dart';
 import 'package:coubot/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:coubot/features/checkout/presentation/cubit/checkout_cubit.dart';
 import 'package:coubot/features/checkout/presentation/cubit/checkout_state.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,14 +18,14 @@ class CheckoutPaymentScreen extends StatelessWidget {
   String _numberFor(String method) =>
       method == 'e_wallet' ? kEWalletNumber : kInstapayNumber;
 
-  String _labelFor(String method) =>
-      method == 'e_wallet' ? 'E-Wallet' : 'Instapay';
+  String _labelFor(BuildContext context, String method) =>
+      method == 'e_wallet' ? S.of(context).eWallet : S.of(context).instapay;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment'),
+        title: Text(S.of(context).payment),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.canPop()
@@ -37,12 +38,12 @@ class CheckoutPaymentScreen extends StatelessWidget {
           if (state.status == CheckoutStatus.success) {
             context.read<CartCubit>().clearCart();
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Order placed successfully')),
+              SnackBar(content: Text(S.of(context).orderPlacedSuccessfully)),
             );
             context.router.root.replaceAll([const AppLayoutWrapper()]);
           } else if (state.status == CheckoutStatus.error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Failed to place order')),
+              SnackBar(content: Text(state.errorMessage ?? S.of(context).failedToPlaceOrder)),
             );
           }
         },
@@ -66,7 +67,7 @@ class CheckoutPaymentScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Pay via ${_labelFor(method)}',
+                        S.of(context).payVia(_labelFor(context, method)),
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 15,
@@ -87,7 +88,7 @@ class CheckoutPaymentScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'Upload transaction screenshot',
+                  S.of(context).uploadTransactionScreenshot,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
@@ -125,7 +126,7 @@ class CheckoutPaymentScreen extends StatelessWidget {
                 submitting
                     ? const Center(child: CircularProgressIndicator.adaptive())
                     : CustomButton(
-                        title: 'Place Order',
+                        title: S.of(context).placeOrder,
                         onPressed: state.canSubmit
                             ? () => context.read<CheckoutCubit>().submitOrder()
                             : () {},

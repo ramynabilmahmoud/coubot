@@ -1,4 +1,5 @@
 import 'package:coubot/config/routes/app_router.gr.dart';
+import 'package:coubot/generated/l10n.dart';
 import 'package:coubot/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -65,10 +66,10 @@ class NotificationService {
   Future<void> show({required String title, required String body}) async {
     if (!_initialized) await init();
 
-    const androidDetails = AndroidNotificationDetails(
+    final androidDetails = AndroidNotificationDetails(
       'orders_channel',
-      'Order updates',
-      channelDescription: 'Notifications about your order status',
+      S.current.orderUpdatesChannelName,
+      channelDescription: S.current.orderUpdatesChannelDescription,
       importance: Importance.high,
       priority: Priority.high,
     );
@@ -79,7 +80,7 @@ class NotificationService {
       presentBanner: true,
       presentList: true,
     );
-    const details = NotificationDetails(
+    final details = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
     );

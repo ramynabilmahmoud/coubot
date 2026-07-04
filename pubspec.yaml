@@ -44,6 +44,7 @@
     build_runner: ^2.4.11
     flutter_lints: ^5.0.0
     intl_utils: ^2.8.7
+    flutter_launcher_icons: ^0.14.3
     flutter_test:
       sdk: flutter
 
@@ -54,6 +55,7 @@
     assets:
       - assets/gen/images/
       - assets/gen/SVGs/
+      - assets/gen/icon/
       - .env
 
     fonts:
@@ -75,6 +77,14 @@
                 weight: 400
               - asset: assets/gen/fonts/LeagueSpartan-Bold.ttf
                 weight: 700
+
+  flutter_launcher_icons:
+    android: true
+    ios: true
+    image_path: assets/gen/icon/app_icon.png
+    adaptive_icon_background: "#B02030"
+    adaptive_icon_foreground: assets/gen/icon/app_icon_foreground.png
+    remove_alpha_ios: true
 
   flutter_intl:
     enabled: true

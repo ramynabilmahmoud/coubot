@@ -115,5 +115,22 @@
   "tryAnother": "Try Another",
   "orderNow": "Order Now",
   "aiRecommendationOutdatedFunction": "The recommendation function is still using the old category field. Restart or redeploy the Supabase function, then try again.",
-  "aiBusyTryAgain": "Gemini is busy right now. Please try again in a moment."
+  "aiBusyTryAgain": "Gemini is busy right now. Please try again in a moment.",
+  "arrivingInTime": "Arriving in {time}",
+  "arrivingAnyMoment": "Arriving any moment",
+  "selectHall": "Select hall",
+  "paymentMethod": "Payment method",
+  "eWallet": "E-Wallet",
+  "instapay": "Instapay",
+  "next": "Next",
+  "payment": "Payment",
+  "payVia": "Pay via {method}",
+  "uploadTransactionScreenshot": "Upload transaction screenshot",
+  "placeOrder": "Place Order",
+  "orderUpdatesChannelName": "Order updates",
+  "orderUpdatesChannelDescription": "Notifications about your order status",
+  "orderStatusUpdateMessage": "Your order #{orderId} is now {status}",
+  "orderUpdate": "Order update",
+  "noNotificationsYet": "No notifications yet",
+  "addedToCartWithQty": "{name} added to cart (x{qty})"
 }
